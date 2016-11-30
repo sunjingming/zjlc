@@ -5,11 +5,11 @@
     android:orientation="vertical">
     <TextView
         android:gravity="center"
-        android:background="#ff2f2f"
+        android:background="@color/colorPrimary"
         android:id="@+id/tv_pasnt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorAccent"
         android:text="卓金理财"
         />
     <FrameLayout

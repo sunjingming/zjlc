@@ -3,4 +3,7 @@
     <color name="colorPrimary">#FF2F2F</color>
     <color name="colorPrimaryDark">#FF2F2F</color>
     <color name="colorAccent">#ffffff</color>
+    
+    <color name="colorhui">#999999</color>
 </resources>
+
