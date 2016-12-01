@@ -11,6 +11,9 @@ import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.base.BaseFragment;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.pager.HomePager;
+import com.example.administrator.zjlc.pager.LiCaiPager;
+import com.example.administrator.zjlc.pager.MePager;
+import com.example.administrator.zjlc.pager.MorePager;
 import com.example.administrator.zjlc.view.NoScrollViewPager;
 
 import org.xutils.view.annotation.ViewInject;
@@ -50,9 +53,9 @@ public class ContentFragment extends BaseFragment {
         //准备ViewPager的数据
         basePagers = new ArrayList<BasePager>();
         basePagers.add(new HomePager(mActivity));//添加首页
-        basePagers.add(new HomePager(mActivity));//
-        basePagers.add(new HomePager(mActivity));//
-        basePagers.add(new HomePager(mActivity));//
+        basePagers.add(new LiCaiPager(mActivity));//
+        basePagers.add(new MePager(mActivity));//
+        basePagers.add(new MorePager(mActivity));//
 
 
         //设置ViewPager的适配器

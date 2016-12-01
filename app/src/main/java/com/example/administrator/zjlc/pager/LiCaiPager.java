@@ -25,7 +25,7 @@ public class LiCaiPager extends BasePager {
         super.initData();
         System.out.println("首页数据被初始化了...");
         //设置标题
-        view = View.inflate(mActivity, R.layout.homepager, null);
+        view = View.inflate(mActivity, R.layout.licaipager, null);
         initView();
         fl_basepager_content.addView(view);
     }

@@ -39,7 +39,7 @@ public class HomePager extends BasePager {
     private ViewPager viewpager;
     private ArrayList<View> dots;
     private List<String> jrb;
-    private List<View> viewList = new ArrayList<View>();// 把需要滑动的页卡添加到这个list中
+    private List<View> viewList;// 把需要滑动的页卡添加到这个list中
 
     private int oldPosition = 0;// 记录上一次点的位置
 
@@ -55,11 +55,9 @@ public class HomePager extends BasePager {
         public boolean handleMessage(Message msg) {
                 //设置
                 viewPagerAdapter = new ViewPagerAdapter();
-
                 dots.get(0).setBackgroundResource(R.drawable.dot_focused);
                 viewpager.setOnPageChangeListener(new MyPageChangeListener());
                 viewpager.setAdapter(viewPagerAdapter);
-
             return false;
         }
     });
@@ -69,6 +67,7 @@ public class HomePager extends BasePager {
         System.out.println("首页数据被初始化了...");
         //设置标题
         view = View.inflate(mActivity, R.layout.homepager, null);
+        viewList = new ArrayList<View>();
         initView();
         fl_basepager_content.addView(view);
     }
@@ -84,6 +83,7 @@ public class HomePager extends BasePager {
         dots.add(view.findViewById(R.id.dot_1));
         dots.add(view.findViewById(R.id.dot_2));
         setViewpagerData();
+
         }
 
 
@@ -174,14 +174,14 @@ public class HomePager extends BasePager {
         }
 
         @Override
-        public void destroyItem(ViewGroup view, int position, Object object) {
-            ((ViewPager) view).removeView(mListViews.get(position));
+        public void destroyItem(ViewGroup views, int position, Object object) {
+            ((ViewPager) views).removeView(mListViews.get(position));
 
         }
 
         @Override
-        public Object instantiateItem(ViewGroup view, int position) {
-            ((ViewPager) view).addView(mListViews.get(position));
+        public Object instantiateItem(ViewGroup views, int position) {
+            ((ViewPager) views).addView(mListViews.get(position));
             return mListViews.get(position);
         }
 

@@ -11,21 +11,21 @@ import com.example.administrator.zjlc.base.BasePager;
 /**
  * Created by Administrator on 2016/6/23.
  */
-public class MePager extends BasePager {
+public class MorePager extends BasePager {
 
     private View view;
     private ViewPager viewpager;
 
-    public MePager(Activity activity) {
+    public MorePager(Activity activity) {
         super(activity);
     }
 
     @Override
     public void initData() {
         super.initData();
-        System.out.println("首页数据被初始化了...");
+        System.out.println("更多数据被初始化了...");
         //设置标题
-        view = View.inflate(mActivity, R.layout.mepager, null);
+        view = View.inflate(mActivity, R.layout.morepager, null);
         initView();
         fl_basepager_content.addView(view);
     }
