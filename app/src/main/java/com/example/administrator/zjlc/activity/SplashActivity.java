@@ -71,7 +71,6 @@ public class SplashActivity extends Activity {
             boolean is_start_main = CacheUtils.getBoolean(SplashActivity.this, GuideActivity.START_MAIN);
             Intent intent = null;
             if (is_start_main) {
-
                 //直接跳转到主页面
                 intent = new Intent(SplashActivity.this, MainActivity.class);
             } else {

@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textColor="@color/colorAccent"
-        android:text="卓金理财"
-        />
+        android:text="卓金理财" />
     <FrameLayout
         android:id="@+id/fl_basepager_content"
         android:layout_width="match_parent"

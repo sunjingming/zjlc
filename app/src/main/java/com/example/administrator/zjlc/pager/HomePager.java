@@ -1,10 +1,33 @@
 package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.base.BasePager;
+import com.example.administrator.zjlc.domain.JsonRootBean;
+import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.utils.HttpUtil;
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.id.list;
 
 
 /**
@@ -13,11 +36,33 @@ import com.example.administrator.zjlc.base.BasePager;
 public class HomePager extends BasePager {
 
     private View view;
+    private ViewPager viewpager;
+    private ArrayList<View> dots;
+    private List<String> jrb;
+    private List<View> viewList = new ArrayList<View>();// 把需要滑动的页卡添加到这个list中
+
+    private int oldPosition = 0;// 记录上一次点的位置
+
+    private int currentItem; // 当前页面private int oldPosition = 0;// 记录上一次点的位置
+
+    private ViewPagerAdapter viewPagerAdapter;
 
     public HomePager(Activity activity) {
         super(activity);
     }
+    public Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+                //设置
+                viewPagerAdapter = new ViewPagerAdapter();
 
+                dots.get(0).setBackgroundResource(R.drawable.dot_focused);
+                viewpager.setOnPageChangeListener(new MyPageChangeListener());
+                viewpager.setAdapter(viewPagerAdapter);
+
+            return false;
+        }
+    });
     @Override
     public void initData() {
         super.initData();
@@ -31,14 +76,115 @@ public class HomePager extends BasePager {
     /**
      * 1.在布局文件定义ViewPager
      * 2.在代码实例化ViewPager
-     * 3.设置适配器
-     * 3.0，准备数据
-     * 3.1，适配器要继承PagerAdapter
-     * 3.2,至少要实现4个方法
      */
     private void initView() {
+        //代码实例化
+        viewpager = (ViewPager) view.findViewById(R.id.viewpager_guide);
+        dots = new ArrayList<View>();
+        dots.add(view.findViewById(R.id.dot_1));
+        dots.add(view.findViewById(R.id.dot_2));
+        setViewpagerData();
+        }
 
+
+    class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            dots.get(oldPosition).setBackgroundResource(
+                    R.drawable.dot_normal);
+            dots.get(position)
+                    .setBackgroundResource(R.drawable.dot_focused);
+
+            oldPosition = position;
+            currentItem = position;
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 
+    //获取网络数据
+    public void setViewpagerData(){
+        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBanner);
+        x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.e("data网站banner", data);
+                Gson gson = new Gson();
+                JsonRootBean noticeBean = gson.fromJson(data, JsonRootBean.class);
 
+                jrb = noticeBean.getData();
+
+                for (int i = 0; i < jrb.size(); i++) {
+                    ImageView imageView = new ImageView(mActivity);
+
+                    Glide.with(mActivity).load(jrb.get(i)).into(imageView);
+                    viewList.add(imageView);
+                }
+                handler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("data网站banner", "onError");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e("data网站banner","onCancelled");
+
+            }
+
+            @Override
+            public void onFinished() {
+                Log.i("data网站banner", "onFinished");
+            }
+        });
+    }
+    //设置viewpager数据
+    private class ViewPagerAdapter extends PagerAdapter {
+        private List<View> mListViews;
+        public ViewPagerAdapter() {
+            super();
+            // TODO Auto-generated constructor stub
+            // 得到viewpager切换的三个布局，并把它们加入到viewList里面,记得view用打气筒生成，否则容易出现空指针异常
+            this.mListViews = viewList;
+        }
+
+        @Override
+        public int getCount() {
+            return mListViews.size();
+        }
+
+
+        // 是否是同一张图片
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup view, int position, Object object) {
+            ((ViewPager) view).removeView(mListViews.get(position));
+
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup view, int position) {
+            ((ViewPager) view).addView(mListViews.get(position));
+            return mListViews.get(position);
+        }
+
+
+    }
 }
