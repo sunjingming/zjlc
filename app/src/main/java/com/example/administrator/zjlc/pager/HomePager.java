@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class HomePager extends BasePager {
     private TextView tv_time;
     private TextView tv_ss;
     private TextView tv_jindu;
-    private ImageView iv_lijitouzi;
+    private Button iv_lijitouzi;
 
     private int oldPosition = 0;// 记录上一次点的位置
 
@@ -86,7 +87,7 @@ public class HomePager extends BasePager {
         tv_jindu = (TextView) view.findViewById(R.id.tv_jindu);
         tv_ss = (TextView) view.findViewById(R.id.tv_jindu);
         tv_time = (TextView) view.findViewById(R.id.tv_time);
-        iv_lijitouzi = (ImageView) view.findViewById(R.id.iv_lijitouzi);
+        iv_lijitouzi = (Button) view.findViewById(R.id.iv_lijitouzi);
 
         //代码实例化
         viewpager = (ViewPager) view.findViewById(R.id.viewpager_guide);
