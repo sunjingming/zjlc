@@ -28,4 +28,6 @@ public class UrlsUtils {
     public static final  String ZJLCCoupon = "coupon";
     //购买债权转让
     public static final  String ZJLCDebt_invest_money = "debt_invest_money";
+    //登录
+    public static final  String login = "login";
 }

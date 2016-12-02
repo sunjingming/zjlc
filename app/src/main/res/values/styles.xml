@@ -20,12 +20,43 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+
+
     <style name="SubmitButtonStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/s48</item>
-        <item name="android:background">@drawable/selector_btn_blue_rounded</item>
+        <item name="android:layout_height">@dimen/s40</item>
+        <item name="android:background">@drawable/selector_bg_btn_red_round</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/t16</item>
+    </style>
+
+    <style name="AccountItemStyle">
+        <item name="android:background">@drawable/selector_bg_btn_item</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/s48</item>
+        <item name="android:drawablePadding">@dimen/p8</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/p8</item>
+        <item name="android:paddingRight">@dimen/p4</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@drawable/shape_bg_edit_round</item>
+    </style>
+
+    <style name="TextStyle">
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
 </resources>

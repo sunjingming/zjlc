@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.login.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/m8"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            style="@style/TextStyle"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/login_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/m8"
+                android:gravity="start"
+                android:hint="请输入用户名/手机号"
+                android:inputType="number"
+                android:textColor="@color/gray18"
+                android:textColorHint="@color/gray8"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <include layout="@layout/split_h1_m8" />
+
+        <LinearLayout
+            style="@style/TextStyle"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="密   码:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/m8"
+                android:gravity="start"
+                android:hint="请输入密码"
+                android:inputType="number"
+                android:textColor="@color/gray18"
+                android:textColorHint="@color/gray8"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/login_submit"
+            style="@style/SubmitButtonStyle"
+            android:layout_margin="@dimen/m8"
+            android:text="登录" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/m32"
+            android:text="登录出现问题？"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/m24"
+        android:layout_marginTop="@dimen/m32"
+        android:text="新用户？ 立即注册"
+        android:textColor="@color/red" />
+
+
+</LinearLayout>

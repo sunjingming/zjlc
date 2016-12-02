@@ -5,33 +5,36 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@color/red"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="@dimen/m4"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/m10"
             android:orientation="horizontal">
 
             <com.example.administrator.zjlc.utils.CircleImageView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/all_default_avatar" />
 
             <TextView
+                android:id="@+id/user_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="right"
-                android:text="17180134925" />
+                android:text="未登录"
+                android:textSize="16sp"
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -48,16 +51,208 @@
                     android:src="@drawable/icon_message" />
             </LinearLayout>
 
+
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/m16"
             android:text="总资产"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/t20"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/t20" />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/m10"
+            android:text="¥25555.22"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/m16"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/m8"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="待收利息"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/m4"
+                    android:text="¥1600.00"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/m8"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="账户余额"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="¥199999.00"
+                    android:layout_marginTop="@dimen/m4"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="冻结余额"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="¥2070.00"
+                    android:layout_marginTop="@dimen/m4"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/m8"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="提现"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/m4"
+            android:background="@color/gray9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/m8"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="充值"
+            android:textColor="@color/colorcheng"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/m4"
+        android:background="@color/gray1" />
+
+    <TextView
+        android:id="@+id/user_trde"
+        style="@style/AccountItemStyle"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的投资"
+        android:drawableLeft="@drawable/invest"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <TextView
+        style="@style/AccountItemStyle"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的银行卡"
+        android:drawableLeft="@drawable/bank_card"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <TextView
+        style="@style/AccountItemStyle"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的认证"
+        android:drawableLeft="@drawable/approve"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <TextView
+        style="@style/AccountItemStyle"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的活动"
+        android:drawableLeft="@drawable/exercise"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
 
 
 </LinearLayout>
