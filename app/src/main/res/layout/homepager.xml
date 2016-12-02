@@ -173,7 +173,7 @@
                 android:text="立即投标"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-               <!--<ImageView-->
+            <!--<ImageView-->
                    <!--android:id="@+id/iv_lijitouzi"-->
                    <!--android:background="@drawable/lijitouzi"-->
                    <!--android:layout_width="wrap_content"-->
