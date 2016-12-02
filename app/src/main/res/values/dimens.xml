@@ -5,4 +5,55 @@
     <dimen name="spd10">10dp</dimen>
     <dimen name="spd30">30dp</dimen>
     <dimen name="spd35">35dp</dimen>
+
+    <!-- padding -->
+    <dimen name="p0">0dp</dimen>
+    <dimen name="p4">4dp</dimen>
+    <dimen name="p8">8dp</dimen>
+    <dimen name="p16">16dp</dimen>
+    <dimen name="p24">24dp</dimen>
+    <dimen name="p32">32dp</dimen>
+    <dimen name="p40">40dp</dimen>
+    <dimen name="p48">48dp</dimen>
+
+    <!-- margin -->
+    <dimen name="m4">4dp</dimen>
+    <dimen name="m8">15dp</dimen>
+    <dimen name="m10">10dp</dimen>
+    <dimen name="m16">16dp</dimen>
+    <dimen name="m24">24dp</dimen>
+    <dimen name="m32">32dp</dimen>
+    <dimen name="m40">40dp</dimen>
+    <dimen name="m48">48dp</dimen>
+
+
+    <!-- width or height -->
+    <dimen name="s0">0dp</dimen>
+    <dimen name="s4">4dp</dimen>
+    <dimen name="s8">8dp</dimen>
+    <dimen name="s12">12dp</dimen>
+    <dimen name="s16">16dp</dimen>
+    <dimen name="s24">24dp</dimen>
+    <dimen name="s32">32dp</dimen>
+    <dimen name="s40">40dp</dimen>
+    <dimen name="s48">48dp</dimen>
+    <dimen name="s56">56dp</dimen>
+    <dimen name="s72">72dp</dimen>
+    <dimen name="s80">80dp</dimen>
+    <dimen name="s128">128dp</dimen>
+    <dimen name="s144">144dp</dimen>
+    <dimen name="s168">168dp</dimen>
+
+    <!-- text size -->
+    <dimen name="t12">12dp</dimen>
+    <dimen name="t14">14dp</dimen>
+    <dimen name="t16">16dp</dimen>
+    <dimen name="t2">2dp</dimen>
+    <dimen name="t4">4dp</dimen>
+    <dimen name="t18">18dp</dimen>
+    <dimen name="t20">20dp</dimen>
+    <dimen name="t10">10dp</dimen>
+    <dimen name="t24">24dp</dimen>
+    <dimen name="t32">32dp</dimen>
+    <dimen name="t48">48dp</dimen>
 </resources>
