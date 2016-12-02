@@ -1,8 +1,6 @@
 package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -11,13 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.domain.JsonRootBean;
+import com.example.administrator.zjlc.domain.TJBBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
-import com.example.administrator.zjlc.utils.HttpUtil;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -26,8 +25,6 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.list;
 
 
 /**
@@ -40,6 +37,12 @@ public class HomePager extends BasePager {
     private ArrayList<View> dots;
     private List<String> jrb;
     private List<View> viewList;// 把需要滑动的页卡添加到这个list中
+    private TextView tv_biao;
+    private TextView tv_lv;
+    private TextView tv_time;
+    private TextView tv_ss;
+    private TextView tv_jindu;
+    private ImageView iv_lijitouzi;
 
     private int oldPosition = 0;// 记录上一次点的位置
 
@@ -77,14 +80,54 @@ public class HomePager extends BasePager {
      * 2.在代码实例化ViewPager
      */
     private void initView() {
+        //初始化组件
+        tv_biao = (TextView) view.findViewById(R.id.tv_biao);
+        tv_lv = (TextView) view.findViewById(R.id.tv_lv);
+        tv_jindu = (TextView) view.findViewById(R.id.tv_jindu);
+        tv_ss = (TextView) view.findViewById(R.id.tv_jindu);
+        tv_time = (TextView) view.findViewById(R.id.tv_time);
+        iv_lijitouzi = (ImageView) view.findViewById(R.id.iv_lijitouzi);
+
         //代码实例化
         viewpager = (ViewPager) view.findViewById(R.id.viewpager_guide);
         dots = new ArrayList<View>();
         dots.add(view.findViewById(R.id.dot_1));
         dots.add(view.findViewById(R.id.dot_2));
+        //设置bannner图片
         setViewpagerData();
-
+        //设置推荐标的详情
+        setViewText();
         }
+
+    private void setViewText() {
+        RequestParams requestparams = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCRecommend_list);
+        x.http().post(requestparams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.e("data网站banner", data);
+                Gson gson = new Gson();
+                TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
+                //获取到数据部署上去
+                tv_biao.setText(tjbBean.getData().getBorrow_name());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
 
     class MyPageChangeListener implements ViewPager.OnPageChangeListener {
@@ -184,7 +227,5 @@ public class HomePager extends BasePager {
             ((ViewPager) views).addView(mListViews.get(position));
             return mListViews.get(position);
         }
-
-
     }
 }

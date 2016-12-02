@@ -14,7 +14,6 @@ import com.example.administrator.zjlc.base.BasePager;
 public class LiCaiPager extends BasePager {
 
     private View view;
-    private ViewPager viewpager;
 
     public LiCaiPager(Activity activity) {
         super(activity);
@@ -23,7 +22,7 @@ public class LiCaiPager extends BasePager {
     @Override
     public void initData() {
         super.initData();
-        System.out.println("首页数据被初始化了...");
+        System.out.println("理财数据被初始化了...");
         //设置标题
         view = View.inflate(mActivity, R.layout.licaipager, null);
         initView();

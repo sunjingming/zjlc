@@ -14,7 +14,6 @@ import com.example.administrator.zjlc.base.BasePager;
 public class MorePager extends BasePager {
 
     private View view;
-    private ViewPager viewpager;
 
     public MorePager(Activity activity) {
         super(activity);

@@ -107,14 +107,14 @@ public class ContentFragment extends BaseFragment {
                 case R.id.rb_home://首页
                     vp_content_fragment.setCurrentItem(0,false);
                     break;
-                case R.id.rb_newscenter://产品
+                case R.id.rb_newscenter://理财
                     vp_content_fragment.setCurrentItem(1,false);
                     break;
-                case R.id.rb_govaffair://发现
-                    vp_content_fragment.setCurrentItem(3,false);
+                case R.id.rb_govaffair://我的
+                    vp_content_fragment.setCurrentItem(2,false);
                     break;
-                case R.id.rb_setting://我
-                    vp_content_fragment.setCurrentItem(4,false);
+                case R.id.rb_setting://更多
+                    vp_content_fragment.setCurrentItem(3,false);
                     break;
             }
 
