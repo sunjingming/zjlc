@@ -20,4 +20,12 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="SubmitButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/s48</item>
+        <item name="android:background">@drawable/selector_btn_blue_rounded</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/t16</item>
+    </style>
+
 </resources>

@@ -7,5 +7,49 @@
     <color name="colorhui">#999999</color>
     <color name="colorhei">#000000</color>
     <color name="colorcheng">#ffab4c</color>
+
+    <color name="red_orange_dark">#c72626</color>
+    <color name="red_orange_light">#61FF4F50</color>
+    <color name="topbar_bg">#b6292d</color>
+    <color name="bottomtab_normal">#c8bca5</color>
+    <color name="bottomtab_press">#8b572a</color>
+    <color name="blue">#13ADFF</color>
+    <color name="orange">#FF764E</color>
+    <color name="line">#c8bca5</color>
+    <color name="black_gray">#333333</color>
+    <color name="camera_pop_normal">#5DB8FE</color>
+
+    <color name="blue_light">#65caff</color>
+    <color name="blue_dark">#0b82c1</color>
+    <color name="white">#ffffffff</color>
+    <color name="blue_sea">#0EC7DC</color>
+    <color name="rajah">#FFB96D</color>
+
+    <color name="gray1">#f1f2f1</color>
+    <color name="gray2">#F2F2F2</color>
+    <color name="gray3">#ededed</color>
+    <color name="gray4">#ebeceb</color>
+    <color name="gray5">#EAEAEA</color>
+    <color name="gray6">#e4e4e4</color>
+    <color name="gray7">#d5d5d5</color>
+    <color name="gray8">#D2D2D2</color>
+    <color name="gray9">#cecece</color>
+    <color name="gray10">#c2c2c2</color>
+    <color name="gray11">#C9C9C9</color>
+    <color name="gray12">#c8c8c8</color>
+    <color name="gray13">#BEBEBE</color>
+    <color name="gray14">#BDBDBD</color>
+    <color name="gray15">#A4A4A4</color>
+    <color name="gray16">#818181</color>
+    <color name="gray17">#7A7A7A</color>
+    <color name="gray18">#767676</color>
+    <color name="gray19">#666666</color>
+    <color name="gray20">#656565</color>
+    <color name="gray21">#464646</color>
+    <color name="gray22">#de000000</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="malibu">#55BEE6</color>
+    <color name="red_orange">#FF4F50</color>
 </resources>
 
