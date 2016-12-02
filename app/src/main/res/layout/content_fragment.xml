@@ -23,19 +23,17 @@
             android:text="首页"
             android:drawableTop="@drawable/rb_home_selector"
             />
-
-        <RadioButton
-            android:id="@+id/rb_newscenter"
-            style="@style/bottom_tab_style"
-            android:text="账户"
-            android:drawableTop="@drawable/rb_chanpin_selector"
-            />
-
         <RadioButton
             android:id="@+id/rb_govaffair"
             style="@style/bottom_tab_style"
             android:text="发现"
             android:drawableTop="@drawable/rb_faxian_selector"
+            />
+        <RadioButton
+            android:id="@+id/rb_newscenter"
+            style="@style/bottom_tab_style"
+            android:text="账户"
+            android:drawableTop="@drawable/rb_chanpin_selector"
             />
         <RadioButton
             android:id="@+id/rb_setting"

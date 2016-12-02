@@ -110,6 +110,12 @@ public class HomePager extends BasePager {
                 TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
                 //获取到数据部署上去
                 tv_biao.setText(tjbBean.getData().getBorrow_name());
+                tv_lv.setText(tjbBean.getData().getBorrow_interest_rate()+"%");
+                tv_time.setText(tjbBean.getData().getBorrow_duration());
+                tv_ss.setText(tjbBean.getData().getBorrow_money());
+                tv_jindu.setText(tjbBean.getData().getProgress()+"%");
+
+
             }
 
             @Override
