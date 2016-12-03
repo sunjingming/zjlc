@@ -3,6 +3,7 @@ package com.example.administrator.zjlc.base;
 import android.app.Activity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.administrator.zjlc.R;
 
@@ -12,15 +13,18 @@ import org.xutils.x;
 
 /**
  * 作用：HomePager，NewsCenterPager,SmartServicePager,GovaffairPager,SettingPager
-   都要继承BasePager
-    要在BasePager里直接实现标题栏部分
+ 都要继承BasePager
+ 要在BasePager里直接实现标题栏部分
  */
 public class BasePager {
 
-     //IOC反向注入
+    //IOC反向注入
 
     @ViewInject(R.id.fl_basepager_content)
     public FrameLayout fl_basepager_content;
+
+    @ViewInject(R.id.tv_pasnt)
+    public TextView tv_pasnt;
 
 
     /**
@@ -46,6 +50,12 @@ public class BasePager {
     private View initVeiw() {
         View view = View.inflate(mActivity, R.layout.basepager, null);
         x.view().inject(this,view);
+        tv_pasnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
         return view;
     }
     /**
