@@ -36,5 +36,7 @@ public class UrlsUtils {
     public static final  String ZJLCRegister = "reg";
     //找回密码
     public static final  String ZJLCForget_pwd = "change_pwd_by_phone";
+    //账户中心首页
+    public static final  String ZJLCUser_page = "member";
     public static final  String ZJLCPhone_check = "check_name";
 }

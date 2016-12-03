@@ -111,7 +111,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.login_forget:
-                Intent intentForget = new Intent(Login.this,ForgetPwd.class);
+                Intent intentForget = new Intent(Login.this, ForgetPwd.class);
                 startActivity(intentForget);
                 break;
             case R.id.login_close:
