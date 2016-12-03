@@ -31,4 +31,6 @@ public class UrlsUtils {
     //登录
     public static final  String login = "login";
     public static final  String ZJLCGet_code = "send_code";
+    public static final  String ZJLCRegister = "reg";
+    public static final  String ZJLCPhone_check = "check_name";
 }
