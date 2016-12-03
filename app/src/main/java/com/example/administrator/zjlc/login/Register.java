@@ -1,18 +1,27 @@
 package com.example.administrator.zjlc.login;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.urls.CountDownTimerUtils;
+import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.google.gson.Gson;
 
+import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.StringBody;
+import org.xutils.x;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,7 +64,38 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_get_code:
-                RequestParams params = new RequestParams("");
+                RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCGet_code);
+                params.addBodyParameter("phone",register_phone.getText().toString());
+                x.http().post(params, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        String data = result;
+                        Log.i("data注册验证码",data);
+                        Gson gson = new Gson();
+                        RegisterBean bean = gson.fromJson(data,RegisterBean.class);
+                        if (bean.getEvent()==88){
+                            CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(register_get_code,60500,1000);
+                            countDownTimerUtils.start();
+                        }else {
+                            Toast.makeText(Register.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
 
                 break;
             case R.id.register:

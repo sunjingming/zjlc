@@ -30,4 +30,5 @@ public class UrlsUtils {
     public static final  String ZJLCDebt_invest_money = "debt_invest_money";
     //登录
     public static final  String login = "login";
+    public static final  String ZJLCGet_code = "send_code";
 }
