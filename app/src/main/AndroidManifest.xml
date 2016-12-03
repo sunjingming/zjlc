@@ -24,8 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.DetailsActivity"/>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".login.Login"></activity>
+        <activity android:name=".login.Register"></activity>
     </application>
 
 </manifest>
