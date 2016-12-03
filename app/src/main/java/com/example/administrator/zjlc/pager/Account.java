@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.approve.Approve;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
@@ -33,6 +34,7 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView interest;
     private TextView balance;
     private TextView freeze;
+    private TextView approve;
     private String token;
     private ImageView head;
 
@@ -62,6 +64,7 @@ public class Account extends BasePager implements View.OnClickListener {
 
 
         login.setOnClickListener(this);
+        approve.setOnClickListener(this);
 
         fl_basepager_content.addView(view);
     }
@@ -111,6 +114,7 @@ public class Account extends BasePager implements View.OnClickListener {
         interest = (TextView) view.findViewById(R.id.user_interest);
         freeze = (TextView) view.findViewById(R.id.user_freeze);
         head = (ImageView) view.findViewById(R.id.user_head);
+        approve = (TextView) view.findViewById(R.id.user_approve);
 
     }
 
@@ -120,6 +124,11 @@ public class Account extends BasePager implements View.OnClickListener {
             case R.id.user_login:
                 Intent intent = new Intent(mActivity, Login.class);
                 mActivity.startActivity(intent);
+                break;
+            case R.id.user_approve:
+                Intent intentApprove = new Intent(mActivity,Approve.class);
+                mActivity.startActivity(intentApprove);
+                break;
         }
     }
 }

@@ -38,5 +38,7 @@ public class UrlsUtils {
     public static final  String ZJLCForget_pwd = "change_pwd_by_phone";
     //账户中心首页
     public static final  String ZJLCUser_page = "member";
+    //实名认证
+    public static final  String ZJLCApprove_name = "verify_id_card";
     public static final  String ZJLCPhone_check = "check_name";
 }

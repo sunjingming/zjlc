@@ -76,13 +76,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             SharedPreferences.Editor editor = prence.edit();
                             editor.putString("token", loginBean.getData());
                             editor.commit();
-                            AlertDialog dialog = new AlertDialog.Builder(Login.this).setTitle("消息提示").setMessage(loginBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
-                                }
-                            }).show();
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+
 
                         } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
