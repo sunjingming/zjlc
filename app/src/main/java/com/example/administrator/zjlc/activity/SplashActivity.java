@@ -17,12 +17,12 @@ import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.utils.CacheUtils;
 
 public class SplashActivity extends Activity {
-
+    RelativeLayout rl_splash_rootview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        RelativeLayout rl_splash_rootview = (RelativeLayout) findViewById(R.id.rl_splash_rootview);
+        rl_splash_rootview = (RelativeLayout) findViewById(R.id.rl_splash_rootview);
         boolean is_start_main = CacheUtils.getBoolean(SplashActivity.this, GuideActivity.START_MAIN);
         AnimationSet set = new AnimationSet(false);
         //三个动画：缩放动画，渐变动画，旋转动画
