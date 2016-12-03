@@ -1,6 +1,7 @@
 package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.activity.DetailsActivity;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.domain.JsonRootBean;
 import com.example.administrator.zjlc.domain.TJBBean;
@@ -62,6 +64,12 @@ public class HomePager extends BasePager {
                 dots.get(0).setBackgroundResource(R.drawable.dot_focused);
                 viewpager.setOnPageChangeListener(new MyPageChangeListener());
                 viewpager.setAdapter(viewPagerAdapter);
+                iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mActivity.startActivity(new Intent(mActivity, DetailsActivity.class));
+                    }
+                });
             return false;
         }
     });

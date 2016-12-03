@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-import org.xutils.http.body.StringBody;
 import org.xutils.x;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
