@@ -25,6 +25,7 @@
     <dimen name="m32">32dp</dimen>
     <dimen name="m40">40dp</dimen>
     <dimen name="m48">48dp</dimen>
+    <dimen name="m65">65dp</dimen>
 
 
     <!-- width or height -->

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.MainActivity;
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText login_phone;
     private EditText login_password;
     private LinearLayout activity_login;
+    private TextView register;
     private Button login_submit;
 
     @Override
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         initView();
         login_submit.setOnClickListener(this);
+        register.setOnClickListener(this);
     }
 
     private void initView() {
@@ -44,6 +47,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         login_password = (EditText) findViewById(R.id.login_password);
         activity_login = (LinearLayout) findViewById(R.id.activity_login);
         login_submit = (Button) findViewById(R.id.login_submit);
+        register = (TextView) findViewById(R.id.login_register);
 
     }
 
@@ -95,6 +99,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                     }
                 });
+                break;
+            case R.id.login_register:
+                Intent intent = new Intent(Login.this,Register.class);
+                startActivity(intent);
 
         }
 
