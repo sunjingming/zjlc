@@ -18,16 +18,16 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.DetailsActivity"/>
@@ -37,7 +37,9 @@
         <activity android:name=".login.Register" />
         <activity android:name=".login.ForgetPwd" />
         <activity android:name=".approve.Approve" />
-        <activity android:name=".approve.ApproveName"></activity>
+        <activity android:name=".approve.ApproveName">
+
+        </activity>
     </application>
 
 </manifest>

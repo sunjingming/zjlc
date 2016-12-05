@@ -40,6 +40,8 @@ public class UrlsUtils {
     public static final  String ZJLCUser_page = "member";
     //实名认证
     public static final  String ZJLCApprove_name = "verify_id_card";
+    //是否实名认证
+    public static final String ZJLCApprove_juadge = "check_id_status";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
