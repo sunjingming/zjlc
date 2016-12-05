@@ -57,6 +57,20 @@
         <item name="android:background">@drawable/shape_bg_edit_round</item>
     </style>
 
+    <style name="MoreItemStyle">
+        <item name="android:paddingRight">@dimen/p8</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/s48</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/p4</item>
+    </style>
+
+    <style name="ItemStyle" parent="TextStyle">
+        <item name="android:drawableRight">@drawable/right_more</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:background">@drawable/selector_bg_btn_item</item>
+    </style>
+
     <style name="TextStyle">
         <item name="android:background">@color/white</item>
         <item name="android:paddingLeft">16dp</item>

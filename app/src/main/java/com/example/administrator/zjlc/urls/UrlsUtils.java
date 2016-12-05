@@ -42,6 +42,10 @@ public class UrlsUtils {
     public static final  String ZJLCApprove_name = "verify_id_card";
     //是否实名认证
     public static final String ZJLCApprove_juadge = "check_id_status";
+    //是都绑定银行卡
+    public static final String ZJLCBank_juadge = "check_bank_card";
+    //银行列表
+    public static final String ZJLCBank_list = "bank_list";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
