@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.example.administrator.zjlc.bank.BankChoose">
+
+
     <include layout="@layout/toolbar"/>
     <ListView
         android:layout_marginRight="@dimen/m10"

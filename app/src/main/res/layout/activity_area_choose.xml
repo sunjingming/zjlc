@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tuanshang.chezhongchou.chezhongchou.bindCard.AreaChoose">
+    android:background="@color/gray3"
+    tools:context="com.example.administrator.zjlc.bank.AreaChoose">
     <include layout="@layout/toolbar"/>
 
     <ListView

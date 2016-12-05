@@ -6,15 +6,16 @@ import java.util.List;
  * Created by Administrator on 2016/11/19.
  */
 public class CityBean {
+
     /**
      * event : 88
      * msg : success
-     * obj : [{"id":"53","reid":"4","name":"福州","sort_order":"2","is_open":"0","domain":""},{"id":"54","reid":"4","name":"龙岩","sort_order":"2","is_open":"0","domain":""},{"id":"55","reid":"4","name":"南平","sort_order":"2","is_open":"0","domain":""},{"id":"56","reid":"4","name":"宁德","sort_order":"2","is_open":"0","domain":""},{"id":"57","reid":"4","name":"莆田","sort_order":"2","is_open":"0","domain":""},{"id":"58","reid":"4","name":"泉州","sort_order":"2","is_open":"0","domain":""},{"id":"59","reid":"4","name":"三明","sort_order":"2","is_open":"0","domain":""},{"id":"60","reid":"4","name":"厦门","sort_order":"2","is_open":"0","domain":""},{"id":"61","reid":"4","name":"漳州","sort_order":"2","is_open":"0","domain":""}]
+     * data : [{"id":"138","name":"石家庄"},{"id":"139","name":"保定"},{"id":"140","name":"沧州"},{"id":"141","name":"承德"},{"id":"142","name":"邯郸"},{"id":"143","name":"衡水"},{"id":"144","name":"廊坊"},{"id":"145","name":"秦皇岛"},{"id":"146","name":"唐山"},{"id":"147","name":"邢台"},{"id":"148","name":"张家口"}]
      */
 
     private int event;
     private String msg;
-    private List<ObjBean> obj;
+    private List<DataBean> data;
 
     public int getEvent() {
         return event;
@@ -32,30 +33,22 @@ public class CityBean {
         this.msg = msg;
     }
 
-    public List<ObjBean> getObj() {
-        return obj;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setObj(List<ObjBean> obj) {
-        this.obj = obj;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public static class ObjBean {
+    public static class DataBean {
         /**
-         * id : 53
-         * reid : 4
-         * name : 福州
-         * sort_order : 2
-         * is_open : 0
-         * domain :
+         * id : 138
+         * name : 石家庄
          */
 
         private String id;
-        private String reid;
         private String name;
-        private String sort_order;
-        private String is_open;
-        private String domain;
 
         public String getId() {
             return id;
@@ -65,44 +58,12 @@ public class CityBean {
             this.id = id;
         }
 
-        public String getReid() {
-            return reid;
-        }
-
-        public void setReid(String reid) {
-            this.reid = reid;
-        }
-
         public String getName() {
             return name;
         }
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getSort_order() {
-            return sort_order;
-        }
-
-        public void setSort_order(String sort_order) {
-            this.sort_order = sort_order;
-        }
-
-        public String getIs_open() {
-            return is_open;
-        }
-
-        public void setIs_open(String is_open) {
-            this.is_open = is_open;
-        }
-
-        public String getDomain() {
-            return domain;
-        }
-
-        public void setDomain(String domain) {
-            this.domain = domain;
         }
     }
 }

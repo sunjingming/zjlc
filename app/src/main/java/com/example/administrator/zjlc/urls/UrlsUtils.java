@@ -46,6 +46,10 @@ public class UrlsUtils {
     public static final String ZJLCBank_juadge = "check_bank_card";
     //银行列表
     public static final String ZJLCBank_list = "bank_list";
+    //身份列表
+    public static final String ZJLCProvince_list = "get_province";
+    //地市列表
+    public static final String ZJLCCity_list = "get_city";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
