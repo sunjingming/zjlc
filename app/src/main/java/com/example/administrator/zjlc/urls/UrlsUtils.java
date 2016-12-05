@@ -51,4 +51,6 @@ public class UrlsUtils {
     //地市列表
     public static final String ZJLCCity_list = "get_city";
     public static final  String ZJLCPhone_check = "check_name";
+    //标得详情
+    public static final String ZJLCBorrow_detail = "borrow_detail";
 }

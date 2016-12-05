@@ -47,6 +47,8 @@ public class HomePager extends BasePager {
     private TextView tv_jindu;
     private Button iv_lijitouzi;
 
+    private String id;
+
     private int oldPosition = 0;// 记录上一次点的位置
 
     private int currentItem; // 当前页面private int oldPosition = 0;// 记录上一次点的位置
@@ -67,7 +69,9 @@ public class HomePager extends BasePager {
                 iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mActivity.startActivity(new Intent(mActivity, DetailsActivity.class));
+                        Intent intent = new Intent(mActivity, DetailsActivity.class);
+                        intent.putExtra("id",id);
+                        mActivity.startActivity(intent);
                     }
                 });
             return false;
@@ -117,6 +121,8 @@ public class HomePager extends BasePager {
                 Log.e("data网站banner", data);
                 Gson gson = new Gson();
                 TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
+
+                id = tjbBean.getData().getId();
                 //获取到数据部署上去
                 tv_biao.setText(tjbBean.getData().getBorrow_name());
                 tv_lv.setText(tjbBean.getData().getBorrow_interest_rate()+"%");
@@ -150,6 +156,7 @@ public class HomePager extends BasePager {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            position = position%2;
             dots.get(oldPosition).setBackgroundResource(
                     R.drawable.dot_normal);
             dots.get(position)
