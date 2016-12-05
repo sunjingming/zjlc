@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
-import com.example.administrator.zjlc.utils.MD5Encoder;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.google.gson.Gson;
 
@@ -32,6 +32,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout activity_login;
     private TextView register;
     private Button login_submit;
+    private ImageView login_close;
+    private TextView login_forget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         initView();
         login_submit.setOnClickListener(this);
         register.setOnClickListener(this);
+        login_forget.setOnClickListener(this);
+        login_close.setOnClickListener(this);
     }
 
     private void initView() {
@@ -48,37 +52,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         activity_login = (LinearLayout) findViewById(R.id.activity_login);
         login_submit = (Button) findViewById(R.id.login_submit);
         register = (TextView) findViewById(R.id.login_register);
+        login_close = (ImageView) findViewById(R.id.login_close);
+        login_forget = (TextView) findViewById(R.id.login_forget);
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login_submit:
-                final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.login);
-                params.addBodyParameter("user_name",login_phone.getText().toString());
+                final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.login);
+                params.addBodyParameter("user_name", login_phone.getText().toString());
                 params.addBodyParameter("pwd", MD5Utils.Md5(login_password.getText().toString()));
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
                         String data = result;
-                        Log.i("data登录",data);
+                        Log.i("data登录", data);
                         Gson gson = new Gson();
-                        LoginBean loginBean = gson.fromJson(data,LoginBean.class);
-                        if (loginBean.getEvent()==88){
-                            SharedPreferences prence = getSharedPreferences("usetoken",MODE_PRIVATE);
+                        LoginBean loginBean = gson.fromJson(data, LoginBean.class);
+                        if (loginBean.getEvent() == 88) {
+                            SharedPreferences prence = getSharedPreferences("usetoken", MODE_PRIVATE);
                             SharedPreferences.Editor editor = prence.edit();
-                            editor.putString("token",loginBean.getData());
+                            editor.putString("token", loginBean.getData());
                             editor.commit();
-                            AlertDialog dialog = new AlertDialog.Builder(Login.this).setTitle("消息提示").setMessage(loginBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent =new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
-                                }
-                            }).show();
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
 
-                        }else {
+
+                        } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -101,8 +103,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
                 break;
             case R.id.login_register:
-                Intent intent = new Intent(Login.this,Register.class);
+                Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
+                break;
+            case R.id.login_forget:
+                Intent intentForget = new Intent(Login.this, ForgetPwd.class);
+                startActivity(intentForget);
+                break;
+            case R.id.login_close:
+                finish();
+                break;
+            default:
+                break;
 
         }
 

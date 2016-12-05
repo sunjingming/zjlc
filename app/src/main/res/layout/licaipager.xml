@@ -18,6 +18,7 @@
             android:orientation="horizontal">
 
             <com.example.administrator.zjlc.utils.CircleImageView
+                android:id="@+id/user_head"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="left"
@@ -32,7 +33,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="right"
-                android:text="未登录"
                 android:textSize="16sp"
                 android:textColor="@color/white" />
 
@@ -64,11 +64,11 @@
             android:textSize="@dimen/t20" />
 
         <TextView
+            android:id="@+id/user_asset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/m10"
-            android:text="¥25555.22"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -95,11 +95,11 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/user_interest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/m4"
-                    android:text="¥1600.00"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -125,10 +125,10 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/user_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="¥199999.00"
                     android:layout_marginTop="@dimen/m4"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -154,10 +154,10 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/user_freeze"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="¥2070.00"
                     android:layout_marginTop="@dimen/m4"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -180,7 +180,7 @@
             android:gravity="center"
             android:text="提现"
             android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
         <View
             android:layout_width="1dp"
@@ -196,7 +196,7 @@
             android:gravity="center"
             android:text="充值"
             android:textColor="@color/colorcheng"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <View
@@ -231,6 +231,7 @@
     <include layout="@layout/split_h8_gray3" />
 
     <TextView
+        android:id="@+id/user_approve"
         style="@style/AccountItemStyle"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"

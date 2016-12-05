@@ -38,7 +38,7 @@
 
         <EditText
             android:id="@+id/register_phone"
-            android:layout_width="match_parent"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/m8"
             android:background="@color/white"
@@ -49,6 +49,14 @@
             android:textColor="@color/gray18"
             android:textColorHint="@color/gray8"
             android:textSize="14dp" />
+        <TextView
+            android:id="@+id/register_phone_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="11"
+            android:visibility="invisible"
+            android:text="手机号码可以使用"
+            android:textColor="@color/gray10" />
     </LinearLayout>
 
     <include layout="@layout/split_h1_m8" />
@@ -119,6 +127,7 @@
             android:textColor="@color/black" />
 
         <EditText
+            android:id="@+id/register_invite_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/m8"

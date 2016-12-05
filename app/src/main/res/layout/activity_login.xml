@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context="com.example.administrator.zjlc.login.Login">
 
+    <ImageView
+        android:id="@+id/login_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginTop="@dimen/m8"
+        android:src="@drawable/close"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,6 +45,7 @@
                 android:inputType="number"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
+                android:background="@color/white"
                 android:textSize="14dp" />
         </LinearLayout>
 
@@ -55,11 +64,12 @@
 
             <EditText
                 android:id="@+id/login_password"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/m8"
                 android:gravity="start"
                 android:hint="请输入密码"
+                android:background="@color/white"
                 android:inputType="number"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
@@ -74,6 +84,7 @@
             android:text="登录" />
 
         <TextView
+            android:id="@+id/login_forget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

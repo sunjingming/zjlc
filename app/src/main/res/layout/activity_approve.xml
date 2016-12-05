@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray3"
+    tools:context="com.example.administrator.zjlc.approve.Approve">
+
+    <include layout="@layout/toolbar"/>
+
+   <TextView
+       android:id="@+id/name_approve"
+      style="@style/AccountItemStyle"
+       android:layout_marginTop="@dimen/m24"
+       android:background="@color/white"
+       android:drawableLeft="@drawable/name_approve"
+       android:paddingLeft="@dimen/m8"
+       android:textColor="@color/black"
+       android:drawableRight="@drawable/right_more"
+       android:text="实名认证"
+       />
+
+    <TextView
+        style="@style/AccountItemStyle"
+        android:layout_marginTop="@dimen/m16"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/phone_approve"
+        android:paddingLeft="@dimen/m8"
+        android:textColor="@color/black"
+        android:drawableRight="@drawable/right_more"
+        android:text="手机认证"
+        />
+
+</LinearLayout>
