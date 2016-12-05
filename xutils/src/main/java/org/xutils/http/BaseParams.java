@@ -196,7 +196,7 @@ import java.util.Map;
     /**
      * 添加body参数
      */
-    public void addBodyParameter(String name, File value) {
+    public void addBodyParameter(String name, int value) {
         addBodyParameter(name, value, null, null);
     }
 

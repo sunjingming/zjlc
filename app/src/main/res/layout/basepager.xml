@@ -12,9 +12,17 @@
         android:layout_height="40dp"
         android:textColor="@color/colorAccent"
         android:text="卓金理财" />
+    <com.example.administrator.zjlc.view.MyScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/sv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#efefef"
+        android:fillViewport="true"
+        android:scrollbars="none">
     <FrameLayout
         android:id="@+id/fl_basepager_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    </com.example.administrator.zjlc.view.MyScrollView>
 </LinearLayout>

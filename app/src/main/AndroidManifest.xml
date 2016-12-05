@@ -30,6 +30,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.DetailsActivity"/>
+        <activity android:name=".login.Register"/>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".login.Login" />
         <activity android:name=".login.Register" />
