@@ -35,6 +35,7 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView balance;
     private TextView freeze;
     private TextView approve;
+    private TextView bank;
     private String token;
     private ImageView head;
 
@@ -65,6 +66,8 @@ public class Account extends BasePager implements View.OnClickListener {
 
         login.setOnClickListener(this);
         approve.setOnClickListener(this);
+        bank.setOnClickListener(this);
+
 
         fl_basepager_content.addView(view);
     }
@@ -115,6 +118,7 @@ public class Account extends BasePager implements View.OnClickListener {
         freeze = (TextView) view.findViewById(R.id.user_freeze);
         head = (ImageView) view.findViewById(R.id.user_head);
         approve = (TextView) view.findViewById(R.id.user_approve);
+        bank = (TextView) view.findViewById(R.id.user_bank);
 
     }
 
@@ -129,6 +133,35 @@ public class Account extends BasePager implements View.OnClickListener {
                 Intent intentApprove = new Intent(mActivity,Approve.class);
                 mActivity.startActivity(intentApprove);
                 break;
+            case R.id.user_bank:
+                bankJudge();
         }
+    }
+
+    private void bankJudge() {
+        RequestParams paramms  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_juadge);
+        paramms.addBodyParameter("token",token);
+        x.http().post(paramms, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data是否实名",data);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
-import com.example.administrator.zjlc.urls.CountDownTimerUtils;
+import com.example.administrator.zjlc.utils.CountDownTimerUtils;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.google.gson.Gson;

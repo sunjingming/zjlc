@@ -219,6 +219,7 @@
     <include layout="@layout/split_h8_gray3" />
 
     <TextView
+        android:id="@+id/user_bank"
         style="@style/AccountItemStyle"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"
