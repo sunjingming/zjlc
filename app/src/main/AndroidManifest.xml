@@ -35,9 +35,12 @@
         <activity android:name=".login.Register" />
         <activity android:name=".login.ForgetPwd" />
         <activity android:name=".approve.Approve" />
-        <activity android:name=".approve.ApproveName">
-
-        </activity>
+        <activity android:name=".approve.ApproveName"></activity>
+        <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".bank.AddCard"></activity>
+        <activity android:name=".bank.AreaChoose"/>
+        <activity android:name=".bank.BankChoose"/>
+        <activity android:name=".bank.CityChoose"/>
     </application>
 
 </manifest>

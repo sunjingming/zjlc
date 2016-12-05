@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.bank.AddCard">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:layout_marginLeft="@dimen/m10"
+            android:layout_weight="0.89"
+            android:text="银行名称"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/bind_choose_bank"
+            style="@style/ItemStyle"
+            android:layout_width="wrap_content"
+            android:text="请选择" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:layout_marginLeft="@dimen/m10"
+            android:layout_weight="0.89"
+            android:text="户主名称"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/bind_householder_name"
+            style="@style/MoreItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/m10" />
+    </LinearLayout>
+
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="银行卡帐号"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/bank_card_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="输入绑定的银行卡帐号, 不支持信用卡"
+            android:inputType="number"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认帐号"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/bank_card_number_checked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="再次输入绑定的银行卡帐号"
+            android:inputType="number"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:layout_marginLeft="@dimen/m10"
+            android:layout_weight="0.89"
+            android:text="所在地"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/area_choose"
+            style="@style/ItemStyle"
+            android:layout_width="wrap_content"
+
+            android:text="请选择" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支行名称"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/bank_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="开户行支行名称"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码:"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/register_code"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m8"
+            android:background="@color/white"
+            android:gravity="start"
+            android:hint="您的验证码"
+            android:inputType="number"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/register_get_code"
+            style="@style/SubmitButtonStyle"
+            android:layout_height="30dp"
+            android:enabled="false"
+            android:text="获取验证码"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <Button
+        android:id="@+id/bind_card_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/selector_bg_btn_red_round"
+        android:enabled="false"
+        android:text="提交更新"
+        android:textColor="@color/white" />
+
+</LinearLayout>

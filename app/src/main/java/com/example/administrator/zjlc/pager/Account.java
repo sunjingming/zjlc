@@ -1,8 +1,10 @@
 package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +14,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.approve.Approve;
+import com.example.administrator.zjlc.bank.AddCard;
+import com.example.administrator.zjlc.bank.ApproveJuadgeBean;
+import com.example.administrator.zjlc.bank.BankJuadgeBean;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
@@ -38,6 +43,8 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView bank;
     private String token;
     private ImageView head;
+    private int event;
+    private int eventBank;
 
     public Account(Activity activity) {
         super(activity);
@@ -50,19 +57,19 @@ public class Account extends BasePager implements View.OnClickListener {
         System.out.println("理财数据被初始化了...");
 
         SharedPreferences fence = mActivity.getSharedPreferences("usetoken", mActivity.MODE_PRIVATE);
-        token = fence.getString("token", null);
-       // Toast.makeText(mActivity, token, Toast.LENGTH_SHORT).show();
+        token = fence.getString("token", "");
+
+
         //设置标题
         view = View.inflate(mActivity, R.layout.licaipager, null);
         initView();
         getData();
 
-        if (token.length() > 2) {
-            login.setText("退出");
+        if (token.equals("")){
+            login.setText("登陆");
         }else {
-            login.setText("未登录");
+            login.setText("退出");
         }
-
 
         login.setOnClickListener(this);
         approve.setOnClickListener(this);
@@ -70,6 +77,92 @@ public class Account extends BasePager implements View.OnClickListener {
 
 
         fl_basepager_content.addView(view);
+
+
+        //请求用户信息
+        RequestParams paramsAccount  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCUser_page);
+        paramsAccount.addBodyParameter("token",token);
+        x.http().post(paramsAccount, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data用户信息",data);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+        //判断是否进行实名认证
+        RequestParams paramms  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_juadge);
+        paramms.addBodyParameter("token",token);
+        x.http().post(paramms, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data是否实名",data);
+                Gson gson = new Gson();
+                ApproveJuadgeBean juadgeBean = gson.fromJson(data,ApproveJuadgeBean.class);
+                event = juadgeBean.getEvent();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+        //判断是否绑定银行卡
+        RequestParams params  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBank_juadge);
+        params.addBodyParameter("token",token);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data是否绑卡",data);
+                Gson gson = new Gson();
+                BankJuadgeBean juadgeBean  = gson.fromJson(data,BankJuadgeBean.class);
+                eventBank = juadgeBean.getEvent();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+
     }
 
     private void getData() {
@@ -134,34 +227,19 @@ public class Account extends BasePager implements View.OnClickListener {
                 mActivity.startActivity(intentApprove);
                 break;
             case R.id.user_bank:
-                bankJudge();
+                if (event!=88){
+                    Toast.makeText(mActivity,"尚未通过实名认证，不能进行银行卡能相关工作" , Toast.LENGTH_SHORT).show();
+                }else if (eventBank!=88){
+                    AlertDialog dialog = new AlertDialog.Builder(mActivity).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intentAddCard = new Intent(mActivity,AddCard.class);
+                            mActivity.startActivity(intentAddCard);
+                        }
+                    }).setNegativeButton("否",null).show();
+
+                }
         }
     }
 
-    private void bankJudge() {
-        RequestParams paramms  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_juadge);
-        paramms.addBodyParameter("token",token);
-        x.http().post(paramms, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.i("data是否实名",data);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 }
