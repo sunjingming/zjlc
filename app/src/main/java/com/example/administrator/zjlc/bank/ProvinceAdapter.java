@@ -15,11 +15,11 @@ import java.util.List;
  * Created by Administrator on 2016/12/5.
  */
 
-public class BankApapter extends BaseAdapter {
+public class ProvinceAdapter extends BaseAdapter {
     private Context context;
-    private List<BankBean.DataBean>data ;
+    private List<ProvinceBean.DataBean>data ;
 
-    public BankApapter(Context context, List<BankBean.DataBean> data) {
+    public ProvinceAdapter(Context context, List<ProvinceBean.DataBean> data) {
         this.context = context;
         this.data = data;
     }
@@ -41,21 +41,22 @@ public class BankApapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ItemViewHodler hodler;
+        ItemViewHolder holder;
         if (view==null){
             view = LayoutInflater.from(context).inflate(R.layout.bank_item,viewGroup,false);
-            hodler = new ItemViewHodler();
-            hodler.bank = (TextView) view.findViewById(R.id.bank_item);
-            view.setTag(hodler);
+            holder = new ItemViewHolder();
+            holder.province = (TextView) view.findViewById(R.id.bank_item);
+
+            view.setTag(holder);
         }else {
-            hodler  = (ItemViewHodler) view.getTag();
+            holder = (ItemViewHolder) view.getTag();
         }
 
-        hodler.bank.setText(data.get(i).getBank());
+        holder.province.setText(data.get(i).getName());
         return view;
     }
 
-    private class ItemViewHodler{
-        TextView bank;
+    class  ItemViewHolder{
+        TextView province;
     }
 }

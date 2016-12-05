@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 import com.example.administrator.zjlc.R;
 
@@ -45,34 +47,32 @@ public class AreaChoose extends AppCompatActivity {
         /*
         * 获得省份列表
         * */
-        RequestParams params = new RequestParams("http://checheche.petope.com/M/Server/getprovince");
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCProvince_list);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                //Log.i("dats省份",data);
+                Log.i("dats省份",data);
                 Gson gson = new Gson();
                 ProvinceBean provinceBean = gson.fromJson(data,ProvinceBean.class);
-                final List<ProvinceBean.ObjBean> obj = provinceBean.getObj();
-                for (int i = 0; i <obj.size() ; i++) {
-                    listAreaName.add(provinceBean.getObj().get(i).getName());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AreaChoose.this, android.R.layout.simple_list_item_1, listAreaName);
-                    listView.setAdapter(adapter);
+                final List<ProvinceBean.DataBean> data1 = provinceBean.getData();
+                ProvinceAdapter adapter = new ProvinceAdapter(AreaChoose.this,data1);
+                listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                             Intent intent = new Intent(AreaChoose.this,CityChoose.class);
-                            intent.putExtra("provinceId",obj.get(i).getId());
+                            intent.putExtra("provinceId",data1.get(i).getId());
                             startActivity(intent);
                             SharedPreferences ference = getSharedPreferences("bankName",MODE_APPEND);
                             SharedPreferences.Editor ediotor = ference.edit();
-                            ediotor.putString("provinceId",obj.get(i).getId());
-                            ediotor.putString("provinceName",obj.get(i).getName());
+                            ediotor.putString("provinceId",data1.get(i).getId());
+                            ediotor.putString("provinceName",data1.get(i).getName());
                             ediotor.commit();
 
                         }
                     });
-                }
+
 
 
             }

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
@@ -26,6 +27,7 @@ public class BankChoose extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView title;
     private ListView list;
+    private List<BankBean.DataBean>listBank = new ArrayList<>();
 
 
     @Override
@@ -52,20 +54,21 @@ public class BankChoose extends AppCompatActivity {
                 Gson gson = new Gson();
                 BankBean bankBean = gson.fromJson(data,BankBean.class);
                 final List<BankBean.DataBean> data1 = bankBean.getData();
-          //      BankApapter
-//                listBankName.addAll(bankBean.getData());
-//                ArrayAdapter<BankBean.> adapter = new ArrayAdapter<String>(BankChoose.this, android.R.layout.simple_list_item_1, listBankName);
-//                list.setAdapter(adapter);
-//                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        SharedPreferences frerences = getSharedPreferences("bankName",MODE_APPEND);
-//                        SharedPreferences.Editor editor = frerences.edit();
-//                        editor.putString("bankChoose",listBankName.get(position));
-//                        editor.commit();
-//                        finish();
-//                    }
-//                });
+
+                BankApapter adapter = new BankApapter(BankChoose.this,data1);
+
+                list.setAdapter(adapter);
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        SharedPreferences frerences = getSharedPreferences("bankName",MODE_APPEND);
+                        SharedPreferences.Editor editor = frerences.edit();
+                      //  Toast.makeText(BankChoose.this, data1.get(position).getBank(), Toast.LENGTH_SHORT).show();
+                        editor.putString("bankChoose",data1.get(position).getBank());
+                        editor.commit();
+                        finish();
+                    }
+                });
 
             }
 

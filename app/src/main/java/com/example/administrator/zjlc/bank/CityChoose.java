@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 import com.example.administrator.zjlc.R;
 
@@ -44,18 +46,18 @@ public class CityChoose extends AppCompatActivity {
         Intent intent = getIntent();
         final String provinceId = intent.getStringExtra("provinceId");
 
-        RequestParams params = new RequestParams("http://checheche.petope.com/M/Server/getcity");
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCCity_list);
         params.addBodyParameter("id",provinceId);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
+                Log.i("dats地市",data);
                 Gson gson = new Gson();
                 CityBean cityBean = gson.fromJson(data,CityBean.class);
-                final List<CityBean.ObjBean> obj = cityBean.getObj();
-                for (int i = 0; i <obj.size() ; i++) {
-                    listCityName.add(obj.get(i).getName());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(CityChoose.this, android.R.layout.simple_list_item_1, listCityName);
+                final List<CityBean.DataBean> obj = cityBean.getData();
+                CityAdapter adapter = new CityAdapter(CityChoose.this,obj);
+                listView.setAdapter(adapter);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -71,7 +73,7 @@ public class CityChoose extends AppCompatActivity {
                         }
                     });
                 }
-            }
+
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
