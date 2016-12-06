@@ -50,6 +50,8 @@ public class UrlsUtils {
     public static final String ZJLCProvince_list = "get_province";
     //地市列表
     public static final String ZJLCCity_list = "get_city";
+    //是否设置了交易密码
+    public static final String ZJLCTrade_whether = "check_pin_pass";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";

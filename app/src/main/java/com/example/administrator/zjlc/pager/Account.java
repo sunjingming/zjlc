@@ -21,6 +21,7 @@ import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userMessage.UserMessage;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -74,6 +75,7 @@ public class Account extends BasePager implements View.OnClickListener {
         login.setOnClickListener(this);
         approve.setOnClickListener(this);
         bank.setOnClickListener(this);
+        head.setOnClickListener(this);
 
 
         fl_basepager_content.addView(view);
@@ -239,6 +241,10 @@ public class Account extends BasePager implements View.OnClickListener {
                     }).setNegativeButton("否",null).show();
 
                 }
+                break;
+            case R.id.user_head:
+                Intent intentUser = new Intent(mActivity,UserMessage.class);
+                mActivity.startActivity(intentUser);
         }
     }
 

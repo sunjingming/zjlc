@@ -43,6 +43,7 @@
         <item name="android:layout_height">@dimen/s48</item>
         <item name="android:drawablePadding">@dimen/p8</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:paddingLeft">@dimen/p8</item>
         <item name="android:paddingRight">@dimen/p4</item>
     </style>

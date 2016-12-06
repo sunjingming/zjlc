@@ -212,7 +212,7 @@
         android:drawableRight="@drawable/right_more"
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
-        android:text="我的投资"
+        android:text="我的邀请码"
         android:drawableLeft="@drawable/invest"
         android:textColor="@color/gray22" />
 

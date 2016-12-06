@@ -30,19 +30,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DetailsActivity"/>
-        <activity android:name=".login.Register"/>
+        <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".login.Register" />
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".login.Login" />
         <activity android:name=".login.Register" />
         <activity android:name=".login.ForgetPwd" />
         <activity android:name=".approve.Approve" />
-        <activity android:name=".approve.ApproveName"></activity>
+        <activity android:name=".approve.ApproveName" />
         <activity android:name=".activity.DetailsActivity" />
-        <activity android:name=".bank.AddCard"></activity>
-        <activity android:name=".bank.AreaChoose"/>
-        <activity android:name=".bank.BankChoose"/>
-        <activity android:name=".bank.CityChoose"/>
+        <activity android:name=".bank.AddCard" />
+        <activity android:name=".bank.AreaChoose" />
+        <activity android:name=".bank.BankChoose" />
+        <activity android:name=".bank.CityChoose" />
+        <activity android:name=".userMessage.UserMessage" />
+        <activity android:name=".userMessage.UserDetail" />
+        <activity android:name=".userMessage.UserPwdSafe" />
+        <activity android:name=".userMessage.UserAbout" />
+        <activity android:name=".userMessage.TradePwdSetting"></activity>
     </application>
 
 </manifest>

@@ -145,33 +145,33 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     //获取验证码
 
                     //请求用户信息
-//                    RequestParams paramsAccount = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);
-//                    paramsAccount.addBodyParameter("token", token);
-//                    x.http().post(paramsAccount, new org.xutils.common.Callback.CommonCallback<String>() {
-//                        @Override
-//                        public void onSuccess(String result) {
-//                            String data = result;
-//                            Log.i("data用户信息", data);
-//                            Gson gson = new Gson();
-//                            UserBean userbean = gson.fromJson(data,UserBean.class);
-//                            phone = userbean.getData().getUser_name();
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable ex, boolean isOnCallback) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(CancelledException cex) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onFinished() {
-//
-//                        }
-//                    });
+                    RequestParams paramsAccount = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);
+                    paramsAccount.addBodyParameter("token", token);
+                    x.http().post(paramsAccount, new org.xutils.common.Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            String data = result;
+                            Log.i("data用户信息", data);
+                            Gson gson = new Gson();
+                            UserBean userbean = gson.fromJson(data,UserBean.class);
+                            phone = userbean.getData().getUser_name();
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
 
                     SharedPreferences prence = getSharedPreferences("bankName", MODE_PRIVATE);
                     String bankName = prence.getString("bankChoose", "");
