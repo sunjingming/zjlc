@@ -17,6 +17,7 @@ import com.example.administrator.zjlc.approve.Approve;
 import com.example.administrator.zjlc.bank.AddCard;
 import com.example.administrator.zjlc.bank.ApproveJuadgeBean;
 import com.example.administrator.zjlc.bank.BankJuadgeBean;
+import com.example.administrator.zjlc.bank.CardMsg;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
@@ -240,6 +241,9 @@ public class Account extends BasePager implements View.OnClickListener {
                         }
                     }).setNegativeButton("否",null).show();
 
+                }else {
+                    Intent inten  = new Intent(mActivity,CardMsg.class);
+                    mActivity.startActivity(inten);
                 }
                 break;
             case R.id.user_head:

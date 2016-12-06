@@ -56,6 +56,10 @@ public class UrlsUtils {
     public static final String ZJLCTrade_setting = "set_pin_pass";
     //根据原密码修改登录密码
     public static final String ZJLCOld_setting = "change_pwd_by_old";
+    //绑定银行卡
+    public static final String ZJLCAdd_card = "bind_bank_card";
+    //用户银行卡信息
+    public static final String ZJLCBank_msg = "bank_card_info";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";

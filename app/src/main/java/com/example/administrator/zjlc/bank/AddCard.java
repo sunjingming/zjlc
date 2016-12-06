@@ -1,12 +1,16 @@
 package com.example.administrator.zjlc.bank;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.Register;
 import com.example.administrator.zjlc.login.RegisterCodeBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
@@ -25,14 +30,17 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class AddCard extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private TextView title, name, bank, area;
-    private EditText cardNumber, cardNumberCheck, bankName;
+    private EditText cardNumber, cardNumberCheck, bankName,code;
     private Button submit,getCode;
     private String token;
-    private String phone;
+    private String verify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,47 +61,12 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
 
         bank.setOnClickListener(this);
         area.setOnClickListener(this);
+        cardNumberCheck.addTextChangedListener(textWacther);
+        cardNumber.addTextChangedListener(textWacther);
+        code.addTextChangedListener(textWacther);
 
 
-        getCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCGet_code);
-                params.addBodyParameter("token",token);
-                x.http().post(params, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        String data = result;
-                        Log.i("data注册验证码", data);
-                    //    Log.i("data发送参数", params+"");
-                        Gson gson = new Gson();
-                        RegisterCodeBean codeBean = gson.fromJson(data,RegisterCodeBean.class);
-                        codeBean = gson.fromJson(data, RegisterCodeBean.class);
-                        if (codeBean.getEvent() == 88) {
-                            CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(getCode, 60500, 1000);
-                            countDownTimerUtils.start();
-                        } else {
-                            Toast.makeText(AddCard.this, codeBean.getMsg(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-            }
-        });
     }
 
     private void initView() {
@@ -107,6 +80,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
         bankName = (EditText) findViewById(R.id.bank_name);
         submit = (Button) findViewById(R.id.bind_card_submit);
         getCode = (Button) findViewById(R.id.bank_get_code);
+        code = (EditText) findViewById(R.id.bank_code);
     }
 
     @Override
@@ -142,7 +116,46 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                 case 1:
 
                     //获取验证码
+                    getCode.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCGet_code);
+                            params.addBodyParameter("token",token);
+                            x.http().post(params, new org.xutils.common.Callback.CommonCallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    String data = result;
+                                    Log.i("data注册验证码", data);
+                                    //    Log.i("data发送参数", params+"");
+                                    Gson gson = new Gson();
+                                    RegisterCodeBean codeBean = gson.fromJson(data,RegisterCodeBean.class);
+                                    codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                                    if (codeBean.getEvent() == 88) {
+                                        CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(getCode, 60500, 1000);
+                                        countDownTimerUtils.start();
+                                        verify = codeBean.getData();
+                                    } else {
+                                        Toast.makeText(AddCard.this, codeBean.getMsg(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
 
+                                @Override
+                                public void onError(Throwable ex, boolean isOnCallback) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(CancelledException cex) {
+
+                                }
+
+                                @Override
+                                public void onFinished() {
+
+                                }
+                            });
+                        }
+                    });
                     //请求用户信息
                     RequestParams paramsAccount = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);
                     paramsAccount.addBodyParameter("token", token);
@@ -153,7 +166,6 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                             Log.i("data用户信息", data);
                             Gson gson = new Gson();
                             UserBean userbean = gson.fromJson(data,UserBean.class);
-                            phone = userbean.getData().getUser_name();
                         }
 
                         @Override
@@ -173,14 +185,98 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     });
 
                     SharedPreferences prence = getSharedPreferences("bankName", MODE_PRIVATE);
-                    String bankName = prence.getString("bankChoose", "");
+                    final String bank_name = prence.getString("bankChoose", "");
                     String cityName = prence.getString("cityName", "");
                     String provinceName = prence.getString("provinceName", "");
-                    bank.setText(bankName);
+                    final String provinceId = prence.getString("provinceId", "");
+                    final String cityId = prence.getString("cityId", "");
+
+                    bank.setText(bank_name);
                     area.setText(cityName + "    " + provinceName);
+
+                    //提交绑卡操作
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCAdd_card);
+                            params.addBodyParameter("bank_name",bank_name);
+                            params.addBodyParameter("bank_address",bankName.getText().toString());
+                            params.addBodyParameter("card_no",cardNumber.getText().toString());
+                            params.addBodyParameter("city",cityId);
+                            params.addBodyParameter("code",code.getText().toString());
+                            params.addBodyParameter("province",provinceId);
+                            params.addBodyParameter("token",token);
+                            params.addBodyParameter("verify_code",verify);
+                            x.http().post(params, new org.xutils.common.Callback.CommonCallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    String data = result;
+                                    Log.i("data",data);
+                                    Gson gson = new Gson();
+                                    BindBean bindBean = gson.fromJson(data,BindBean.class);
+                                    if (bindBean.getEvent()==88){
+                                        AlertDialog dialog = new AlertDialog.Builder(AddCard.this).setTitle("消息提示").setMessage(bindBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        }).show();
+
+                                        getHomeAcvtivity();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable ex, boolean isOnCallback) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(CancelledException cex) {
+
+                                }
+
+                                @Override
+                                public void onFinished() {
+
+                                }
+                            });
+                        }
+                    });
 
             }
         }
     };
+    private TextWatcher textWacther = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (cardNumber.getText().toString().length()>0&&cardNumberCheck.getText().toString().length()>0&&code.getText().toString().length()>0){
+                submit.setEnabled(true);
+            }else{
+                submit.setEnabled(false);
+            }
+        }
+    };
+
+    private void getHomeAcvtivity() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                finish();
+            }
+        };
+        timer.schedule(task, 1500);
+    }
 
 }
