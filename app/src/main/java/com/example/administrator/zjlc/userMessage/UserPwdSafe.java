@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.login.LoginPwd;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 
@@ -45,7 +46,7 @@ public class UserPwdSafe extends AppCompatActivity {
         });
         tv_title.setText("密码安全");
 
-        //判断是否设置了登陆密码
+        //判断是否设置了交易密码
         trade_password_safe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +67,7 @@ public class UserPwdSafe extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(UserPwdSafe.this,TradePwdSetting.class);
+                                    intent.putExtra("id","1");
                                     startActivity(intent);
                                 }
                             }).setNegativeButton("取消",null).show();
@@ -87,6 +89,13 @@ public class UserPwdSafe extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+        login_password_safe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserPwdSafe.this,LoginPwd.class);
+                startActivity(intent);
             }
         });
     }

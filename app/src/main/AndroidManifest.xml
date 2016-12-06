@@ -47,7 +47,8 @@
         <activity android:name=".userMessage.UserDetail" />
         <activity android:name=".userMessage.UserPwdSafe" />
         <activity android:name=".userMessage.UserAbout" />
-        <activity android:name=".userMessage.TradePwdSetting"></activity>
+        <activity android:name=".userMessage.TradePwdSetting" />
+        <activity android:name=".login.LoginPwd"></activity>
     </application>
 
 </manifest>

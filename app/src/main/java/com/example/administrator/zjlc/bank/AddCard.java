@@ -59,14 +59,13 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCGet_code);
-                params.addBodyParameter("phone", "15266061570");
-                params.addBodyParameter("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW0iOiIxNTI2NjA2MTU3MCIsInBobyI6IjE1MjY2MDYxNTcwIiwiaWRzIjoiNDAyMSIsInZhbHAiOjE0fQ.GahO-8XLgHGSbcgDIV5BPBTQl8AAz55rJvMVSx2-FI4");
+                params.addBodyParameter("token",token);
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
                         String data = result;
                         Log.i("data注册验证码", data);
-                        Log.i("data发送参数", params+"");
+                    //    Log.i("data发送参数", params+"");
                         Gson gson = new Gson();
                         RegisterCodeBean codeBean = gson.fromJson(data,RegisterCodeBean.class);
                         codeBean = gson.fromJson(data, RegisterCodeBean.class);

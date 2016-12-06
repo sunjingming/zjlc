@@ -52,6 +52,10 @@ public class UrlsUtils {
     public static final String ZJLCCity_list = "get_city";
     //是否设置了交易密码
     public static final String ZJLCTrade_whether = "check_pin_pass";
+    //修改设置支付密码
+    public static final String ZJLCTrade_setting = "set_pin_pass";
+    //根据原密码修改登录密码
+    public static final String ZJLCOld_setting = "change_pwd_by_old";
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";

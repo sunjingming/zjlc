@@ -1,11 +1,10 @@
-package com.example.administrator.zjlc.userMessage;
+package com.example.administrator.zjlc.login;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,8 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
-import com.example.administrator.zjlc.login.RegisterCodeBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userMessage.ChangeBean;
+import com.example.administrator.zjlc.userMessage.TradePwdSetting;
 import com.example.administrator.zjlc.utils.CountDownTimerUtils;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.google.gson.Gson;
@@ -31,8 +31,7 @@ import org.xutils.x;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TradePwdSetting extends AppCompatActivity implements View.OnClickListener {
-
+public class LoginPwd extends AppCompatActivity implements View.OnClickListener{
     private TextView tv_title;
     private Toolbar toolbar;
     private Button change;
@@ -49,21 +48,11 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
     private EditText check_trade_pwd;
     private String verify;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trade_pwd_setting);
+        setContentView(R.layout.activity_login_pwd);
         initView();
-
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
-        if ("1".equals(id)) {
-            change.setVisibility(View.GONE);
-        }else {
-            change.setVisibility(View.VISIBLE);
-        }
-
         SharedPreferences preferences = getSharedPreferences("usetoken", MODE_APPEND);
         token = preferences.getString("token", null);
         toolbar.setNavigationIcon(R.drawable.back);
@@ -73,13 +62,12 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 finish();
             }
         });
-        tv_title.setText("交易密码");
+        tv_title.setText("登陆密码");
 
         old_trade_pwwd.addTextChangedListener(textWacther);
         new_trade_pwd.addTextChangedListener(textWacther);
         check_trade_pwd.addTextChangedListener(textWacther);
     }
-
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -104,7 +92,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.pwd_change_style:
                 style = change.getText().toString();
                 if (style.equals("使用手机号修改")) {
@@ -118,12 +106,10 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.change_submit:
-                if ("1".equals(id)) {
-                    setData();
-                } else if (change.getText().toString().equals("使用原密码修改")) {
+               if (change.getText().toString().equals("使用原密码修改")) {
                     if (trade_code.getText().toString().length()<1){
                         Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-                    }else if (old_trade_pwwd.getText().toString().equals(check_trade_pwd.getText().toString())){
+                    }else if (check_trade_pwd.getText().toString().equals(new_trade_pwd.getText().toString())){
                         codeData();
                     }else {
                         Toast.makeText(this, "两次密码输入不一致，请重新输入", Toast.LENGTH_SHORT).show();
@@ -131,7 +117,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 } else if (change.getText().toString().equals("使用手机号修改")) {
                     if (old_trade_pwwd.getText().toString().length()<1){
                         Toast.makeText(this, "请输入原密码", Toast.LENGTH_SHORT).show();
-                    }else if (old_trade_pwwd.getText().toString().equals(check_trade_pwd.getText().toString())){
+                    }else if (new_trade_pwd.getText().toString().equals(check_trade_pwd.getText().toString())){
                         oldData();
                     }else {
                         Toast.makeText(this, "两次密码输入不一致，请重新输入", Toast.LENGTH_SHORT).show();
@@ -158,7 +144,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                             countDownTimerUtils.start();
                             verify = codeBean.getData();
                         } else {
-                            Toast.makeText(TradePwdSetting.this, codeBean.getMsg(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginPwd.this, codeBean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -181,55 +167,10 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void setData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-        params.addBodyParameter("pin_pass", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
-        params.addBodyParameter("pin_pass_new",MD5Utils.Md5(new_trade_pwd.getText().toString()));
-        params.addBodyParameter("token",token);
-        params.addBodyParameter("type","1");
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.i("data设置支付",data);
-                Gson gson = new Gson();
-                ChangeBean change = gson.fromJson(data,ChangeBean.class);
-                if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    }).show();
-                    getHomeAcvtivity();
-                }else {
-                    Toast.makeText(TradePwdSetting.this, change.getMsg(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
     private void codeData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-     //   params.addBodyParameter("pin_pass", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
-        params.addBodyParameter("pin_pass_new",MD5Utils.Md5(new_trade_pwd.getText().toString()));
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCForget_pwd);
+        params.addBodyParameter("pwd", MD5Utils.Md5(new_trade_pwd.getText().toString()));
         params.addBodyParameter("token",token);
-        params.addBodyParameter("type","3");
         params.addBodyParameter("code",trade_code.getText().toString());
         params.addBodyParameter("verify_code",verify);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -240,7 +181,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(LoginPwd.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -248,7 +189,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                     }).show();
                     getHomeAcvtivity();
                 }else {
-                    Toast.makeText(TradePwdSetting.this, change.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPwd.this, change.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -270,11 +211,10 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
     }
 
     private void oldData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-        params.addBodyParameter("pin_pass", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
-        params.addBodyParameter("pin_pass_new",MD5Utils.Md5(new_trade_pwd.getText().toString()));
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCOld_setting);
+        params.addBodyParameter("old_pwd", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
+        params.addBodyParameter("pwd",MD5Utils.Md5(new_trade_pwd.getText().toString()));
         params.addBodyParameter("token",token);
-        params.addBodyParameter("type","2");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -283,7 +223,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(LoginPwd.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -291,7 +231,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                     }).show();
                     getHomeAcvtivity();
                 }else {
-                    Toast.makeText(TradePwdSetting.this, change.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPwd.this, change.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -312,6 +252,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+
     private TextWatcher textWacther = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -327,18 +268,17 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         public void afterTextChanged(Editable s) {
 
 
-                if (new_trade_pwd.getText().toString().length()>5&&check_trade_pwd.getText().toString().length()>5){
-                    change_submit.setEnabled(true);
-                }else {
-                    change_submit.setEnabled(false);
-                }
+            if (new_trade_pwd.getText().toString().length()>5&&check_trade_pwd.getText().toString().length()>5){
+                change_submit.setEnabled(true);
+            }else {
+                change_submit.setEnabled(false);
+            }
 
 
 
 
         }
     };
-
     private void getHomeAcvtivity() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
@@ -349,6 +289,4 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         };
         timer.schedule(task, 1500);
     }
-
-
 }

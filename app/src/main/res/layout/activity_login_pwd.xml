@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_trade_pwd_setting"
+    android:id="@+id/activity_login_pwd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.example.administrator.zjlc.userMessage.TradePwdSetting">
-
+    android:background="@color/white"
+    tools:context="com.example.administrator.zjlc.login.LoginPwd">
     <include layout="@layout/toolbar" />
 
     <LinearLayout
@@ -177,4 +176,5 @@
             android:text="确认" />
 
     </LinearLayout>
+
 </LinearLayout>
