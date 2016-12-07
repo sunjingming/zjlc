@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_mail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m8"
+            android:layout_marginTop="@dimen/m8"
+            android:text="消息提示：您刚刚申请了提现操作"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/user_mail_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m24"
+            android:layout_marginTop="@dimen/m4"
+            android:layout_marginRight="@dimen/m8"
+            android:text="您刚刚申请了提现操作"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/user_mail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="@dimen/m24"
+            android:layout_marginRight="@dimen/m8"
+            android:layout_marginTop="@dimen/m4"
+            android:text="2016_05_54:08.20"
+            android:textColor="@color/black" />
+        <include layout="@layout/split_h1"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -68,6 +68,8 @@ public class UrlsUtils {
     public static final  String ZJLCCashing_record = "withdraw_list";
     //活动页内容
     public static final  String ZJLCExcrise= "zhuojin.petope.com/m/sdapp/events";
+    //站内信
+    public static final  String ZJLCMail= "inner_msg_list";
     public static final  String ZJLCPhone_check = "check_name";
 
     //标得详情

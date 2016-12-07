@@ -24,6 +24,7 @@ import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.userExercise.UserExercise;
+import com.example.administrator.zjlc.userMessage.UserMail;
 import com.example.administrator.zjlc.userMessage.UserMessage;
 import com.google.gson.Gson;
 
@@ -41,6 +42,7 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView login;
     private TextView asset;
     private TextView interest;
+    private ImageView message;
     private TextView balance;
     private TextView recharge;
     private TextView freeze;
@@ -86,6 +88,7 @@ public class Account extends BasePager implements View.OnClickListener {
         cash.setOnClickListener(this);
         recharge.setOnClickListener(this);
         exercise.setOnClickListener(this);
+        message.setOnClickListener(this);
 
 
 
@@ -203,6 +206,7 @@ public class Account extends BasePager implements View.OnClickListener {
         invite = (TextView) view.findViewById(R.id.user_invite);
         cash = (TextView) view.findViewById(R.id.cash);
         recharge = (TextView) view.findViewById(R.id.recharge);
+        message = (ImageView) view.findViewById(R.id.user_messge);
         exercise = (TextView) view.findViewById(R.id.user_activity);
 
     }
@@ -250,6 +254,11 @@ public class Account extends BasePager implements View.OnClickListener {
             case R.id.user_activity:
                 Intent intentExerise = new Intent(mActivity,UserExercise.class);
                 mActivity.startActivity(intentExerise);
+                break;
+            case R.id.user_messge:
+                Intent intentMessage = new Intent(mActivity,UserMail.class);
+                mActivity.startActivity(intentMessage);
+                break;
         }
     }
 
