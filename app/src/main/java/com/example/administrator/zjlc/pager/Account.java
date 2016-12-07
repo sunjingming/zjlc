@@ -23,6 +23,7 @@ import com.example.administrator.zjlc.cash.Cash;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userExercise.UserExercise;
 import com.example.administrator.zjlc.userMessage.UserMessage;
 import com.google.gson.Gson;
 
@@ -41,9 +42,11 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView asset;
     private TextView interest;
     private TextView balance;
+    private TextView recharge;
     private TextView freeze;
     private TextView approve;
     private TextView invite;
+    private TextView exercise;
     private TextView cash;
     private TextView bank;
     private String token;
@@ -81,6 +84,9 @@ public class Account extends BasePager implements View.OnClickListener {
         bank.setOnClickListener(this);
         head.setOnClickListener(this);
         cash.setOnClickListener(this);
+        recharge.setOnClickListener(this);
+        exercise.setOnClickListener(this);
+
 
 
         fl_basepager_content.addView(view);
@@ -196,6 +202,8 @@ public class Account extends BasePager implements View.OnClickListener {
         bank = (TextView) view.findViewById(R.id.user_bank);
         invite = (TextView) view.findViewById(R.id.user_invite);
         cash = (TextView) view.findViewById(R.id.cash);
+        recharge = (TextView) view.findViewById(R.id.recharge);
+        exercise = (TextView) view.findViewById(R.id.user_activity);
 
     }
 
@@ -234,6 +242,14 @@ public class Account extends BasePager implements View.OnClickListener {
             case R.id.cash:
                 Intent intentCash = new Intent(mActivity,Cash.class);
                 mActivity.startActivity(intentCash);
+                break;
+            case R.id.recharge:
+                Toast.makeText(mActivity, "暂未开放充值功能", Toast.LENGTH_SHORT).show();
+                break;
+            //进入我的活动页面
+            case R.id.user_activity:
+                Intent intentExerise = new Intent(mActivity,UserExercise.class);
+                mActivity.startActivity(intentExerise);
         }
     }
 

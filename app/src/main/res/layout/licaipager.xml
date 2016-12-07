@@ -190,6 +190,7 @@
             android:background="@color/gray9" />
 
         <TextView
+            android:id="@+id/recharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/m8"
@@ -260,6 +261,7 @@
     <include layout="@layout/split_h8_gray3" />
 
     <TextView
+        android:id="@+id/user_activity"
         style="@style/AccountItemStyle"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"
