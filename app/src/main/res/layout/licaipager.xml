@@ -23,8 +23,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/all_default_avatar" />
+                android:src="@drawable/all_default_avatar"
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/user_login"
@@ -173,6 +173,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/m8"
@@ -205,16 +206,30 @@
         android:layout_marginTop="@dimen/m4"
         android:background="@color/gray1" />
 
-    <TextView
-        android:id="@+id/user_trde"
-        style="@style/AccountItemStyle"
-        android:drawablePadding="@dimen/m8"
-        android:drawableRight="@drawable/right_more"
-        android:paddingLeft="@dimen/m8"
-        android:paddingRight="@dimen/m8"
-        android:text="我的邀请码"
-        android:drawableLeft="@drawable/invest"
-        android:textColor="@color/gray22" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/AccountItemStyle"
+            android:drawablePadding="@dimen/m8"
+            android:paddingLeft="@dimen/m8"
+            android:paddingRight="@dimen/m8"
+            android:text="我的邀请码"
+            android:drawableLeft="@drawable/invest"
+            android:textColor="@color/gray22"
+            android:layout_width="181dp" />
+
+        <TextView
+            android:id="@+id/user_invite"
+            style="@style/AccountItemStyle"
+            android:drawablePadding="@dimen/m8"
+            android:paddingLeft="@dimen/m8"
+            android:paddingRight="@dimen/m8"
+            android:textColor="@color/gray22" />
+
+    </LinearLayout>
+
 
     <include layout="@layout/split_h8_gray3" />
 

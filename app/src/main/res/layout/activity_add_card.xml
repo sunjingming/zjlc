@@ -44,13 +44,15 @@
         <TextView
             style="@style/MoreItemStyle"
             android:layout_marginLeft="@dimen/m10"
-            android:layout_weight="0.89"
             android:text="户主名称"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_width="278dp" />
 
         <TextView
-            android:id="@+id/bind_householder_name"
+            android:id="@+id/bind_user_name"
             style="@style/MoreItemStyle"
+            android:text="fwefwefwf"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/m10" />
     </LinearLayout>

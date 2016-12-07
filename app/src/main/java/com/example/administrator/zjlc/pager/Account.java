@@ -19,6 +19,7 @@ import com.example.administrator.zjlc.bank.ApproveJuadgeBean;
 import com.example.administrator.zjlc.bank.BankJuadgeBean;
 import com.example.administrator.zjlc.bank.CardMsg;
 import com.example.administrator.zjlc.base.BasePager;
+import com.example.administrator.zjlc.cash.Cash;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
@@ -42,6 +43,8 @@ public class Account extends BasePager implements View.OnClickListener {
     private TextView balance;
     private TextView freeze;
     private TextView approve;
+    private TextView invite;
+    private TextView cash;
     private TextView bank;
     private String token;
     private ImageView head;
@@ -77,36 +80,11 @@ public class Account extends BasePager implements View.OnClickListener {
         approve.setOnClickListener(this);
         bank.setOnClickListener(this);
         head.setOnClickListener(this);
+        cash.setOnClickListener(this);
 
 
         fl_basepager_content.addView(view);
 
-
-        //请求用户信息
-        RequestParams paramsAccount  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCUser_page);
-        paramsAccount.addBodyParameter("token",token);
-        x.http().post(paramsAccount, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.i("data用户信息",data);
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
         //判断是否进行实名认证
         RequestParams paramms  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_juadge);
         paramms.addBodyParameter("token",token);
@@ -184,6 +162,7 @@ public class Account extends BasePager implements View.OnClickListener {
                 interest.setText("¥" + String.valueOf(datalist.getCollect_interest()));
                 freeze.setText("¥" + String.valueOf(datalist.getFreeze_money()));
                 Glide.with(mActivity).load(datalist.getHeader_img()).into(head);
+                invite.setText(datalist.getInvite_code());
             }
 
             @Override
@@ -215,6 +194,8 @@ public class Account extends BasePager implements View.OnClickListener {
         head = (ImageView) view.findViewById(R.id.user_head);
         approve = (TextView) view.findViewById(R.id.user_approve);
         bank = (TextView) view.findViewById(R.id.user_bank);
+        invite = (TextView) view.findViewById(R.id.user_invite);
+        cash = (TextView) view.findViewById(R.id.cash);
 
     }
 
@@ -249,6 +230,10 @@ public class Account extends BasePager implements View.OnClickListener {
             case R.id.user_head:
                 Intent intentUser = new Intent(mActivity,UserMessage.class);
                 mActivity.startActivity(intentUser);
+                break;
+            case R.id.cash:
+                Intent intentCash = new Intent(mActivity,Cash.class);
+                mActivity.startActivity(intentCash);
         }
     }
 

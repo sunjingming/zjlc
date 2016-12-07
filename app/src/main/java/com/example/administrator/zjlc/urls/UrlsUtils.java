@@ -60,7 +60,12 @@ public class UrlsUtils {
     public static final String ZJLCAdd_card = "bind_bank_card";
     //用户银行卡信息
     public static final String ZJLCBank_msg = "bank_card_info";
+    //提现手续费
+    public static final String ZJLCCashing_fee = "withdraw_fee";
+    //提现申请
+    public static final  String ZJLCCashing_apply = "withdraw";
     public static final  String ZJLCPhone_check = "check_name";
+
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
 }

@@ -65,6 +65,34 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
         cardNumber.addTextChangedListener(textWacther);
         code.addTextChangedListener(textWacther);
 
+        RequestParams paramsAccount = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);
+        paramsAccount.addBodyParameter("token", token);
+        x.http().post(paramsAccount, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data用户信息", data);
+                Gson gson = new Gson();
+                UserBean userbean = gson.fromJson(data,UserBean.class);
+                name.setText(userbean.getData().getReal_name());
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
 
 
     }
@@ -72,7 +100,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         title = (TextView) findViewById(R.id.tv_title);
-        name = (TextView) findViewById(R.id.bind_householder_name);
+        name = (TextView) findViewById(R.id.bind_user_name);
         bank = (TextView) findViewById(R.id.bind_choose_bank);
         area = (TextView) findViewById(R.id.area_choose);
         cardNumber = (EditText) findViewById(R.id.bank_card_number);
@@ -166,6 +194,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                             Log.i("data用户信息", data);
                             Gson gson = new Gson();
                             UserBean userbean = gson.fromJson(data,UserBean.class);
+                            name.setText(userbean.getData().getReal_name());
                         }
 
                         @Override

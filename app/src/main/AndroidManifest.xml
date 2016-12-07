@@ -49,7 +49,9 @@
         <activity android:name=".userMessage.UserAbout" />
         <activity android:name=".userMessage.TradePwdSetting" />
         <activity android:name=".login.LoginPwd" />
-        <activity android:name=".bank.CardMsg"></activity>
+        <activity android:name=".bank.CardMsg" />
+        <activity android:name=".cash.Cash" />
+        <activity android:name=".cash.Cashing"></activity>
     </application>
 
 </manifest>
