@@ -47,9 +47,21 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cashing);
+
         initView();
+
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        tv_title.setText("提现");
+
         SharedPreferences preferences = getSharedPreferences("usetoken", MODE_APPEND);
         token = preferences.getString("token", null);
+
         Intent intent = getIntent();
         money = intent.getStringExtra("money");
         fee = intent.getStringExtra("fee");
@@ -119,8 +131,8 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
                             String data = result;
                             Log.i("data提现申请", data);
                             Gson gson = new Gson();
-                            CashingBean bean = gson.fromJson(data,CashingBean.class);
-                            if (bean.getEvent()==88){
+                            CashingBean bean = gson.fromJson(data, CashingBean.class);
+                            if (bean.getEvent() == 88) {
                                 AlertDialog dialog = new AlertDialog.Builder(Cashing.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -150,6 +162,7 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+
     private void getHomeAcvtivity() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {

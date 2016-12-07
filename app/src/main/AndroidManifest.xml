@@ -51,7 +51,8 @@
         <activity android:name=".login.LoginPwd" />
         <activity android:name=".bank.CardMsg" />
         <activity android:name=".cash.Cash" />
-        <activity android:name=".cash.Cashing"></activity>
+        <activity android:name=".cash.Cashing" />
+        <activity android:name=".cash.CashRecord"></activity>
     </application>
 
 </manifest>

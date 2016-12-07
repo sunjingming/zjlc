@@ -146,7 +146,10 @@ public class Cash extends AppCompatActivity implements View.OnClickListener {
 
                 break;
             case R.id.cash_record:
-
+                Intent intent = new Intent(Cash.this, CashRecord.class);
+                startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

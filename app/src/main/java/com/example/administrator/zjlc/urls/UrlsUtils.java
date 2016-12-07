@@ -64,6 +64,8 @@ public class UrlsUtils {
     public static final String ZJLCCashing_fee = "withdraw_fee";
     //提现申请
     public static final  String ZJLCCashing_apply = "withdraw";
+    //提现记录
+    public static final  String ZJLCCashing_record = "withdraw_list";
     public static final  String ZJLCPhone_check = "check_name";
 
     //标得详情
