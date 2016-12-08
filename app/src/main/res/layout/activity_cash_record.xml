@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cash_record"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.cash.CashRecord">
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="提现时间"
+            android:textColor="@color/gray9" />
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="提现金额"
+            android:textColor="@color/gray9" />
+
+        <TextView
+            style="@style/MoreItemStyle"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="提现状态"
+            android:textColor="@color/gray9" />
+
+    </LinearLayout>
+    <include layout="@layout/split_h1"/>
+
+    <ListView
+        android:id="@+id/cash_record_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
+
+</LinearLayout>

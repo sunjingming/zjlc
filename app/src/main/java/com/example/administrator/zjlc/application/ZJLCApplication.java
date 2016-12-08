@@ -4,6 +4,8 @@ import android.app.Application;
 
 import org.xutils.x;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by Administrator on 2016/11/30.
  */
@@ -14,5 +16,6 @@ public class ZJLCApplication extends Application {
         super.onCreate();
         x.Ext.init(this);
         x.Ext.setDebug(true);//是否输出Debug日志
+        ShareSDK.initSDK(this);
     }
 }

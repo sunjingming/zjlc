@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.cash.Cash">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/red"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余额"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cash_use_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/m8"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/cash_money"
+            style="@style/EditTextStyle"
+            android:layout_width="348dp"
+            android:hint="输入金额"
+            android:textColor="@color/black"
+            android:inputType="number"
+            android:textColorHint="@color/gray9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textColor="@color/gray9" />
+
+    </LinearLayout>
+    <include layout="@layout/split_h1"/>
+
+    <Button
+        android:id="@+id/cashing"
+        style="@style/EllipseSubmitButtonStyles"
+        android:layout_marginTop="@dimen/m65"
+        android:enabled="false"
+        android:layout_marginLeft="@dimen/m65"
+        android:layout_marginRight="@dimen/m65"
+        android:text="进行提现"/>
+
+    <Button
+        android:id="@+id/cash_record"
+        style="@style/EllipseSubmitButtonStyles"
+        android:layout_marginTop="@dimen/m40"
+        android:layout_marginLeft="@dimen/m65"
+        android:layout_marginRight="@dimen/m65"
+        android:text="提现记录"/>
+
+
+</LinearLayout>

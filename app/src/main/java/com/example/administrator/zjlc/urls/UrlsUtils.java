@@ -50,7 +50,28 @@ public class UrlsUtils {
     public static final String ZJLCProvince_list = "get_province";
     //地市列表
     public static final String ZJLCCity_list = "get_city";
+    //是否设置了交易密码
+    public static final String ZJLCTrade_whether = "check_pin_pass";
+    //修改设置支付密码
+    public static final String ZJLCTrade_setting = "set_pin_pass";
+    //根据原密码修改登录密码
+    public static final String ZJLCOld_setting = "change_pwd_by_old";
+    //绑定银行卡
+    public static final String ZJLCAdd_card = "bind_bank_card";
+    //用户银行卡信息
+    public static final String ZJLCBank_msg = "bank_card_info";
+    //提现手续费
+    public static final String ZJLCCashing_fee = "withdraw_fee";
+    //提现申请
+    public static final  String ZJLCCashing_apply = "withdraw";
+    //提现记录
+    public static final  String ZJLCCashing_record = "withdraw_list";
+    //活动页内容
+    public static final  String ZJLCExcrise= "zhuojin.petope.com/m/sdapp/events";
+    //站内信
+    public static final  String ZJLCMail= "inner_msg_list";
     public static final  String ZJLCPhone_check = "check_name";
+
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
     //散标列表

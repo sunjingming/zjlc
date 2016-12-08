@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_user_pwd_safe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.userMessage.UserPwdSafe">
+
+    <include layout="@layout/toolbar"/>
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/gray3" />
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/AccountItemStyle"
+            android:layout_width="271dp"
+            android:text="登陆密码" />
+
+        <TextView
+            android:id="@+id/login_password_safe"
+            style="@style/AccountItemStyle"
+            android:drawableRight="@drawable/right_more"
+            android:paddingRight="@dimen/m8"
+            android:text="修改"
+            android:textColor="@color/gray9" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/AccountItemStyle"
+            android:layout_width="271dp"
+            android:text="交易密码" />
+
+        <TextView
+            android:id="@+id/trade_password_safe"
+            style="@style/AccountItemStyle"
+            android:drawableRight="@drawable/right_more"
+            android:paddingRight="@dimen/m8"
+            android:text="修改"
+            android:textColor="@color/gray9" />
+    </LinearLayout>
+
+    <include layout="@layout/split_h1" />
+</LinearLayout>
