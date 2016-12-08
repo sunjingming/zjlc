@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/but1"
+            android:textColor="#ef2c2c"
+            android:text="精选散标"
+            android:background="@drawable/yuanjiao"
+            android:layout_width="170dp"
+            android:layout_height="60dp" />
+        <Button
+            android:id="@+id/but2"
+            android:textColor="#ef2c2c"
+            android:text="债权转让"
+            android:background="@drawable/rightyuan"
+            android:layout_width="170dp"
+            android:layout_height="60dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/id_recyclerview"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </LinearLayout>

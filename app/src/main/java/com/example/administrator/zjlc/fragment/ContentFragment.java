@@ -55,7 +55,7 @@ public class ContentFragment extends BaseFragment {
         basePagers.add(new HomePager(mActivity));//添加首页
         basePagers.add(new Account(mActivity));//
         basePagers.add(new Find(mActivity));//
-        basePagers.add(new MorePager(mActivity));//
+//        basePagers.add(new MorePager(mActivity));//
 
 
         //设置ViewPager的适配器
@@ -113,9 +113,9 @@ public class ContentFragment extends BaseFragment {
                 case R.id.rb_govaffair://我的
                     vp_content_fragment.setCurrentItem(2,false);
                     break;
-                case R.id.rb_setting://更多
-                    vp_content_fragment.setCurrentItem(3,false);
-                    break;
+//                case R.id.rb_setting://更多
+//                    vp_content_fragment.setCurrentItem(3,false);
+//                    break;
             }
 
         }

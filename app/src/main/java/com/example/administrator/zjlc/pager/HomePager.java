@@ -1,6 +1,8 @@
 package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -61,19 +63,24 @@ public class HomePager extends BasePager {
     public Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-                //设置
-                viewPagerAdapter = new ViewPagerAdapter();
-                dots.get(0).setBackgroundResource(R.drawable.dot_focused);
-                viewpager.setOnPageChangeListener(new MyPageChangeListener());
-                viewpager.setAdapter(viewPagerAdapter);
-                iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            //设置
+            viewPagerAdapter = new ViewPagerAdapter();
+            dots.get(0).setBackgroundResource(R.drawable.dot_focused);
+            viewpager.setOnPageChangeListener(new MyPageChangeListener());
+            viewpager.setAdapter(viewPagerAdapter);
+
+            iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(id != null){
                         Intent intent = new Intent(mActivity, DetailsActivity.class);
                         intent.putExtra("id",id);
                         mActivity.startActivity(intent);
+                    }else{
+                        new AlertDialog.Builder(mActivity).setMessage("投资成功").show();
                     }
-                });
+                }
+            });
             return false;
         }
     });
@@ -110,7 +117,7 @@ public class HomePager extends BasePager {
         setViewpagerData();
         //设置推荐标的详情
         setViewText();
-        }
+    }
 
     private void setViewText() {
         RequestParams requestparams = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCRecommend_list);

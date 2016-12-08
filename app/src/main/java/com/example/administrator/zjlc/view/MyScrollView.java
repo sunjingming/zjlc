@@ -35,7 +35,7 @@ public class MyScrollView extends ScrollView{
     private void initView() {
         DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
         float density = metrics.density;
-        mMaxOverDistance = (int) (density * mMaxOverDistance);
+//        mMaxOverDistance = (int) (density * mMaxOverDistance);
     }
 
     @Override

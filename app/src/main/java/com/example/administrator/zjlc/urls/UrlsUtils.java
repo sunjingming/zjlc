@@ -53,4 +53,8 @@ public class UrlsUtils {
     public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
+    //散标列表
+    public static final  String ZJLCBorrow_list = "borrow_list";
+    //债权转让
+    public static final  String ZJLCDebt_list = "debt_list";
 }
