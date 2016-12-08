@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/m8"
             android:layout_marginTop="@dimen/m8"
-            android:text="消息提示：您刚刚申请了提现操作"
             android:textColor="@color/black" />
 
         <TextView
@@ -25,7 +24,6 @@
             android:layout_marginLeft="@dimen/m24"
             android:layout_marginTop="@dimen/m4"
             android:layout_marginRight="@dimen/m8"
-            android:text="您刚刚申请了提现操作"
             android:textColor="@color/black" />
 
         <TextView
@@ -36,7 +34,6 @@
             android:layout_marginLeft="@dimen/m24"
             android:layout_marginRight="@dimen/m8"
             android:layout_marginTop="@dimen/m4"
-            android:text="2016_05_54:08.20"
             android:textColor="@color/black" />
         <include layout="@layout/split_h1"/>
     </LinearLayout>

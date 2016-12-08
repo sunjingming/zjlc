@@ -45,12 +45,36 @@ public class UserExercise extends AppCompatActivity {
         exercise_linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserExercise.this,ExerciseDetail.class);
-                startActivity(intent);
+                detail();
+            }
+
+
+        });
+        exercise_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detail();
+            }
+        });
+        exercise_contnet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detail();
+            }
+        });
+        exercise_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detail();
             }
         });
 
 
+    }
+
+    private void detail() {
+        Intent intent = new Intent(UserExercise.this,ExerciseDetail.class);
+        startActivity(intent);
     }
 
     private void initView() {

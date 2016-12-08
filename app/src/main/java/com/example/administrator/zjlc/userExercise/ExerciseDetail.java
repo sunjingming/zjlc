@@ -19,12 +19,20 @@ public class ExerciseDetail extends AppCompatActivity {
 
     private ImageView exercise_share;
     private WebView webView;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_detail);
         initView();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         webView.loadUrl("http://zhuojin.petope.com/M/event/20160924153604873.html");
         exercise_share.setOnClickListener(new View.OnClickListener() {
@@ -33,15 +41,13 @@ public class ExerciseDetail extends AppCompatActivity {
                 showShare(ExerciseDetail.this, null, true);
             }
         });
-
-
-
-
+        
     }
 
     private void initView() {
         exercise_share = (ImageView) findViewById(R.id.exercise_share);
         webView = (WebView) findViewById(R.id.webView);
+        back = (ImageView) findViewById(R.id.exercise_detail_back);
     }
 
     public static void showShare(Context context, String platformToShare, boolean showContentEdit) {
@@ -69,11 +75,7 @@ public class ExerciseDetail extends AppCompatActivity {
         oks.setSiteUrl("http://keyinfq.petope.com/");//QZone分享参数
         oks.setVenueName("ShareSDK");
         oks.setVenueDescription("This is a beautiful place!");
-        // 将快捷分享的操作结果将通过OneKeyShareCallback回调
-        //oks.setCallback(new OneKeyShareCallback());
-        // 去自定义不同平台的字段内容
-        //oks.setShareContentCustomizeCallback(new ShareContentCustomizeDemo());
-        // 在九宫格设置自定义的图标
+
         Bitmap logo = BitmapFactory.decodeResource(context.getResources(), R.color.white);
         String label = "";
         View.OnClickListener listener = new View.OnClickListener() {
@@ -82,53 +84,7 @@ public class ExerciseDetail extends AppCompatActivity {
             }
         };
         oks.setCustomerLogo(logo, label, listener);
-
-        // 为EditPage设置一个背景的View
-        //oks.setEditPageBackground(getPage());
-        // 隐藏九宫格中的新浪微博
-        // oks.addHiddenPlatform(SinaWeibo.NAME);
-
-        // String[] AVATARS = {
-        // 		"http://99touxiang.com/public/upload/nvsheng/125/27-011820_433.jpg",
-        // 		"http://img1.2345.com/duoteimg/qqTxImg/2012/04/09/13339485237265.jpg",
-        // 		"http://diy.qqjay.com/u/files/2012/0523/f466c38e1c6c99ee2d6cd7746207a97a.jpg",
-        // 		"http://diy.qqjay.com/u2/2013/0422/fadc08459b1ef5fc1ea6b5b8d22e44b4.jpg",
-        // 		"http://img1.2345.com/duoteimg/qqTxImg/2012/04/09/13339510584349.jpg",
-        // 		"http://diy.qqjay.com/u2/2013/0401/4355c29b30d295b26da6f242a65bcaad.jpg" };
-        // oks.setImageArray(AVATARS);              //腾讯微博和twitter用此方法分享多张图片，其他平台不可以
-
         // 启动分享
         oks.show(context);
-    }
-    public static String[] randomPic() {
-        String url = "http://git.oschina.net/alexyu.yxj/MyTmpFiles/raw/master/kmk_pic_fld/";
-        String urlSmall = "http://git.oschina.net/alexyu.yxj/MyTmpFiles/raw/master/kmk_pic_fld/small/";
-        String[] pics = new String[] {
-                "120.JPG",
-                "127.JPG",
-                "130.JPG",
-                "18.JPG",
-                "184.JPG",
-                "22.JPG",
-                "236.JPG",
-                "237.JPG",
-                "254.JPG",
-                "255.JPG",
-                "263.JPG",
-                "265.JPG",
-                "273.JPG",
-                "37.JPG",
-                "39.JPG",
-                "IMG_2219.JPG",
-                "IMG_2270.JPG",
-                "IMG_2271.JPG",
-                "IMG_2275.JPG",
-                "107.JPG"
-        };
-        int index = (int) (System.currentTimeMillis() % pics.length);
-        return new String[] {
-                url + pics[index],
-                urlSmall + pics[index]
-        };
     }
 }
