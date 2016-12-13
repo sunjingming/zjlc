@@ -23,22 +23,23 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoneyRecord extends AppCompatActivity {
-
+public class RedPacket extends AppCompatActivity {
     private TextView tv_title;
     private Toolbar toolbar;
-    private PullToRefreshListView money_record_list;
-    private List<MoneyRecordBean.DataBean> listData = new ArrayList<MoneyRecordBean.DataBean>();
-    private MoneyRecordAdapter adapter;
+    private PullToRefreshListView red_packet_list;
     private String token;
+    private RedPacketAdapter adapter;
     private int page=1;
     private int pageCount=1;
+    private List<RedPacketBean.DataBean>listData  = new ArrayList<>();
+    //特权金页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money_record);
+        setContentView(R.layout.activity_red_packet);
         initView();
+
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,20 +47,28 @@ public class MoneyRecord extends AppCompatActivity {
                 finish();
             }
         });
-        tv_title.setText("资金记录");
+        tv_title.setText("我的特权金");
+
         SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
         token = fence.getString("token", "");
+
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         loadData();
 
-
         //2实例化适配器
-        adapter=new MoneyRecordAdapter(MoneyRecord.this,listData);
+        adapter=new RedPacketAdapter(RedPacket.this,listData);
         //3设置适配器
-        money_record_list.setAdapter(adapter);
+        red_packet_list.setAdapter(adapter);
 
         //4.设置刷新模式[上下拉都有]
-        money_record_list.setMode(PullToRefreshBase.Mode.BOTH);
-        money_record_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+        red_packet_list.setMode(PullToRefreshBase.Mode.BOTH);
+        red_packet_list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             /**
              * 下拉刷新
              * 作用:清空原数据，加载新数据
@@ -82,11 +91,11 @@ public class MoneyRecord extends AppCompatActivity {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (page==pageCount){
-                    Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
-                    money_record_list.postDelayed(new Runnable() {
+                    Toast.makeText(RedPacket.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    red_packet_list.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            money_record_list.onRefreshComplete();
+                            red_packet_list.onRefreshComplete();
                         }
                     }, 1000);
                 }else {
@@ -100,7 +109,8 @@ public class MoneyRecord extends AppCompatActivity {
     }
 
     private void loadData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCMoney_record);
+
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCRed_packet);
         params.addBodyParameter("token",token);
         params.addBodyParameter("page",page+"");
         params.addBodyParameter("pagesize","5");
@@ -108,15 +118,13 @@ public class MoneyRecord extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data资金记录",data);
+                Log.i("data特权金",data);
                 Gson gson = new Gson();
-                MoneyRecordBean bean  = gson.fromJson(data,MoneyRecordBean.class);
+                RedPacketBean bean  = gson.fromJson(data,RedPacketBean.class);
                 pageCount = bean.getMaxPage();
                 listData.addAll(bean.getData());
                 adapter.notifyDataSetChanged();
-                money_record_list.onRefreshComplete();
-
-
+                red_packet_list.onRefreshComplete();
             }
 
             @Override
@@ -134,12 +142,11 @@ public class MoneyRecord extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        money_record_list = (PullToRefreshListView) findViewById(R.id.money_record_list);
+        red_packet_list = (PullToRefreshListView) findViewById(R.id.red_packet_list);
     }
 }

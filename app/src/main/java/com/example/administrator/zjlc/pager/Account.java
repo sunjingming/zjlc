@@ -271,6 +271,7 @@ public class Account extends BasePager implements View.OnClickListener {
                 Intent intentInvest = new Intent(mActivity,Invest.class);
                 mActivity.startActivity(intentInvest);
                 break;
+            //进入特权金页面
             case R.id.user_manage:
                 Intent intentManage = new Intent(mActivity,MoneyMatter.class);
                 mActivity.startActivity(intentManage);

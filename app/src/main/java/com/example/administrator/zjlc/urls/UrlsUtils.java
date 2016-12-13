@@ -74,6 +74,8 @@ public class UrlsUtils {
     public static final  String ZJLCBorrow= "borrowapply";
     //资金记录
     public static final  String ZJLCMoney_record= "money_log";
+    //卓金红包/特权金
+    public static final  String ZJLCRed_packet= "coupon_list";
     public static final  String ZJLCPhone_check = "check_name";
 
     //标得详情
