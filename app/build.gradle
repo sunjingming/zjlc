@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile files('libs/fastjson-1.2.5.jar')
     compile files('libs/MobCommons-2016.1107.1809.jar')
+    compile project(':pulltorefresh')
 }

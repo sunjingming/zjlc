@@ -122,7 +122,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".userMessage.UserMail"></activity>
+        <activity android:name=".userMessage.UserMail" />
+        <activity android:name=".invest.Invest" />
+        <activity android:name=".invest.MoneyMatter" />
+        <activity android:name=".invest.InvestBorrow" />
+        <activity android:name=".invest.InvestRecord" />
+        <activity android:name=".invest.MoneyRecord"></activity>
     </application>
 
 </manifest>
