@@ -20,6 +20,8 @@ import com.example.administrator.zjlc.bank.BankJuadgeBean;
 import com.example.administrator.zjlc.bank.CardMsg;
 import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.cash.Cash;
+import com.example.administrator.zjlc.invest.Invest;
+import com.example.administrator.zjlc.invest.MoneyMatter;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
@@ -55,6 +57,8 @@ public class Account extends BasePager implements View.OnClickListener {
     private ImageView head;
     private int event;
     private int eventBank;
+    private TextView user_manage;
+    private TextView user_invite;
 
     public Account(Activity activity) {
         super(activity);
@@ -75,9 +79,9 @@ public class Account extends BasePager implements View.OnClickListener {
         initView();
         getData();
 
-        if (token.equals("")){
+        if (token.equals("")) {
             login.setText("登陆");
-        }else {
+        } else {
             login.setText("退出");
         }
 
@@ -89,21 +93,22 @@ public class Account extends BasePager implements View.OnClickListener {
         recharge.setOnClickListener(this);
         exercise.setOnClickListener(this);
         message.setOnClickListener(this);
-
+        user_invite.setOnClickListener(this);
+        user_manage.setOnClickListener(this);
 
 
         fl_basepager_content.addView(view);
 
         //判断是否进行实名认证
-        RequestParams paramms  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_juadge);
-        paramms.addBodyParameter("token",token);
+        RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
+        paramms.addBodyParameter("token", token);
         x.http().post(paramms, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data是否实名",data);
+                Log.i("data是否实名", data);
                 Gson gson = new Gson();
-                ApproveJuadgeBean juadgeBean = gson.fromJson(data,ApproveJuadgeBean.class);
+                ApproveJuadgeBean juadgeBean = gson.fromJson(data, ApproveJuadgeBean.class);
                 event = juadgeBean.getEvent();
 
             }
@@ -124,15 +129,15 @@ public class Account extends BasePager implements View.OnClickListener {
             }
         });
         //判断是否绑定银行卡
-        RequestParams params  = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBank_juadge);
-        params.addBodyParameter("token",token);
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_juadge);
+        params.addBodyParameter("token", token);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data是否绑卡",data);
+                Log.i("data是否绑卡", data);
                 Gson gson = new Gson();
-                BankJuadgeBean juadgeBean  = gson.fromJson(data,BankJuadgeBean.class);
+                BankJuadgeBean juadgeBean = gson.fromJson(data, BankJuadgeBean.class);
                 eventBank = juadgeBean.getEvent();
             }
 
@@ -208,6 +213,8 @@ public class Account extends BasePager implements View.OnClickListener {
         recharge = (TextView) view.findViewById(R.id.recharge);
         message = (ImageView) view.findViewById(R.id.user_messge);
         exercise = (TextView) view.findViewById(R.id.user_activity);
+        user_invite = (TextView) view.findViewById(R.id.user_invest);
+        user_manage = (TextView) view.findViewById(R.id.user_manage);
 
     }
 
@@ -219,32 +226,32 @@ public class Account extends BasePager implements View.OnClickListener {
                 mActivity.startActivity(intent);
                 break;
             case R.id.user_approve:
-                Intent intentApprove = new Intent(mActivity,Approve.class);
+                Intent intentApprove = new Intent(mActivity, Approve.class);
                 mActivity.startActivity(intentApprove);
                 break;
             case R.id.user_bank:
-                if (event!=88){
-                    Toast.makeText(mActivity,"尚未通过实名认证，不能进行银行卡能相关工作" , Toast.LENGTH_SHORT).show();
-                }else if (eventBank!=88){
+                if (event != 88) {
+                    Toast.makeText(mActivity, "尚未通过实名认证，不能进行银行卡能相关工作", Toast.LENGTH_SHORT).show();
+                } else if (eventBank != 88) {
                     AlertDialog dialog = new AlertDialog.Builder(mActivity).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intentAddCard = new Intent(mActivity,AddCard.class);
+                            Intent intentAddCard = new Intent(mActivity, AddCard.class);
                             mActivity.startActivity(intentAddCard);
                         }
-                    }).setNegativeButton("否",null).show();
+                    }).setNegativeButton("否", null).show();
 
-                }else {
-                    Intent inten  = new Intent(mActivity,CardMsg.class);
+                } else {
+                    Intent inten = new Intent(mActivity, CardMsg.class);
                     mActivity.startActivity(inten);
                 }
                 break;
             case R.id.user_head:
-                Intent intentUser = new Intent(mActivity,UserMessage.class);
+                Intent intentUser = new Intent(mActivity, UserMessage.class);
                 mActivity.startActivity(intentUser);
                 break;
             case R.id.cash:
-                Intent intentCash = new Intent(mActivity,Cash.class);
+                Intent intentCash = new Intent(mActivity, Cash.class);
                 mActivity.startActivity(intentCash);
                 break;
             case R.id.recharge:
@@ -252,13 +259,23 @@ public class Account extends BasePager implements View.OnClickListener {
                 break;
             //进入我的活动页面
             case R.id.user_activity:
-                Intent intentExerise = new Intent(mActivity,UserExercise.class);
+                Intent intentExerise = new Intent(mActivity, UserExercise.class);
                 mActivity.startActivity(intentExerise);
                 break;
             case R.id.user_messge:
-                Intent intentMessage = new Intent(mActivity,UserMail.class);
+                Intent intentMessage = new Intent(mActivity, UserMail.class);
                 mActivity.startActivity(intentMessage);
                 break;
+            //进入我的理财界面
+            case R.id.user_invest:
+                Intent intentInvest = new Intent(mActivity,Invest.class);
+                mActivity.startActivity(intentInvest);
+                break;
+            //进入特权金页面
+            case R.id.user_manage:
+                Intent intentManage = new Intent(mActivity,MoneyMatter.class);
+                mActivity.startActivity(intentManage);
+
         }
     }
 

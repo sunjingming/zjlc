@@ -23,8 +23,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/all_default_avatar"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:src="@drawable/all_default_avatar" />
 
             <TextView
                 android:id="@+id/user_login"
@@ -33,8 +33,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="right"
-                android:textSize="16sp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,8 +81,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginBottom="@dimen/m8"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
 
@@ -112,8 +112,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginBottom="@dimen/m8"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -207,19 +207,33 @@
         android:layout_marginTop="@dimen/m4"
         android:background="@color/gray1" />
 
+    <TextView
+        android:id="@+id/user_invest"
+        style="@style/AccountItemStyle"
+        android:drawableLeft="@drawable/invest"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的理财"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             style="@style/AccountItemStyle"
+            android:layout_width="181dp"
+            android:drawableLeft="@drawable/invest"
             android:drawablePadding="@dimen/m8"
             android:paddingLeft="@dimen/m8"
             android:paddingRight="@dimen/m8"
             android:text="我的邀请码"
-            android:drawableLeft="@drawable/invest"
-            android:textColor="@color/gray22"
-            android:layout_width="181dp" />
+            android:textColor="@color/gray22" />
 
         <TextView
             android:id="@+id/user_invite"
@@ -237,12 +251,12 @@
     <TextView
         android:id="@+id/user_bank"
         style="@style/AccountItemStyle"
+        android:drawableLeft="@drawable/bank_card"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
         android:text="我的银行卡"
-        android:drawableLeft="@drawable/bank_card"
         android:textColor="@color/gray22" />
 
     <include layout="@layout/split_h8_gray3" />
@@ -250,12 +264,12 @@
     <TextView
         android:id="@+id/user_approve"
         style="@style/AccountItemStyle"
+        android:drawableLeft="@drawable/approve"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
         android:text="我的认证"
-        android:drawableLeft="@drawable/approve"
         android:textColor="@color/gray22" />
 
     <include layout="@layout/split_h8_gray3" />
@@ -263,12 +277,25 @@
     <TextView
         android:id="@+id/user_activity"
         style="@style/AccountItemStyle"
+        android:drawableLeft="@drawable/exercise"
         android:drawablePadding="@dimen/m8"
         android:drawableRight="@drawable/right_more"
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
         android:text="我的活动"
-        android:drawableLeft="@drawable/exercise"
+        android:textColor="@color/gray22" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <TextView
+        android:id="@+id/user_manage"
+        style="@style/AccountItemStyle"
+        android:drawableLeft="@drawable/bank_card"
+        android:drawablePadding="@dimen/m8"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:paddingRight="@dimen/m8"
+        android:text="我的福利"
         android:textColor="@color/gray22" />
 
     <include layout="@layout/split_h8_gray3" />

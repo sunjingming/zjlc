@@ -125,6 +125,13 @@
         <activity android:name=".userMessage.UserMail" />
         <activity android:name=".activity.DetailsActivity2" />
         <activity android:name=".activity.ZQZRActivity"></activity>
+        <activity android:name=".userMessage.UserMail" />
+        <activity android:name=".invest.Invest" />
+        <activity android:name=".invest.MoneyMatter" />
+        <activity android:name=".invest.InvestBorrow" />
+        <activity android:name=".invest.InvestRecord" />
+        <activity android:name=".invest.MoneyRecord" />
+        <activity android:name=".invest.RedPacket"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.invest.InvestBorrow">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m8"
+            android:text="借款金额：    "
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/borrow_money"
+            style="@style/EditTextStyle"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            android:layout_marginRight="@dimen/m8"
+            android:layout_marginTop="@dimen/m4"
+            android:hint="请输入借款金额"
+            android:textColorHint="@color/gray9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m8"
+            android:text="借款人姓名："
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/borrow_name"
+            style="@style/EditTextStyle"
+            android:textColor="@color/black"
+            android:layout_height="35dp"
+            android:layout_marginRight="@dimen/m8"
+            android:layout_marginTop="@dimen/m4"
+            android:hint="请输入姓名"
+            android:textColorHint="@color/gray9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m8"
+            android:text="借款人手机："
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/borrow_phone"
+            style="@style/EditTextStyle"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            android:layout_marginRight="@dimen/m8"
+            android:layout_marginTop="@dimen/m4"
+            android:hint="请输入手机号"
+            android:textColorHint="@color/gray9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m8"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m8"
+            android:text="借款人地址："
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/borrow_address"
+            style="@style/EditTextStyle"
+            android:layout_height="60dp"
+            android:layout_marginRight="@dimen/m8"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/m4"
+            android:hint="请填写地址"
+            android:textColorHint="@color/gray9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m8"
+            android:text="借款说明：    "
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/borrow_introduce"
+            style="@style/EditTextStyle"
+            android:layout_height="35dp"
+            android:layout_marginRight="@dimen/m8"
+            android:layout_marginTop="@dimen/m4"
+            android:textColor="@color/black"
+            android:hint="请填写借款说明"
+            android:textColorHint="@color/gray9" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/borrow_submit"
+        style="@style/SubmitButtonStyle"
+        android:enabled="false"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m48"
+        android:text="借款申请" />
+
+
+</LinearLayout>

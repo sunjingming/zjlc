@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.invest.Invest">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h1" />
+
+    <TextView
+        android:id="@+id/user_borrow"
+        style="@style/AccountItemStyle"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:text="我要借款"
+        android:textColor="@color/black" />
+
+    <include layout="@layout/split_h1" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h1" />
+
+    <TextView
+        android:id="@+id/user_invest_record"
+        style="@style/AccountItemStyle"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:text="投资记录"
+        android:textColor="@color/black" />
+
+    <include layout="@layout/split_h1" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h8_gray3" />
+
+    <include layout="@layout/split_h1" />
+
+    <TextView
+        android:id="@+id/user_money_record"
+        style="@style/AccountItemStyle"
+        android:drawableRight="@drawable/right_more"
+        android:paddingLeft="@dimen/m8"
+        android:text="资金记录"
+        android:textColor="@color/black" />
+
+    <include layout="@layout/split_h1" />
+    <include layout="@layout/split_h8_all_gray3"/>
+
+
+</LinearLayout>
