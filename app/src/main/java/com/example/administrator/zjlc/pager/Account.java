@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.NumberFormat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,8 @@ import com.google.gson.Gson;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -64,6 +67,7 @@ public class Account extends BasePager implements View.OnClickListener {
         super(activity);
     }
 
+
     @Override
     public void initData() {
         super.initData();
@@ -80,12 +84,13 @@ public class Account extends BasePager implements View.OnClickListener {
         getData();
 
         if (token.equals("")) {
-            login.setText("登陆");
-        } else {
-            login.setText("退出");
+            login.setText("登录");
         }
 
-        login.setOnClickListener(this);
+        if ("登录".equals(login.getText().toString())) {
+            login.setOnClickListener(this);
+        }
+
         approve.setOnClickListener(this);
         bank.setOnClickListener(this);
         head.setOnClickListener(this);
@@ -171,12 +176,25 @@ public class Account extends BasePager implements View.OnClickListener {
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(data, UserBean.class);
                 UserBean.DataBean datalist = userBean.getData();
-                asset.setText("¥" + String.valueOf(datalist.getAll_money()));
-                balance.setText("¥" + String.valueOf(datalist.getBalance_money()));
-                interest.setText("¥" + String.valueOf(datalist.getCollect_interest()));
-                freeze.setText("¥" + String.valueOf(datalist.getFreeze_money()));
+                double f = datalist.getAll_money();
+                String f1 = String.format("%.2f", f);
+                asset.setText("¥" + String.valueOf(f1));
+
+                double s = datalist.getBalance_money();
+                String f2 = String.format("%.2f", s);
+                balance.setText("¥" + String.valueOf(f2));
+
+                double k = datalist.getCollect_interest();
+                String f3 = String.format("%.2f", k);
+                interest.setText("¥" + f3);
+
+                double d = datalist.getFreeze_money();
+                String f4 = String.format("%.2f", d);
+                freeze.setText("¥" + f4);
+
                 Glide.with(mActivity).load(datalist.getHeader_img()).into(head);
                 invite.setText(datalist.getInvite_code());
+                login.setText(datalist.getUser_phone());
             }
 
             @Override
@@ -226,11 +244,17 @@ public class Account extends BasePager implements View.OnClickListener {
                 mActivity.startActivity(intent);
                 break;
             case R.id.user_approve:
-                Intent intentApprove = new Intent(mActivity, Approve.class);
-                mActivity.startActivity(intentApprove);
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentApprove = new Intent(mActivity, Approve.class);
+                    mActivity.startActivity(intentApprove);
+                }
                 break;
             case R.id.user_bank:
-                if (event != 88) {
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else if (event != 88) {
                     Toast.makeText(mActivity, "尚未通过实名认证，不能进行银行卡能相关工作", Toast.LENGTH_SHORT).show();
                 } else if (eventBank != 88) {
                     AlertDialog dialog = new AlertDialog.Builder(mActivity).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -251,8 +275,12 @@ public class Account extends BasePager implements View.OnClickListener {
                 mActivity.startActivity(intentUser);
                 break;
             case R.id.cash:
-                Intent intentCash = new Intent(mActivity, Cash.class);
-                mActivity.startActivity(intentCash);
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentCash = new Intent(mActivity, Cash.class);
+                    mActivity.startActivity(intentCash);
+                }
                 break;
             case R.id.recharge:
                 Toast.makeText(mActivity, "暂未开放充值功能", Toast.LENGTH_SHORT).show();
@@ -263,20 +291,33 @@ public class Account extends BasePager implements View.OnClickListener {
                 mActivity.startActivity(intentExerise);
                 break;
             case R.id.user_messge:
-                Intent intentMessage = new Intent(mActivity, UserMail.class);
-                mActivity.startActivity(intentMessage);
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentMessage = new Intent(mActivity, UserMail.class);
+                    mActivity.startActivity(intentMessage);
+                }
                 break;
             //进入我的理财界面
             case R.id.user_invest:
-                Intent intentInvest = new Intent(mActivity,Invest.class);
-                mActivity.startActivity(intentInvest);
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentInvest = new Intent(mActivity, Invest.class);
+                    mActivity.startActivity(intentInvest);
+                }
                 break;
             //进入特权金页面
-            case R.id.user_manage:
-                Intent intentManage = new Intent(mActivity,MoneyMatter.class);
-                mActivity.startActivity(intentManage);
 
+            case R.id.user_manage:
+                if ("".equals(token)) {
+                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentManage = new Intent(mActivity, MoneyMatter.class);
+                    mActivity.startActivity(intentManage);
+                }
         }
     }
+
 
 }

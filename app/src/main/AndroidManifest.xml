@@ -131,7 +131,8 @@
         <activity android:name=".invest.InvestBorrow" />
         <activity android:name=".invest.InvestRecord" />
         <activity android:name=".invest.MoneyRecord" />
-        <activity android:name=".invest.RedPacket"></activity>
+        <activity android:name=".invest.RedPacket" />
+        <activity android:name=".login.RegisterAgreement"></activity>
     </application>
 
 </manifest>

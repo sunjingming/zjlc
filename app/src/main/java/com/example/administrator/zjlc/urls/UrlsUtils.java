@@ -76,8 +76,10 @@ public class UrlsUtils {
     public static final  String ZJLCMoney_record= "money_log";
     //卓金红包/特权金
     public static final  String ZJLCRed_packet= "coupon_list";
-    public static final  String ZJLCPhone_check = "check_name";
+    //用户投资记录
+    public static final  String ZJLCInvest_record= "userinvestor";
 
+    public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
     //散标列表

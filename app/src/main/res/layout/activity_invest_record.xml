@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_invest_record"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.example.administrator.zjlc.invest.InvestRecord">
 
-</RelativeLayout>
+    <include layout="@layout/toolbar"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/home_tabLayoutId"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        app:tabIndicatorHeight="0dp"
+        android:layout_marginTop="@dimen/m8"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@color/red"
+        app:tabBackground="@drawable/btn_red_stroke_selector"
+        />
+
+    <android.support.v4.view.ViewPager
+
+        android:id="@+id/home_viewPagerId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/m8"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

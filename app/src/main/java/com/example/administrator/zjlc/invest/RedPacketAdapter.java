@@ -54,10 +54,19 @@ public class RedPacketAdapter extends BaseAdapter {
         }else {
             holder = (ItemViewHolder) view.getTag();
         }
-
+        final String status = data.get(i).getStatus();
+        if ("1".equals(status)){
+            holder.state.setText("特权金状态：可用");
+        }else if ("2".equals(status)){
+            holder.state.setText("特权金状态：锁定");
+        }else if ("3".equals(status)){
+            holder.state.setText("特权金状态：过期");
+        }else if ("4".equals(status)){
+            holder.state.setText("特权金状态：已用");
+        }
         holder.money.setText("¥"+data.get(i).getMoney());
         holder.source.setText("活动来源"+data.get(i).getName());
-        holder.state.setText(data.get(i).getStatus());
+
         holder.introduce.setText(data.get(i).getStr());
         holder.time.setText("截止日期"+data.get(i).getDeadline());
 

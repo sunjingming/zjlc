@@ -1,6 +1,7 @@
 package com.example.administrator.zjlc.approve;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userMessage.TradePwdSetting;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -35,6 +38,7 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
     private Button approve_name_submit;
     private LinearLayout activity_approve_name;
     private String token;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,8 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
 
         SharedPreferences fence = getSharedPreferences("usetoken",MODE_PRIVATE);
         token = fence.getString("token",null);
-
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
         approve_name.addTextChangedListener(textWatcher);
         approve_number.addTextChangedListener(textWatcher);
     }
@@ -84,15 +89,25 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
                         Log.i("data实名认证",data);
                         Gson gson = new Gson();
                         ApproveBean bean = gson.fromJson(data,ApproveBean.class);
-                        if (bean.getEvent()==88){
-                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        if (bean.getEvent()==87&&"1".equals(id)){
+                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()+",请点击确定前往设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(ApproveName.this, TradePwdSetting.class);
+                                        intent.putExtra("id","1");
+                                        startActivity(intent);
+                                }
+                            }).show();
+                        }else if (bean.getEvent()==87){
+                            AlertDialog dialog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     finish();
                                 }
                             }).show();
-
-                            getHomeAcvtivity();
+                           getHomeAcvtivity();
+                        }else {
+                            Toast.makeText(ApproveName.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

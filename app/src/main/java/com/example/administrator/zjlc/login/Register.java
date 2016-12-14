@@ -1,6 +1,8 @@
 package com.example.administrator.zjlc.login;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.approve.ApproveName;
 import com.example.administrator.zjlc.utils.CountDownTimerUtils;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
@@ -49,6 +52,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         register_get_code.setOnClickListener(this);
         register.setOnClickListener(this);
         register_back.setOnClickListener(this);
+        register_agreement.setOnClickListener(this);
 
         register_phone.addTextChangedListener(textWatcher);
         register_password.addTextChangedListener(textWatcher);
@@ -125,17 +129,27 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             String data = result;
                             Log.i("data注册", data);
                             Gson gson = new Gson();
-                            RegisterBean bean = gson.fromJson(data, RegisterBean.class);
+                            final RegisterBean bean = gson.fromJson(data, RegisterBean.class);
                             if (bean.getEvent() == 88) {
-                                AlertDialog dialog = new AlertDialog.Builder(Register.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                SharedPreferences prence = getSharedPreferences("usetoken", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prence.edit();
+                                editor.putString("token", bean.getData());
+                                editor.commit();
+                                AlertDialog dialog = new AlertDialog.Builder(Register.this).setTitle("消息提示").setMessage("恭喜您注册成功，为了您更好的使用卓金理财，请点击确定完成实名认证和设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent  intent = new Intent(Register.this, ApproveName.class);
+                                        intent.putExtra("id","1");
+                                        intent.putExtra("token",bean.getData());
+                                        startActivity(intent);
+
+                                    }
+                                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         finish();
-
                                     }
                                 }).show();
-
-                                getHomeAcvtivity();
                             } else {
                                 Toast.makeText(Register.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
@@ -163,6 +177,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             case R.id.register_back:
                 finish();
                 break;
+            case R.id.register_agreement:
+                Intent intent = new Intent(Register.this,RegisterAgreement.class);
+                startActivity(intent);
             default:
                 break;
         }
