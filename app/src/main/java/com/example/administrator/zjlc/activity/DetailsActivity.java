@@ -1,6 +1,8 @@
 package com.example.administrator.zjlc.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,12 +13,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.DetailsBean;
+import com.example.administrator.zjlc.invest.RedPacketBean;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.view.MyScrollView;
@@ -25,6 +29,8 @@ import com.google.gson.Gson;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.util.ArrayList;
 
 
 public class DetailsActivity extends Activity {
@@ -59,15 +65,25 @@ public class DetailsActivity extends Activity {
                 public void onClick(View v) {
                     String s = et_mm.getText().toString();
                     String s1 = et_je.getText().toString();
-                    requeseDate1(s,s1);
+                    if( s.equals("") || s1.equals("")) {
+                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额和投资密码").show();
+                    }else{
+                        requeseDate1(s, s1);
+                    }
                 }
             });
             return false;
         }
     });
 
+    private RedPacketBean packetBean;
+    private ArrayList<RedPacketBean.DataBean> dataBeanArrayList;
+    private ListView lv;
+    private String[] msg;
+
     private void requeseDate1(final String s, final String s1) {
-        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCCoupon);
+        dataBeanArrayList = new ArrayList<RedPacketBean.DataBean>();
+        final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCCoupon);
 
         paramsNotice.addBodyParameter("borrow_id", String.valueOf(id));
         paramsNotice.addBodyParameter("money",s);
@@ -76,11 +92,35 @@ public class DetailsActivity extends Activity {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.e("标", data);
+                Log.e("标11", data);
                 Gson gson = new Gson();
-                Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
 
-                requeseDate(s,s1);
+                packetBean = gson.fromJson(data,RedPacketBean.class);
+
+                msg = new String[packetBean.getData().size()];
+                boolean[] bol = new boolean[packetBean.getData().size()];
+                Log.e("标11", String.valueOf(packetBean.getData().size()));
+                for(int i=0;i<packetBean.getData().size();i++){
+                    dataBeanArrayList.add(packetBean.getData().get(i));
+                    msg[i] = packetBean.getData().get(i).getMoney()+"元";
+                    bol[i] = false;
+                    Log.e("sad",msg[i]);
+                }
+                if(packetBean.getData().size()>0) {
+                    new AlertDialog.Builder(DetailsActivity.this)
+                            .setTitle("选择特权金")
+                            .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                    requeseDate(s, s1, dataBeanArrayList.get(which));
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
+                }else{
+                    requeseDate(s, s1, null);
+                }
             }
 
             @Override
@@ -101,10 +141,32 @@ public class DetailsActivity extends Activity {
         });
     }
 
-    private void requeseDate(String s,String s1) {
-        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_money);
+    private void requeseDate(String s,String s1,RedPacketBean.DataBean s2) {
+        final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_money);
 
+        final EditText editText = new EditText(DetailsActivity.this);
         paramsNotice.addBodyParameter("borrow_id", String.valueOf(id));
+        if(noticeBean.getData().getHas_pass() == 1){
+            new AlertDialog.Builder(DetailsActivity.this)
+                    .setTitle("请输入定向标密码")
+                    .setView(editText)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String s3 = editText.getText().toString();
+                            paramsNotice.addBodyParameter("borrow_pass",s3);
+                        }
+                    })
+                    .show();
+        }else{
+            paramsNotice.addBodyParameter("borrow_pass","");
+        }
+        if(s2!=null) {
+            Log.e("11", s2.getId());
+            paramsNotice.addBodyParameter("coupon_id", s2.getId());
+        }else{
+            paramsNotice.addBodyParameter("coupon_id","");
+        }
         paramsNotice.addBodyParameter("money",s);
         paramsNotice.addBodyParameter("pin",s1);
         paramsNotice.addBodyParameter("token",token);
@@ -125,7 +187,6 @@ public class DetailsActivity extends Activity {
             @Override
             public void onCancelled(CancelledException cex) {
                 Log.e("标","onCancelled");
-
             }
 
             @Override

@@ -14,14 +14,7 @@
         android:layout_height="50dp"
         android:textColor="@color/colorAccent"
         android:text="项目详情" />
-    <com.example.administrator.zjlc.view.MyScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/sv_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#efefef"
-        android:fillViewport="true"
-        android:scrollbars="none">
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -226,6 +219,5 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-    </com.example.administrator.zjlc.view.MyScrollView>
 
 </LinearLayout>

@@ -190,6 +190,7 @@ public class DetailsActivity2 extends AppCompatActivity {
                 for (int i=0;i < sanBiaoGouBean.getData().size(); i++){
                     dataBeanArrayList.add(sanBiaoGouBean.getData().get(i));
                 }
+                updateSingleView(dataBeanArrayList);
             }
 
             @Override
