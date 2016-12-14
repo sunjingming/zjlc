@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.zjlc.login.RegisterAgreement">
+
+    <include layout="@layout/toolbar" />
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginTop="@dimen/m8"
+        android:text="尊敬的投资人客户："
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text=" \u3000\u3000请务必仔细阅读了解本《风险告知书》的所有内容，您需要签署《风险告知书》后，方可在深圳远卓深港金融服务有限公司办理会员申请手续。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text=" \u3000\u3000在进行投融资交易时，可能会获得较高的投资收益，但同时也存在着相应的投资风险，为了使您了解其中的风险，根据有关投融资交易法律法规和本管理公司业务规则，特提供本风险告知书，请您认真详细阅读。从事投融资交易包括但不限于如下风险："
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text=" \u3000\u3000 1、宏观经济风险：由于我国宏观经济形势的变化以及其他国家、地区宏观经济环境和投融资交易市场的变化，可能会引起国内投融资交易市场的波动，使您存在亏损的可能，您不得不承担由此造成的损失。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000 2、政策风险：有关投融资交易市场的法律、法规及相关政策、规则不健全或者发生变化，可能引起国家的调整，市场价格波动，使您存在亏损的可能，您不得不承担由此造成的损失。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000 3、信用风险：由于债务人（借款人）经营管理不善等各方面的因素，不愿或无力履行合同条件偿付本金和利息，进而构成违约使您存在亏损的可能。"
+        android:textColor="@color/black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000  4、技术风险：由于交易撮合、清算交收、行情揭示及银行转账是通过电子通讯技术和电脑技术来实现的，这些技术存在着被网络黑客和计算机病毒攻击的可能，同时通讯技术、电脑技术和相关软件具有存在缺陷的可能，这些风险可能给您带来损失或银行转账资金不能及时到账。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000 5、不可抗力因素导致的风险：诸如地震、台风、火灾、水灾、战争、瘟疫、社会动乱等不可抗力因素可能导致投融资交易系统的瘫痪；投融资交易市场无法控制和不可预测的系统故障、设备故障、通讯故障、电力故障等也可能导致银行转账系统非正常运行甚至瘫痪，这些都会使您的交易委托无法成交或者无法全部成交，或者银行转账资金不能及时到账，您不得不承担由此导致的损失和不便。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000  6、其他风险：由于您密码失密、操作不当、投资决策失误、银行过错等原因可能会使您发生亏损；网上委托、热键操作完毕后未及时退出，他人进行恶意操作而造成的损失；网上交易未及时退出还可能遭遇黑客攻击，从而造成损失；委托他人代理投融资交易，且长期不关注账户变化，致使他人恶意操作而造成的损失，上述损失都将由您自行承担。在您进行投融资交易投资时，他人给予您的保证获利或不会发生亏损的任何承诺都需要您审慎判定，类似的承诺不会减少您发生亏损的可能。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginTop="@dimen/m8"
+        android:text=" \u3000\u3000 ——特别提示：本公司敬告投资者，应当根据自身的经济条件和心理承受能力认真制定投资策略。"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginTop="@dimen/m4"
+        android:text="  \u3000\u3000投融资交易市场是一个风险无时不在的市场，您在进行投融资交易时存在盈利的可能，也存在亏损的风险。本风险告知书并不能揭示从事投融资交易的全部风险及投融资市场的全部情形。您务必对此有清醒的认识，认真考虑是否进行投融资交易。"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/m4"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginTop="@dimen/m8"
+        android:text=" \u3000\u3000  以上《风险告知书》本人已阅读并完全理解,愿意承担投融资服务中的各种风险"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

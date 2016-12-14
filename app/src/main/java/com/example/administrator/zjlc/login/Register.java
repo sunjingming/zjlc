@@ -52,6 +52,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         register_get_code.setOnClickListener(this);
         register.setOnClickListener(this);
         register_back.setOnClickListener(this);
+        register_agreement.setOnClickListener(this);
 
         register_phone.addTextChangedListener(textWatcher);
         register_password.addTextChangedListener(textWatcher);
@@ -176,6 +177,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             case R.id.register_back:
                 finish();
                 break;
+            case R.id.register_agreement:
+                Intent intent = new Intent(Register.this,RegisterAgreement.class);
+                startActivity(intent);
             default:
                 break;
         }

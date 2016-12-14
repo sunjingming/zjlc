@@ -5,9 +5,10 @@ package com.example.administrator.zjlc.bank;
  */
 
 public class BindBean {
+
     /**
-     * event : 88
-     * msg : 绑定成功
+     * event : 0
+     * msg : 更新失败:新卡与原卡相同
      */
 
     private int event;
