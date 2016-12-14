@@ -122,7 +122,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".userMessage.UserMail"></activity>
+        <activity android:name=".userMessage.UserMail" />
+        <activity android:name=".activity.DetailsActivity2" />
+        <activity android:name=".activity.ZQZRActivity"></activity>
     </application>
 
 </manifest>

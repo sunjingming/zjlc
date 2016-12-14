@@ -13,7 +13,6 @@ import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.pager.HomePager;
 import com.example.administrator.zjlc.pager.Account;
 import com.example.administrator.zjlc.pager.Find;
-import com.example.administrator.zjlc.pager.MorePager;
 import com.example.administrator.zjlc.view.NoScrollViewPager;
 
 import org.xutils.view.annotation.ViewInject;

@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
-        android:drawableLeft="@drawable/back"
+        android:textSize="20dp"
         android:gravity="center"
         android:background="@color/colorPrimary"
         android:id="@+id/tv_pasnt"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:textColor="@color/colorAccent"
         android:text="卓金理财" />
     <com.example.administrator.zjlc.view.MyScrollView

@@ -77,7 +77,7 @@ public class HomePager extends BasePager {
                         intent.putExtra("id",id);
                         mActivity.startActivity(intent);
                     }else{
-                        new AlertDialog.Builder(mActivity).setMessage("投资成功").show();
+//                        new AlertDialog.Builder(mActivity).setMessage("投资成功").show();
                     }
                 }
             });
@@ -113,6 +113,9 @@ public class HomePager extends BasePager {
         dots = new ArrayList<View>();
         dots.add(view.findViewById(R.id.dot_1));
         dots.add(view.findViewById(R.id.dot_2));
+        dots.add(view.findViewById(R.id.dot_3));
+        dots.add(view.findViewById(R.id.dot_4));
+        dots.add(view.findViewById(R.id.dot_5));
         //设置bannner图片
         setViewpagerData();
         //设置推荐标的详情
@@ -136,8 +139,6 @@ public class HomePager extends BasePager {
                 tv_time.setText(tjbBean.getData().getBorrow_duration());
                 tv_ss.setText(tjbBean.getData().getBorrow_money());
                 tv_jindu.setText(tjbBean.getData().getProgress()+"%");
-
-
             }
 
             @Override
@@ -163,7 +164,7 @@ public class HomePager extends BasePager {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            position = position%2;
+            position = position%5;
             dots.get(oldPosition).setBackgroundResource(
                     R.drawable.dot_normal);
             dots.get(position)

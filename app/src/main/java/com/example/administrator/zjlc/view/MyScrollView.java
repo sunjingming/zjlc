@@ -9,7 +9,7 @@ import android.widget.ScrollView;
  * Created by MrGuo on 2016/7/5.
  */
 public class MyScrollView extends ScrollView{
-
+    private ScrollBottomListener scrollBottomListener;
     private Context mContext;
     private static int mMaxOverDistance = 50;
     private OnScrollListener onScrollListener;
@@ -50,9 +50,23 @@ public class MyScrollView extends ScrollView{
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         if (onScrollListener!=null) onScrollListener.onScroll(t);
+        if(t + getHeight() >=  computeVerticalScrollRange()){
+            //ScrollView滑动到底部了
+            scrollBottomListener.scrollBottom();
+        }
     }
+
+
 
     public interface OnScrollListener{
         public void onScroll(int y);
+    }
+
+    public void setScrollBottomListener(ScrollBottomListener scrollBottomListener){
+        this.scrollBottomListener = scrollBottomListener;
+    }
+
+    public interface ScrollBottomListener{
+        public void scrollBottom();
     }
 }

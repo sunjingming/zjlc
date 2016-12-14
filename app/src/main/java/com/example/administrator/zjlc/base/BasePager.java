@@ -50,12 +50,6 @@ public class BasePager {
     private View initVeiw() {
         View view = View.inflate(mActivity, R.layout.basepager, null);
         x.view().inject(this,view);
-        tv_pasnt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivity.finish();
-            }
-        });
         return view;
     }
     /**
@@ -63,6 +57,6 @@ public class BasePager {
      */
     public void initData(){
 
-
     }
+
 }
