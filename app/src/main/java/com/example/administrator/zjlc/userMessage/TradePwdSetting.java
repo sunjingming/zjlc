@@ -60,6 +60,9 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         id = intent.getStringExtra("id");
         if ("1".equals(id)) {
             change.setVisibility(View.GONE);
+            old_layout.setVisibility(View.GONE);
+
+
         }else {
             change.setVisibility(View.VISIBLE);
         }
