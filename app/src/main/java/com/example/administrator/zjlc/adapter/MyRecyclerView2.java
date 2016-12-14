@@ -73,7 +73,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getMoney()));
         holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));
 
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()]);
+        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":

@@ -71,7 +71,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
         holder.wancheng_qingkuang.setText("%"+String.valueOf(dataBeanArrayList.get(position).getProgress()));
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()]);
+        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":

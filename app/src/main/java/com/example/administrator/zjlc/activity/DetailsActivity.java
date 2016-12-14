@@ -23,6 +23,8 @@ import com.example.administrator.zjlc.domain.DetailsBean;
 import com.example.administrator.zjlc.invest.RedPacketBean;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.utils.MD5Encoder;
+import com.example.administrator.zjlc.utils.MD5Utils;
 import com.example.administrator.zjlc.view.MyScrollView;
 import com.google.gson.Gson;
 
@@ -63,8 +65,8 @@ public class DetailsActivity extends Activity {
             lijigou.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String s = et_mm.getText().toString();
-                    String s1 = et_je.getText().toString();
+                    String s1 = et_mm.getText().toString();
+                    String s = et_je.getText().toString();
                     if( s.equals("") || s1.equals("")) {
                         new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额和投资密码").show();
                     }else{
@@ -141,7 +143,7 @@ public class DetailsActivity extends Activity {
         });
     }
 
-    private void requeseDate(String s,String s1,RedPacketBean.DataBean s2) {
+    private void requeseDate(final String s, final String s1, final RedPacketBean.DataBean s2) {
         final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_money);
 
         final EditText editText = new EditText(DetailsActivity.this);
@@ -154,46 +156,82 @@ public class DetailsActivity extends Activity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String s3 = editText.getText().toString();
+                            Log.e("assss", MD5Utils.Md5(s3));
                             paramsNotice.addBodyParameter("borrow_pass",s3);
+                            if(s2!=null) {
+                                Log.e("11", s2.getId());
+                                paramsNotice.addBodyParameter("coupon_id", s2.getId());
+                            }else{
+                                paramsNotice.addBodyParameter("coupon_id","");
+                            }
+                            paramsNotice.addBodyParameter("money",s);
+
+                            paramsNotice.addBodyParameter("pin", MD5Utils.Md5(s1));
+                            paramsNotice.addBodyParameter("token",token);
+                            x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    String data = result;
+                                    Log.e("标321", data);
+                                    Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(Throwable ex, boolean isOnCallback) {
+                                    Log.i("标", "onError");
+                                }
+
+                                @Override
+                                public void onCancelled(CancelledException cex) {
+                                    Log.e("标","onCancelled");
+                                }
+
+                                @Override
+                                public void onFinished() {
+                                    Log.i("标123", "onFinished");
+                                }
+                            });
                         }
                     })
                     .show();
         }else{
             paramsNotice.addBodyParameter("borrow_pass","");
+            if(s2!=null) {
+                Log.e("11", s2.getId());
+                paramsNotice.addBodyParameter("coupon_id", s2.getId());
+            }else{
+                paramsNotice.addBodyParameter("coupon_id","");
+            }
+            paramsNotice.addBodyParameter("money",s);
+
+            paramsNotice.addBodyParameter("pin", MD5Utils.Md5(s1));
+            paramsNotice.addBodyParameter("token",token);
+            x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    String data = result;
+                    Log.e("标321", data);
+                    Gson gson = new Gson();
+                    Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    Log.i("标", "onError");
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+                    Log.e("标","onCancelled");
+                }
+
+                @Override
+                public void onFinished() {
+                    Log.i("标123", "onFinished");
+                }
+            });
         }
-        if(s2!=null) {
-            Log.e("11", s2.getId());
-            paramsNotice.addBodyParameter("coupon_id", s2.getId());
-        }else{
-            paramsNotice.addBodyParameter("coupon_id","");
-        }
-        paramsNotice.addBodyParameter("money",s);
-        paramsNotice.addBodyParameter("pin",s1);
-        paramsNotice.addBodyParameter("token",token);
-        x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.e("标", data);
-                Gson gson = new Gson();
-                Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("标", "onError");
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                Log.e("标","onCancelled");
-            }
-
-            @Override
-            public void onFinished() {
-                Log.i("标", "onFinished");
-            }
-        });
     }
 
     private String token;
