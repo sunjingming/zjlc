@@ -78,8 +78,8 @@ public class UrlsUtils {
     public static final  String ZJLCRed_packet= "coupon_list";
     //用户投资记录
     public static final  String ZJLCInvest_record= "userinvestor";
-    public static final  String ZJLCPhone_check = "check_name";
 
+    public static final  String ZJLCPhone_check = "check_name";
     //标得详情
     public static final String ZJLCBorrow_detail = "borrow_detail";
     //散标列表

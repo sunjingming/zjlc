@@ -2,6 +2,7 @@ package com.example.administrator.zjlc.login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -127,13 +128,18 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             String data = result;
                             Log.i("data注册", data);
                             Gson gson = new Gson();
-                            RegisterBean bean = gson.fromJson(data, RegisterBean.class);
+                            final RegisterBean bean = gson.fromJson(data, RegisterBean.class);
                             if (bean.getEvent() == 88) {
+                                SharedPreferences prence = getSharedPreferences("usetoken", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prence.edit();
+                                editor.putString("token", bean.getData());
+                                editor.commit();
                                 AlertDialog dialog = new AlertDialog.Builder(Register.this).setTitle("消息提示").setMessage("恭喜您注册成功，为了您更好的使用卓金理财，请点击确定完成实名认证和设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent  intent = new Intent(Register.this, ApproveName.class);
                                         intent.putExtra("id","1");
+                                        intent.putExtra("token",bean.getData());
                                         startActivity(intent);
 
                                     }

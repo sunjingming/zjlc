@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
@@ -88,21 +89,25 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
                         Log.i("data实名认证",data);
                         Gson gson = new Gson();
                         ApproveBean bean = gson.fromJson(data,ApproveBean.class);
-                        if (bean.getEvent()==88){
-                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        if (bean.getEvent()==87&&"1".equals(id)){
+                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()+",请点击确定前往设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if ("1".equals(id)){
                                         Intent intent = new Intent(ApproveName.this, TradePwdSetting.class);
                                         intent.putExtra("id","1");
                                         startActivity(intent);
-                                    }else {
-                                        finish();
-                                    }
                                 }
                             }).show();
-
-                            getHomeAcvtivity();
+                        }else if (bean.getEvent()==87){
+                            AlertDialog dialog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            }).show();
+                           getHomeAcvtivity();
+                        }else {
+                            Toast.makeText(ApproveName.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

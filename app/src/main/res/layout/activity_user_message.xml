@@ -80,7 +80,7 @@
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
         android:text="密码安全"
-        android:textColor="@color/black_gray"/>
+        android:textColor="@color/black_gray" />
 
     <include layout="@layout/split_h1" />
 
@@ -88,24 +88,41 @@
 
     <include layout="@layout/split_h1" />
 
+
     <TextView
+        android:id="@+id/two_code"
         style="@style/AccountItemStyle"
         android:drawableRight="@drawable/right_more"
         android:paddingLeft="@dimen/m8"
         android:paddingRight="@dimen/m8"
         android:text="二维码关注"
-        android:textColor="@color/black_gray"/>
+        android:textColor="@color/black_gray" />
 
     <include layout="@layout/split_h1" />
 
-    <TextView
-        android:id="@+id/user_custom"
-        style="@style/AccountItemStyle"
-        android:drawableRight="@drawable/right_more"
-        android:paddingLeft="@dimen/m8"
-        android:paddingRight="@dimen/m8"
-        android:text="客服热线"
-        android:textColor="@color/black_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/AccountItemStyle"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/m8"
+            android:paddingRight="@dimen/m8"
+            android:text="客服服务时间"
+            android:textColor="@color/black_gray" />
+
+        <TextView
+            android:id="@+id/user_custom"
+            style="@style/AccountItemStyle"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingLeft="@dimen/m8"
+            android:paddingRight="@dimen/m8"
+            android:textColor="@color/black_gray" />
+    </LinearLayout>
 
     <include layout="@layout/split_h1" />
 

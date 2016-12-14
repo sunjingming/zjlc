@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/two_code_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/all_default_avatar" />
+
+        <ImageView
+            android:id="@+id/two_code_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/all_default_avatar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/m8"
+            android:textColor="@color/black"
+            android:text="扫一扫上方的验证码，关注我们哦~"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_camera_pop_cancel"
+            style="@style/txt_camera_pop_menu"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="@dimen/m24"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/pop_single_selector"
+            android:text="@string/camera_pop_cancel"
+            android:layout_gravity="bottom"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
