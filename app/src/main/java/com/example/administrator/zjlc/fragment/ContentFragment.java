@@ -31,7 +31,10 @@ public class ContentFragment extends BaseFragment {
 
     @ViewInject(R.id.rg_bottom_tab)
     private RadioGroup rg_bottom_tab;
-
+    int id;
+    public ContentFragment(int id){
+        this.id = id;
+    }
     /**
      * 各个页面的集合
      */
@@ -60,15 +63,19 @@ public class ContentFragment extends BaseFragment {
         //设置ViewPager的适配器
         vp_content_fragment.setAdapter(new MyPagerAdapter());
 
+
         //设置RadioGroup选中状态的监听
         rg_bottom_tab.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 
         //监听ViewPager页面的改变
         vp_content_fragment.setOnPageChangeListener(new MyOnPageChangeListener());
         //初始化某个页面的数据
-        basePagers.get(0).initData();//默认初始首页的数据
+        basePagers.get(id).initData();//默认初始首页的数据
     }
-
+    //设置数据id
+    public void setId(int id){
+        this.id = id;
+    }
     /**
      * 得到首页信息
      * @return
@@ -101,7 +108,6 @@ public class ContentFragment extends BaseFragment {
 
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            Intent i;
             switch (checkedId){
                 case R.id.rb_home://首页
                     vp_content_fragment.setCurrentItem(0,false);

@@ -4,21 +4,24 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.example.administrator.zjlc.fragment.ContentFragment;
 
 public class MainActivity extends FragmentActivity {
-
+    ContentFragment contentFragment;
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, new ContentFragment()).commit();
+        contentFragment = new ContentFragment(0);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, contentFragment).commit();
     }
 
     @Override
@@ -47,5 +50,14 @@ public class MainActivity extends FragmentActivity {
                     }
                 });
         return builder.create();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        Log.e("onResume","onResume");
+        contentFragment.setId(intent.getIntExtra("tagid",0));
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, contentFragment).commit();
     }
 }

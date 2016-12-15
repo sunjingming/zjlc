@@ -198,7 +198,7 @@ public class Find extends BasePager {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
-                sanBiaobean = gson.fromJson(data, SanBiaobean.class);
+                sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
 
                 for(int i = 0; i < sanBiaobean.getData().size() ; i++){
                     Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
