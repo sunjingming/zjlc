@@ -4,14 +4,16 @@
     <!-- 连框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#ff2e2e" />
+            <solid android:color="#ed1c1c" />
         </shape>
     </item>
     <!-- 主体背景颜色值 -->
     <item
-       android:bottom="3dp">
+        android:top="1dp"
+        android:left="1dp"
+        android:right="1dp">
         <shape>
-            <solid android:color="#ffffff" />
+            <solid android:color="#00000000" />
         </shape>
     </item>
 </layer-list>

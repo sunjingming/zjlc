@@ -50,4 +50,9 @@ public abstract class BaseFragment extends Fragment {
     public void initData() {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

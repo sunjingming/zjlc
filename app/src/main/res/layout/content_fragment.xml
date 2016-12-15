@@ -26,7 +26,7 @@
         <RadioButton
             android:id="@+id/rb_govaffair"
             style="@style/bottom_tab_style"
-            android:text="发现"
+            android:text="理财"
             android:drawableTop="@drawable/rb_faxian_selector"
             />
         <RadioButton

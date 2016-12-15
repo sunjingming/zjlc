@@ -54,7 +54,7 @@ public class GuideActivity extends AppCompatActivity {
         btn_start_main = (Button) findViewById(R.id.btn_start_main);
         ll_point_group = (LinearLayout) findViewById(R.id.ll_point_group);
         iv_red_point = (ImageView) findViewById(R.id.iv_red_point);
-        pointwidth = DensityUtil.dip2px(this,10);
+        pointwidth = DensityUtil.dip2px(10);
         Log.e(TAG,"pointwidth=="+pointwidth);
         //准备数据id-->ArrayList<ImageView>
         imageViews = new ArrayList<ImageView>();

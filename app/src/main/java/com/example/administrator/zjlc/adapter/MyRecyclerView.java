@@ -12,15 +12,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.domain.SanBiaoGouBean;
 import com.example.administrator.zjlc.domain.SanBiaobean;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by Administrator on 2016/12/8.
  */
 
-public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHolder> implements View.OnClickListener {
+public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHolder> implements View.OnClickListener{
     //完成                               投资                        复审                           还款                            申购                      满标
     private int[] ic_stat = {R.drawable.ic_status_finish,R.drawable.ic_status_invest,R.drawable.ic_status_rechecking,R.drawable.ic_status_repaying,R.drawable.ic_status_subscribe,R.drawable.icon_zhaiquan_man};
 
@@ -29,7 +31,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
     private LayoutInflater inflater;
     private RecyclerView mRecyclerView;//用来计算Child位置
     private AdapterView.OnItemClickListener onItemClickListener;
-
+    private String id;
 //    //对外提供接口初始化方法
 //    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener){
 //        this.onItemClickListener=onItemClickListener;
@@ -62,13 +64,14 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
      */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        id = String.valueOf(dataBeanArrayList.get(position).getId());
 
         holder.tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
         holder.tv_monh.setText(dataBeanArrayList.get(position).getBorrow_duration());
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
         holder.wancheng_qingkuang.setText("%"+String.valueOf(dataBeanArrayList.get(position).getProgress()));
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()]);
+        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":
@@ -112,6 +115,9 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         //设置进度条
         holder.progressBar.setProgress((int) (dataBeanArrayList.get(position).getProgress()));
 
+//        //将数据保存在itemView的Tag中，以便点击时进行获取
+//        holder.itemView.setTag(dataBeanArrayList.get(position));
+        holder.itemView.setTag(dataBeanArrayList.get(position));
     }
 
     /**t
@@ -126,12 +132,24 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         this.dataBeanArrayList = singModelArrayList;
         this.notifyDataSetChanged();
     }
-    @Override
-    public void onClick(View v) {
 
-    }
+//        public void onClick(View v) {
+//            SharedPreferences prence = mActivity.getSharedPreferences("usetoken", MODE_PRIVATE);
+//            String token = prence.getString("token","");
+//            Log.e("cuo",token);
+//            if(token.equals("")){
+//                Intent intent = new Intent(mActivity , Login.class);
+//                mActivity.startActivity(intent);
+//            }else{
+//
+//                Intent intent = new Intent(mActivity , DetailsActivity.class);
+//                intent.putExtra("id",id);
+//                mActivity.startActivity(intent);
+//            }
+//        }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView1;
         ImageView imageView2;
         ImageView im_touzi;
@@ -157,5 +175,28 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
 
             progressBar = (ProgressBar) itemView.findViewById(R.id.pb_progressbar);
         }
+
     }
+
+    //实现点击事件
+    private MyRecyclerView.OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    //定义接口
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , SanBiaobean.DataBean data);
+    }
+
+    //提供外部调用
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+            //注意这里使用getTag方法获取数据
+            mOnItemClickListener.onItemClick(v,(SanBiaobean.DataBean)v.getTag());
+        }
+    }
+    //暴露给外面调用得方法
+    public void setOnItemClickListener(MyRecyclerView.OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
 }

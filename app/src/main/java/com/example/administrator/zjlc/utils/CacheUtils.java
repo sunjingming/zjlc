@@ -10,10 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /**
- * 作者：杨光福 on 2016/2/16 15:58
- * 微信：yangguangfu520
- * QQ号：541433511
- * 作用：缓存工具类
  */
 public class CacheUtils {
     private static    SharedPreferences sp;

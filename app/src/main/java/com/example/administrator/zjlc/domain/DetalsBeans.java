@@ -1,16 +1,15 @@
 package com.example.administrator.zjlc.domain;
 
 /**
- * Created by Administrator on 2016/12/3.
+ * Created by Administrator on 2016/12/9.
  */
 
-public class DetailsBean {
-
+public class DetalsBeans {
 
     /**
      * event : 88
      * msg : success
-     * data : {"id":604,"borrow_name":"定向标","borrow_duration":"3个月","borrow_money":100000,"borrow_interest_rate":10,"has_borrow":200,"borrow_times":4,"repayment_type":"按月分期还款","borrow_type":"抵押标","borrow_status":4,"add_time":"2016-10-22 10:40","collect_day":7,"borrow_info":"<p>10<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_status_str":"标满，复审中","has_pass":1,"progress":0.2}
+     * data : {"id":0,"borrow_duration":"涓湀","borrow_money":0,"borrow_interest_rate":0,"has_borrow":0,"borrow_times":0,"repayment_type":null,"borrow_type":null,"borrow_status_str":null,"borrow_status":0,"add_time":"1970-01-01 08:00","collect_day":0,"reward_num":0,"borrow_min":0,"borrow_max":0,"has_pass":0,"is_new":0,"money_collect":0,"updata":false,"progress":0,"borrow_info":""}
      */
 
     private int event;
@@ -43,32 +42,30 @@ public class DetailsBean {
 
     public static class DataBean {
         /**
-         * id : 604
-         * borrow_name : 定向标
-         * borrow_duration : 3个月
-         * borrow_money : 100000
-         * borrow_interest_rate : 10
-         * has_borrow : 200
-         * borrow_times : 4
-         * repayment_type : 按月分期还款
-         * borrow_type : 抵押标
-         * borrow_status : 4
-         * add_time : 2016-10-22 10:40
-         * collect_day : 7
-         * borrow_info : <p>10</p>
+         * id : 0
+         * borrow_duration : 涓湀
+         * borrow_money : 0
+         * borrow_interest_rate : 0
+         * has_borrow : 0
+         * borrow_times : 0
+         * repayment_type : null
+         * borrow_type : null
+         * borrow_status_str : null
+         * borrow_status : 0
+         * add_time : 1970-01-01 08:00
+         * collect_day : 0
          * reward_num : 0
-         * borrow_min : 50
+         * borrow_min : 0
          * borrow_max : 0
+         * has_pass : 0
          * is_new : 0
-         * updata : null
          * money_collect : 0
-         * borrow_status_str : 标满，复审中
-         * has_pass : 1
-         * progress : 0.2
+         * updata : false
+         * progress : 0
+         * borrow_info :
          */
 
         private int id;
-        private String borrow_name;
         private String borrow_duration;
         private int borrow_money;
         private int borrow_interest_rate;
@@ -76,19 +73,19 @@ public class DetailsBean {
         private int borrow_times;
         private String repayment_type;
         private String borrow_type;
+        private String borrow_status_str;
         private int borrow_status;
         private String add_time;
         private int collect_day;
-        private String borrow_info;
         private int reward_num;
         private int borrow_min;
         private int borrow_max;
-        private int is_new;
-        private Object updata;
-        private int money_collect;
-        private String borrow_status_str;
         private int has_pass;
-        private double progress;
+        private int is_new;
+        private int money_collect;
+        private boolean updata;
+        private int progress;
+        private String borrow_info;
 
         public int getId() {
             return id;
@@ -96,14 +93,6 @@ public class DetailsBean {
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public String getBorrow_name() {
-            return borrow_name;
-        }
-
-        public void setBorrow_name(String borrow_name) {
-            this.borrow_name = borrow_name;
         }
 
         public String getBorrow_duration() {
@@ -146,7 +135,7 @@ public class DetailsBean {
             this.borrow_times = borrow_times;
         }
 
-        public String getRepayment_type() {
+        public Object getRepayment_type() {
             return repayment_type;
         }
 
@@ -160,6 +149,14 @@ public class DetailsBean {
 
         public void setBorrow_type(String borrow_type) {
             this.borrow_type = borrow_type;
+        }
+
+        public String getBorrow_status_str() {
+            return borrow_status_str;
+        }
+
+        public void setBorrow_status_str(String borrow_status_str) {
+            this.borrow_status_str = borrow_status_str;
         }
 
         public int getBorrow_status() {
@@ -186,14 +183,6 @@ public class DetailsBean {
             this.collect_day = collect_day;
         }
 
-        public String getBorrow_info() {
-            return borrow_info;
-        }
-
-        public void setBorrow_info(String borrow_info) {
-            this.borrow_info = borrow_info;
-        }
-
         public int getReward_num() {
             return reward_num;
         }
@@ -218,20 +207,20 @@ public class DetailsBean {
             this.borrow_max = borrow_max;
         }
 
+        public int getHas_pass() {
+            return has_pass;
+        }
+
+        public void setHas_pass(int has_pass) {
+            this.has_pass = has_pass;
+        }
+
         public int getIs_new() {
             return is_new;
         }
 
         public void setIs_new(int is_new) {
             this.is_new = is_new;
-        }
-
-        public Object getUpdata() {
-            return updata;
-        }
-
-        public void setUpdata(Object updata) {
-            this.updata = updata;
         }
 
         public int getMoney_collect() {
@@ -242,28 +231,28 @@ public class DetailsBean {
             this.money_collect = money_collect;
         }
 
-        public String getBorrow_status_str() {
-            return borrow_status_str;
+        public boolean isUpdata() {
+            return updata;
         }
 
-        public void setBorrow_status_str(String borrow_status_str) {
-            this.borrow_status_str = borrow_status_str;
+        public void setUpdata(boolean updata) {
+            this.updata = updata;
         }
 
-        public int getHas_pass() {
-            return has_pass;
-        }
-
-        public void setHas_pass(int has_pass) {
-            this.has_pass = has_pass;
-        }
-
-        public double getProgress() {
+        public int getProgress() {
             return progress;
         }
 
-        public void setProgress(double progress) {
+        public void setProgress(int progress) {
             this.progress = progress;
+        }
+
+        public String getBorrow_info() {
+            return borrow_info;
+        }
+
+        public void setBorrow_info(String borrow_info) {
+            this.borrow_info = borrow_info;
         }
     }
 }

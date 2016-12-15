@@ -2,7 +2,10 @@ package com.example.administrator.zjlc.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.activity.DetailsActivity;
+import com.example.administrator.zjlc.activity.ZQZRActivity;
 import com.example.administrator.zjlc.domain.SanBiaobean;
 import com.example.administrator.zjlc.domain.ZQZLbean;
+import com.example.administrator.zjlc.login.Login;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Administrator on 2016/12/8.
@@ -28,7 +36,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
     private Activity mActivity;
     private ArrayList<ZQZLbean.DataBean> dataBeanArrayList;
     private LayoutInflater inflater;
-
+    private int id;
 
 
     public MyRecyclerView2(Activity mActivity, ArrayList<ZQZLbean.DataBean> dataBeanArrayList) {
@@ -63,9 +71,9 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
         holder.tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price()));
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getMoney()));
-        holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+""+dataBeanArrayList.get(position).getTotal_period()));
+        holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));
 
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()]);
+        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":
@@ -106,7 +114,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
                 break;
         }
 
-
+        holder.itemView.setTag(dataBeanArrayList.get(position));
     }
 
     /**t
@@ -121,12 +129,23 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
         this.dataBeanArrayList = singModelArrayList;
         this.notifyDataSetChanged();
     }
-    @Override
-    public void onClick(View v) {
-
-    }
+//    @Override
+//    public void onClick(View v) {
+//        SharedPreferences prence = mActivity.getSharedPreferences("usetoken", MODE_PRIVATE);
+//        String token = prence.getString("token","");
+//        Log.e("cuo",token);
+//        if(token.equals("")){
+//            Intent intent = new Intent(mActivity , Login.class);
+//            mActivity.startActivity(intent);
+//        }else{
+//            Intent intent = new Intent(mActivity , ZQZRActivity.class);
+//            intent.putExtra("id",id);
+//            mActivity.startActivity(intent);
+//        }
+//    }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+
         ImageView imageView1;
         ImageView imageView2;
         ImageView im_touzi;
@@ -148,5 +167,29 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
             tv_jinee = (TextView) itemView.findViewById(R.id.tv_jinee);
             tv_qishu = (TextView) itemView.findViewById(R.id.tv_qishu);
         }
+
+
+
+
+    }
+    //实现点击事件
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    //定义接口
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , ZQZLbean.DataBean data);
+    }
+
+    //提供外部调用
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+            //注意这里使用getTag方法获取数据
+            mOnItemClickListener.onItemClick(v,(ZQZLbean.DataBean)v.getTag());
+        }
+    }
+    //暴露给外面调用得方法
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
     }
 }
