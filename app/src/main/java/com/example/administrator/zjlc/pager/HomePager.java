@@ -1,14 +1,16 @@
 package com.example.administrator.zjlc.pager;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +20,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.activity.DetailsActivity;
-import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.domain.JsonRootBean;
 import com.example.administrator.zjlc.domain.TJBBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/6/23.
  */
-public class HomePager extends BasePager {
+public class HomePager extends Fragment {
 
     private View view;
     private ViewPager viewpager;
@@ -48,6 +49,8 @@ public class HomePager extends BasePager {
     private TextView tv_ss;
     private TextView tv_jindu;
     private Button iv_lijitouzi;
+    private TextView tv_title;
+    private Toolbar toolbar;
 
     private String id;
 
@@ -57,9 +60,7 @@ public class HomePager extends BasePager {
 
     private ViewPagerAdapter viewPagerAdapter;
 
-    public HomePager(Activity activity) {
-        super(activity);
-    }
+
     public Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -72,11 +73,11 @@ public class HomePager extends BasePager {
             iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(id != null){
-                        Intent intent = new Intent(mActivity, DetailsActivity.class);
-                        intent.putExtra("id",id);
-                        mActivity.startActivity(intent);
-                    }else{
+                    if (id != null) {
+                        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                        intent.putExtra("id", id);
+                        getActivity().startActivity(intent);
+                    } else {
 //                        new AlertDialog.Builder(mActivity).setMessage("投资成功").show();
                     }
                 }
@@ -84,16 +85,21 @@ public class HomePager extends BasePager {
             return false;
         }
     });
+
+
+    @Nullable
     @Override
-    public void initData() {
-        super.initData();
-        System.out.println("首页数据被初始化了...");
-        //设置标题
-        view = View.inflate(mActivity, R.layout.homepager, null);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.homepager, container, false);
         viewList = new ArrayList<View>();
         initView();
-        fl_basepager_content.addView(view);
+        tv_title.setText("卓金理财");
+        return view;
+
+
     }
+
 
     /**
      * 1.在布局文件定义ViewPager
@@ -120,10 +126,12 @@ public class HomePager extends BasePager {
         setViewpagerData();
         //设置推荐标的详情
         setViewText();
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
     }
 
     private void setViewText() {
-        RequestParams requestparams = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCRecommend_list);
+        RequestParams requestparams = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCRecommend_list);
         x.http().post(requestparams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -135,10 +143,10 @@ public class HomePager extends BasePager {
                 id = tjbBean.getData().getId();
                 //获取到数据部署上去
                 tv_biao.setText(tjbBean.getData().getBorrow_name());
-                tv_lv.setText(tjbBean.getData().getBorrow_interest_rate()+"%");
+                tv_lv.setText(tjbBean.getData().getBorrow_interest_rate() + "%");
                 tv_time.setText(tjbBean.getData().getBorrow_duration());
                 tv_ss.setText(tjbBean.getData().getBorrow_money());
-                tv_jindu.setText(tjbBean.getData().getProgress()+"%");
+                tv_jindu.setText(tjbBean.getData().getProgress() + "%");
             }
 
             @Override
@@ -164,7 +172,7 @@ public class HomePager extends BasePager {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            position = position%5;
+            position = position % 5;
             dots.get(oldPosition).setBackgroundResource(
                     R.drawable.dot_normal);
             dots.get(position)
@@ -186,8 +194,8 @@ public class HomePager extends BasePager {
     }
 
     //获取网络数据
-    public void setViewpagerData(){
-        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBanner);
+    public void setViewpagerData() {
+        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBanner);
         x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -199,9 +207,9 @@ public class HomePager extends BasePager {
                 jrb = noticeBean.getData();
 
                 for (int i = 0; i < jrb.size(); i++) {
-                    ImageView imageView = new ImageView(mActivity);
+                    ImageView imageView = new ImageView(getActivity());
 
-                    Glide.with(mActivity).load(jrb.get(i)).into(imageView);
+                    Glide.with(getActivity()).load(jrb.get(i)).into(imageView);
                     viewList.add(imageView);
                 }
                 handler.sendEmptyMessage(1);
@@ -214,7 +222,7 @@ public class HomePager extends BasePager {
 
             @Override
             public void onCancelled(CancelledException cex) {
-                Log.e("data网站banner","onCancelled");
+                Log.e("data网站banner", "onCancelled");
 
             }
 
@@ -224,9 +232,11 @@ public class HomePager extends BasePager {
             }
         });
     }
+
     //设置viewpager数据
     private class ViewPagerAdapter extends PagerAdapter {
         private List<View> mListViews;
+
         public ViewPagerAdapter() {
             super();
             // TODO Auto-generated constructor stub
@@ -257,5 +267,10 @@ public class HomePager extends BasePager {
             ((ViewPager) views).addView(mListViews.get(position));
             return mListViews.get(position);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

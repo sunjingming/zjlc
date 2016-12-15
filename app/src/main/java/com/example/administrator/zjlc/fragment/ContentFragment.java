@@ -54,9 +54,6 @@ public class ContentFragment extends BaseFragment {
 
         //准备ViewPager的数据
         basePagers = new ArrayList<BasePager>();
-        basePagers.add(new HomePager(mActivity));//添加首页
-        basePagers.add(new Account(mActivity));//
-        basePagers.add(new Find(mActivity));//
 //        basePagers.add(new MorePager(mActivity));//
 
 
@@ -80,9 +77,6 @@ public class ContentFragment extends BaseFragment {
      * 得到首页信息
      * @return
      */
-    public HomePager getHomePager() {
-        return (HomePager) basePagers.get(0);
-    }
 
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 

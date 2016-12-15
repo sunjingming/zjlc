@@ -34,11 +34,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".ReMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.DetailsActivity" />
@@ -124,7 +131,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".userMessage.UserMail" />
         <activity android:name=".activity.DetailsActivity2" />
-        <activity android:name=".activity.ZQZRActivity"></activity>
+        <activity android:name=".activity.ZQZRActivity" />
         <activity android:name=".userMessage.UserMail" />
         <activity android:name=".invest.Invest" />
         <activity android:name=".invest.MoneyMatter" />
@@ -132,7 +139,8 @@
         <activity android:name=".invest.InvestRecord" />
         <activity android:name=".invest.MoneyRecord" />
         <activity android:name=".invest.RedPacket" />
-        <activity android:name=".login.RegisterAgreement"></activity>
+        <activity android:name=".login.RegisterAgreement" />
+
     </application>
 
 </manifest>

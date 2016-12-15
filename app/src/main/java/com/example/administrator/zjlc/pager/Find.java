@@ -1,16 +1,21 @@
 package com.example.administrator.zjlc.pager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,13 +27,10 @@ import com.example.administrator.zjlc.activity.ZQZRActivity;
 import com.example.administrator.zjlc.adapter.AddressSpacesItemDecoration;
 import com.example.administrator.zjlc.adapter.MyRecyclerView;
 import com.example.administrator.zjlc.adapter.MyRecyclerView2;
-import com.example.administrator.zjlc.base.BasePager;
-import com.example.administrator.zjlc.domain.SanBiaoGouBean;
 import com.example.administrator.zjlc.domain.SanBiaobean;
 import com.example.administrator.zjlc.domain.ZQZLbean;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.urls.UrlsUtils;
-import com.example.administrator.zjlc.view.MyScrollView;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -40,7 +42,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/6/23.
  */
-public class Find extends BasePager {
+public class Find extends Fragment {
     private RecyclerView recyclerView;
     private MyRecyclerView myRecyclerView;
     private MyRecyclerView2 myRecyclerView2;
@@ -53,28 +55,25 @@ public class Find extends BasePager {
     private Button but2;
 
 
-
-    private Handler handler = new Handler(new Handler.Callback(){
+    private Handler handler = new Handler(new Handler.Callback() {
 
         @Override
         public boolean handleMessage(Message msg) {
-            updateSingleView(dataBeanArrayList,zqzLbeen);
+            updateSingleView(dataBeanArrayList, zqzLbeen);
             return false;
         }
     });
+    private TextView tv_title;
+    private Toolbar toolbar;
 
-    public Find(Activity activity) {
-        super(activity);
-    }
+    @Nullable
     @Override
-    public void initData() {
-        super.initData();
-        System.out.println("我的数据被初始化了...");
-        //设置标题
-        view = View.inflate(mActivity, R.layout.mepager, null);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.mepager, container, false);
         initView();
-        fl_basepager_content.removeAllViews();
-        fl_basepager_content.addView(view);
+        tv_title.setText("理财");
+        return view;
+
     }
 
     /**
@@ -90,19 +89,17 @@ public class Find extends BasePager {
         but1.setBackgroundResource(R.drawable.yuanshi);
         but1.setTextColor(Color.WHITE);
 
-        tv_pasnt.setText("理财");
         setData();
 
 
-
-        myRecyclerView= new MyRecyclerView(mActivity , dataBeanArrayList );
-        myRecyclerView2= new MyRecyclerView2(mActivity , zqzLbeen);
+        myRecyclerView = new MyRecyclerView(getActivity(), dataBeanArrayList);
+        myRecyclerView2 = new MyRecyclerView2(getActivity(), zqzLbeen);
 
         recyclerView.getParent().requestDisallowInterceptTouchEvent(false);
 
 
         recyclerView.addItemDecoration(new AddressSpacesItemDecoration(20, 20, 20, 20));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayout.VERTICAL);//默认是LinearLayout.VERTICAL
         //设置布局管理器
         recyclerView.setLayoutManager(layoutManager);
@@ -112,17 +109,17 @@ public class Find extends BasePager {
         myRecyclerView.setOnItemClickListener(new MyRecyclerView.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, SanBiaobean.DataBean data) {
-                SharedPreferences prence = mActivity.getSharedPreferences("usetoken", mActivity.MODE_PRIVATE);
-                String token = prence.getString("token","");
-                Log.e("cuo",token);
-                if(token.equals("")){
-                    Intent intent = new Intent(mActivity , Login.class);
-                    mActivity.startActivity(intent);
-                }else{
+                SharedPreferences prence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                String token = prence.getString("token", "");
+                Log.e("cuo", token);
+                if (token.equals("")) {
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    getActivity().startActivity(intent);
+                } else {
 
-                    Intent intent = new Intent(mActivity , DetailsActivity.class);
-                    intent.putExtra("id",data.getId()+"");
-                    mActivity.startActivity(intent);
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra("id", data.getId() + "");
+                    getActivity().startActivity(intent);
                 }
             }
         });
@@ -144,17 +141,17 @@ public class Find extends BasePager {
                 myRecyclerView.setOnItemClickListener(new MyRecyclerView.OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, SanBiaobean.DataBean data) {
-                        SharedPreferences prence = mActivity.getSharedPreferences("usetoken", mActivity.MODE_PRIVATE);
-                        String token = prence.getString("token","");
-                        Log.e("cuo",token);
-                        if(token.equals("")){
-                            Intent intent = new Intent(mActivity , Login.class);
-                            mActivity.startActivity(intent);
-                        }else{
+                        SharedPreferences prence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                        String token = prence.getString("token", "");
+                        Log.e("cuo", token);
+                        if (token.equals("")) {
+                            Intent intent = new Intent(getActivity(), Login.class);
+                            getActivity().startActivity(intent);
+                        } else {
 
-                            Intent intent = new Intent(mActivity , DetailsActivity.class);
-                            intent.putExtra("id",data.getId()+"");
-                            mActivity.startActivity(intent);
+                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            intent.putExtra("id", data.getId() + "");
+                            getActivity().startActivity(intent);
                         }
                     }
                 });
@@ -172,26 +169,28 @@ public class Find extends BasePager {
                 myRecyclerView2.setOnItemClickListener(new MyRecyclerView2.OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, ZQZLbean.DataBean data) {
-                        SharedPreferences prence = mActivity.getSharedPreferences("usetoken", mActivity.MODE_PRIVATE);
-                        String token = prence.getString("token","");
-                        Log.e("cuo",token);
-                        if(token.equals("")){
-                            Intent intent = new Intent(mActivity , Login.class);
-                            mActivity.startActivity(intent);
-                        }else{
-                            Intent intent = new Intent(mActivity , ZQZRActivity.class);
-                            intent.putExtra("id",data.getDebt_id());
-                            mActivity.startActivity(intent);
+                        SharedPreferences prence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                        String token = prence.getString("token", "");
+                        Log.e("cuo", token);
+                        if (token.equals("")) {
+                            Intent intent = new Intent(getActivity(), Login.class);
+                            getActivity().startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getActivity(), ZQZRActivity.class);
+                            intent.putExtra("id", data.getDebt_id());
+                            getActivity().startActivity(intent);
                         }
                     }
                 });
             }
         });
 
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
     }
 
     private void setData() {
-        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_list);
+        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBorrow_list);
         x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -200,7 +199,7 @@ public class Find extends BasePager {
                 Gson gson = new Gson();
                 sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
 
-                for(int i = 0; i < sanBiaobean.getData().size() ; i++){
+                for (int i = 0; i < sanBiaobean.getData().size(); i++) {
                     Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                     dataBeanArrayList.add(sanBiaobean.getData().get(i));
                 }
@@ -215,7 +214,7 @@ public class Find extends BasePager {
 
             @Override
             public void onCancelled(CancelledException cex) {
-                Log.e("标","onCancelled");
+                Log.e("标", "onCancelled");
 
             }
 
@@ -225,7 +224,7 @@ public class Find extends BasePager {
             }
         });
 
-        RequestParams paramsNotice2 = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCDebt_list);
+        RequestParams paramsNotice2 = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCDebt_list);
         x.http().post(paramsNotice2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -235,7 +234,7 @@ public class Find extends BasePager {
 
                 zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
 
-                for(int i = 0; i < zqzLbeans.getData().size() ; i++){
+                for (int i = 0; i < zqzLbeans.getData().size(); i++) {
                     Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
                     zqzLbeen.add(zqzLbeans.getData().get(i));
                 }
@@ -248,7 +247,7 @@ public class Find extends BasePager {
 
             @Override
             public void onCancelled(CancelledException cex) {
-                Log.e("标","onCancelled");
+                Log.e("标", "onCancelled");
 
             }
 
@@ -262,9 +261,9 @@ public class Find extends BasePager {
     }
 
     //更新数据
-    private void updateSingleView(ArrayList<SanBiaobean.DataBean> singModelArrayList,ArrayList<ZQZLbean.DataBean> sin) {
-        if(singModelArrayList != null && singModelArrayList.size() != 0 || sin != null && sin.size() != 0){
-            ((MyRecyclerView)recyclerView.getAdapter()).setDatas(singModelArrayList);
+    private void updateSingleView(ArrayList<SanBiaobean.DataBean> singModelArrayList, ArrayList<ZQZLbean.DataBean> sin) {
+        if (singModelArrayList != null && singModelArrayList.size() != 0 || sin != null && sin.size() != 0) {
+            ((MyRecyclerView) recyclerView.getAdapter()).setDatas(singModelArrayList);
         }
     }
 

@@ -1,13 +1,17 @@
 package com.example.administrator.zjlc.pager;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.NumberFormat;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +23,6 @@ import com.example.administrator.zjlc.bank.AddCard;
 import com.example.administrator.zjlc.bank.ApproveJuadgeBean;
 import com.example.administrator.zjlc.bank.BankJuadgeBean;
 import com.example.administrator.zjlc.bank.CardMsg;
-import com.example.administrator.zjlc.base.BasePager;
 import com.example.administrator.zjlc.cash.Cash;
 import com.example.administrator.zjlc.invest.Invest;
 import com.example.administrator.zjlc.invest.MoneyMatter;
@@ -35,13 +38,11 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.math.BigDecimal;
-
 
 /**
  * Created by Administrator on 2016/6/23.
  */
-public class Account extends BasePager implements View.OnClickListener {
+public class Account extends Fragment implements View.OnClickListener {
 
     private View view;
     private TextView login;
@@ -62,25 +63,19 @@ public class Account extends BasePager implements View.OnClickListener {
     private int eventBank;
     private TextView user_manage;
     private TextView user_invite;
-
-    public Account(Activity activity) {
-        super(activity);
-    }
+    private TextView tv_title;
+    private Toolbar toolbar;
 
 
+    @Nullable
     @Override
-    public void initData() {
-        super.initData();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        System.out.println("理财数据被初始化了...");
-
-        SharedPreferences fence = mActivity.getSharedPreferences("usetoken", mActivity.MODE_PRIVATE);
-        token = fence.getString("token", "");
-
-
-        //设置标题
-        view = View.inflate(mActivity, R.layout.licaipager, null);
+        view = inflater.inflate(R.layout.licaipager, container, false);
         initView();
+
+        SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+        token = fence.getString("token", "");
         getData();
 
         if (token.equals("")) {
@@ -100,9 +95,6 @@ public class Account extends BasePager implements View.OnClickListener {
         message.setOnClickListener(this);
         user_invite.setOnClickListener(this);
         user_manage.setOnClickListener(this);
-
-
-        fl_basepager_content.addView(view);
 
         //判断是否进行实名认证
         RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
@@ -161,7 +153,7 @@ public class Account extends BasePager implements View.OnClickListener {
 
             }
         });
-
+        return view;
 
     }
 
@@ -192,7 +184,7 @@ public class Account extends BasePager implements View.OnClickListener {
                 String f4 = String.format("%.2f", d);
                 freeze.setText("¥" + f4);
 
-                Glide.with(mActivity).load(datalist.getHeader_img()).into(head);
+                Glide.with(getActivity()).load(datalist.getHeader_img()).into(head);
                 invite.setText(datalist.getInvite_code());
                 login.setText(datalist.getUser_phone());
             }
@@ -234,93 +226,95 @@ public class Account extends BasePager implements View.OnClickListener {
         user_invite = (TextView) view.findViewById(R.id.user_invest);
         user_manage = (TextView) view.findViewById(R.id.user_manage);
 
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.user_login:
-                Intent intent = new Intent(mActivity, Login.class);
-                mActivity.startActivity(intent);
+                Intent intent = new Intent(getActivity(), Login.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.user_approve:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentApprove = new Intent(mActivity, Approve.class);
-                    mActivity.startActivity(intentApprove);
+                    Intent intentApprove = new Intent(getActivity(), Approve.class);
+                    getActivity().startActivity(intentApprove);
                 }
                 break;
             case R.id.user_bank:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else if (event != 88) {
-                    Toast.makeText(mActivity, "尚未通过实名认证，不能进行银行卡能相关工作", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "尚未通过实名认证，不能进行银行卡能相关工作", Toast.LENGTH_SHORT).show();
                 } else if (eventBank != 88) {
-                    AlertDialog dialog = new AlertDialog.Builder(mActivity).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intentAddCard = new Intent(mActivity, AddCard.class);
-                            mActivity.startActivity(intentAddCard);
+                            Intent intentAddCard = new Intent(getActivity(), AddCard.class);
+                            getActivity().startActivity(intentAddCard);
                         }
                     }).setNegativeButton("否", null).show();
 
                 } else {
-                    Intent inten = new Intent(mActivity, CardMsg.class);
-                    mActivity.startActivity(inten);
+                    Intent inten = new Intent(getActivity(), CardMsg.class);
+                    getActivity().startActivity(inten);
                 }
                 break;
             case R.id.user_head:
                 if ("".equals(token)) {
-                    Intent intent1 = new Intent(mActivity, Login.class);
-                    mActivity.startActivity(intent1);
+                    Intent intent1 = new Intent(getActivity(), Login.class);
+                    getActivity().startActivity(intent1);
                 } else {
-                    Intent intentUser = new Intent(mActivity, UserMessage.class);
-                    mActivity.startActivity(intentUser);
+                    Intent intentUser = new Intent(getActivity(), UserMessage.class);
+                    getActivity().startActivity(intentUser);
                 }
 
                 break;
             case R.id.cash:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentCash = new Intent(mActivity, Cash.class);
-                    mActivity.startActivity(intentCash);
+                    Intent intentCash = new Intent(getActivity(), Cash.class);
+                    getActivity().startActivity(intentCash);
                 }
                 break;
             case R.id.recharge:
-                Toast.makeText(mActivity, "暂未开放充值功能", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "暂未开放充值功能", Toast.LENGTH_SHORT).show();
                 break;
             //进入我的活动页面
             case R.id.user_activity:
-                Intent intentExerise = new Intent(mActivity, UserExercise.class);
-                mActivity.startActivity(intentExerise);
+                Intent intentExerise = new Intent(getActivity(), UserExercise.class);
+                getActivity().startActivity(intentExerise);
                 break;
             case R.id.user_messge:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentMessage = new Intent(mActivity, UserMail.class);
-                    mActivity.startActivity(intentMessage);
+                    Intent intentMessage = new Intent(getActivity(), UserMail.class);
+                    getActivity().startActivity(intentMessage);
                 }
                 break;
             //进入我的理财界面
             case R.id.user_invest:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentInvest = new Intent(mActivity, Invest.class);
-                    mActivity.startActivity(intentInvest);
+                    Intent intentInvest = new Intent(getActivity(), Invest.class);
+                    getActivity().startActivity(intentInvest);
                 }
                 break;
             //进入特权金页面
 
             case R.id.user_manage:
                 if ("".equals(token)) {
-                    Toast.makeText(mActivity, "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentManage = new Intent(mActivity, MoneyMatter.class);
-                    mActivity.startActivity(intentManage);
+                    Intent intentManage = new Intent(getActivity(), MoneyMatter.class);
+                    getActivity().startActivity(intentManage);
                 }
         }
     }
@@ -330,4 +324,6 @@ public class Account extends BasePager implements View.OnClickListener {
         return super.clone();
 
     }
+
+
 }

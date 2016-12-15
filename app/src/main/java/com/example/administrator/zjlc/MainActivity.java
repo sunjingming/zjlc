@@ -11,8 +11,11 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.fragment.ContentFragment;
+
+import org.apache.http.conn.scheme.HostNameResolver;
 
 public class MainActivity extends FragmentActivity {
     ContentFragment contentFragment;
@@ -55,9 +58,29 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        Log.e("onResume","onResume");
-        contentFragment.setId(intent.getIntExtra("tagid",0));
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, contentFragment).commit();
+        handler.post(runnable);
+
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.sendEmptyMessage(1);
+        }
+    };
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Intent intent = getIntent();
+                    final int tagid = intent.getIntExtra("tagid",0);
+                    Log.e("onResume",tagid+"");
+                    contentFragment.setId(tagid);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fl_main, contentFragment).commit();
+            }
+        }
+    };
 }

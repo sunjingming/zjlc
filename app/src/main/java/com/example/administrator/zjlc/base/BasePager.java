@@ -1,6 +1,7 @@
 package com.example.administrator.zjlc.base;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -16,7 +17,7 @@ import org.xutils.x;
  都要继承BasePager
  要在BasePager里直接实现标题栏部分
  */
-public class BasePager {
+public class BasePager{
 
     //IOC反向注入
 
