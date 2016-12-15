@@ -78,8 +78,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             editor.commit();
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
-
-
                         } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
                         }

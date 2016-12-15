@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.zjlc.R;
@@ -50,6 +51,7 @@ public class RedPacketAdapter extends BaseAdapter {
             holder.state = (TextView) view.findViewById(R.id.red_packet_state);
             holder.introduce = (TextView) view.findViewById(R.id.red_packet_introduce);
             holder.time = (TextView) view.findViewById(R.id.red_packet_time);
+            holder.back = (RelativeLayout) view.findViewById(R.id.red_background);
             view.setTag(holder);
         }else {
             holder = (ItemViewHolder) view.getTag();
@@ -57,12 +59,16 @@ public class RedPacketAdapter extends BaseAdapter {
         final String status = data.get(i).getStatus();
         if ("1".equals(status)){
             holder.state.setText("特权金状态：可用");
+            holder.back.setBackgroundResource(R.color.red);
         }else if ("2".equals(status)){
             holder.state.setText("特权金状态：锁定");
+            holder.back.setBackgroundResource(R.color.red_packet_background);
         }else if ("3".equals(status)){
             holder.state.setText("特权金状态：过期");
+            holder.back.setBackgroundResource(R.color.red_packet_background);
         }else if ("4".equals(status)){
             holder.state.setText("特权金状态：已用");
+            holder.back.setBackgroundResource(R.color.red_packet_background);
         }
         holder.money.setText("¥"+data.get(i).getMoney());
         holder.source.setText("活动来源"+data.get(i).getName());
@@ -76,5 +82,6 @@ public class RedPacketAdapter extends BaseAdapter {
 
     class ItemViewHolder{
         TextView money,source,state,introduce,time;
+        RelativeLayout back;
     }
 }

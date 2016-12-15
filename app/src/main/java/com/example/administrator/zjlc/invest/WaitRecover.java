@@ -128,4 +128,6 @@ public class WaitRecover extends Fragment {
     private void initView(View view) {
         wait_recover_list = (PullToRefreshListView) view.findViewById(R.id.wait_recover_list);
     }
+
+
 }

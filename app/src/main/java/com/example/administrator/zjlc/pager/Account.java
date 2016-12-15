@@ -84,10 +84,10 @@ public class Account extends BasePager implements View.OnClickListener {
         getData();
 
         if (token.equals("")) {
-            login.setText("登录");
+            login.setText("未登录");
         }
 
-        if ("登录".equals(login.getText().toString())) {
+        if ("未登录".equals(login.getText().toString())) {
             login.setOnClickListener(this);
         }
 
@@ -271,8 +271,14 @@ public class Account extends BasePager implements View.OnClickListener {
                 }
                 break;
             case R.id.user_head:
-                Intent intentUser = new Intent(mActivity, UserMessage.class);
-                mActivity.startActivity(intentUser);
+                if ("".equals(token)) {
+                    Intent intent1 = new Intent(mActivity, Login.class);
+                    mActivity.startActivity(intent1);
+                } else {
+                    Intent intentUser = new Intent(mActivity, UserMessage.class);
+                    mActivity.startActivity(intentUser);
+                }
+
                 break;
             case R.id.cash:
                 if ("".equals(token)) {
@@ -319,5 +325,9 @@ public class Account extends BasePager implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
 
+    }
 }

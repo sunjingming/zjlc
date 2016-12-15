@@ -19,6 +19,7 @@
     <color name="line">#c8bca5</color>
     <color name="black_gray">#333333</color>
     <color name="camera_pop_normal">#5DB8FE</color>
+    <color name="red_packet_background">#996631</color>
 
     <color name="blue_light">#65caff</color>
     <color name="blue_dark">#0b82c1</color>
