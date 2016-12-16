@@ -298,7 +298,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
 //        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
 
 
-        ll_passs.setMinimumHeight(height+10);
+        ll_passs.setMinimumHeight(height+1);
         tv_pasnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
