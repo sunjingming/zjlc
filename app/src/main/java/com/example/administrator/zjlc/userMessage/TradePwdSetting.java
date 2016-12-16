@@ -208,7 +208,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                     }).show();
                     toHomeAcvtivity();
                 }else if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("恭喜您已经完成了全部的注册流程").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("交易密码设置成功").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                           finish();

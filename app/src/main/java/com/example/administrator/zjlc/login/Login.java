@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.google.gson.Gson;
@@ -74,7 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             SharedPreferences.Editor editor = prence.edit();
                             editor.putString("token", loginBean.getData());
                             editor.commit();
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, ReMainActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.login.Register;
 import com.example.administrator.zjlc.login.RegisterCodeBean;
@@ -131,7 +132,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     AlertDialog dialog = new AlertDialog.Builder(AddCard.this).setTitle("消息提示").setMessage(bindBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           Intent intent = new Intent(AddCard.this, MainActivity.class);
+                           Intent intent = new Intent(AddCard.this, ReMainActivity.class);
                             intent.putExtra("tagid",2);
                             startActivity(intent);
                         }

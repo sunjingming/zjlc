@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.login.RegisterTradePwd;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.userMessage.TradePwdSetting;
 import com.google.gson.Gson;
@@ -93,8 +94,7 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
                             AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()+",请点击确定前往设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(ApproveName.this, TradePwdSetting.class);
-                                        intent.putExtra("id","1");
+                                        Intent intent = new Intent(ApproveName.this, RegisterTradePwd.class);
                                         startActivity(intent);
                                 }
                             }).show();

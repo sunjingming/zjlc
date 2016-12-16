@@ -140,7 +140,7 @@
         <activity android:name=".invest.MoneyRecord" />
         <activity android:name=".invest.RedPacket" />
         <activity android:name=".login.RegisterAgreement" />
-
+        <activity android:name=".login.RegisterTradePwd"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.administrator.zjlc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,9 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_main);
         initView();
+        Intent intent = getIntent();
+        final String id = intent.getStringExtra("id");
+
         rb_home.setOnClickListener(this);
         rb_govaffair.setOnClickListener(this);
         rb_newscenter.setOnClickListener(this);

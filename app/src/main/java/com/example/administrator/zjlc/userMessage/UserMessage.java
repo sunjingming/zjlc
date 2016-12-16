@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.CircleImageView;
@@ -185,7 +186,7 @@ public class UserMessage extends AppCompatActivity implements View.OnClickListen
                         editor = preferences.edit();
                         editor.clear();
                         editor.commit();
-                        Intent intent = new Intent(UserMessage.this, MainActivity.class);
+                        Intent intent = new Intent(UserMessage.this, ReMainActivity.class);
                         startActivity(intent);
                     }
                 }).setNegativeButton("取消", null).show();

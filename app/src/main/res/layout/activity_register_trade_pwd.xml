@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.example.administrator.zjlc.login.RegisterTradePwd">
+    <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:id="@+id/old_layout"
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易密码:    "
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/setting_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m8"
+            android:background="@color/white"
+            android:gravity="start"
+            android:hint="请输入交易密码"
+            android:inputType="textPassword"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:background="@color/red" />
+    <LinearLayout
+        style="@style/TextStyle"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认密码:    "
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/setting_check_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/m8"
+            android:background="@color/white"
+            android:gravity="start"
+            android:hint="请再次输入交易密码"
+            android:inputType="textPassword"
+            android:textColor="@color/gray18"
+            android:textColorHint="@color/gray8"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginRight="@dimen/m8"
+        android:background="@color/red" />
+
+
+    <Button
+        android:id="@+id/register_pwd_submit"
+       style="@style/SubmitButtonStyle"
+        android:text="提交"
+        android:layout_marginRight="@dimen/m8"
+        android:layout_marginLeft="@dimen/m8"
+        android:layout_marginTop="@dimen/t48"
+        android:enabled="false"
+        />
+
+
+
+
+</LinearLayout>

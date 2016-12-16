@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -320,10 +322,84 @@ public class Account extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-
+    public void onResume() {
+        super.onResume();
+        handler.post(runnable);
     }
 
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.sendEmptyMessage(1);
+        }
+    };
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
 
+                    getData();
+
+                    //判断是否进行实名认证
+                    RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
+                    paramms.addBodyParameter("token", token);
+                    x.http().post(paramms, new org.xutils.common.Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            String data = result;
+                            Log.i("data是否实名", data);
+                            Gson gson = new Gson();
+                            ApproveJuadgeBean juadgeBean = gson.fromJson(data, ApproveJuadgeBean.class);
+                            event = juadgeBean.getEvent();
+
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+                    //判断是否绑定银行卡
+                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_juadge);
+                    params.addBodyParameter("token", token);
+                    x.http().post(params, new org.xutils.common.Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            String data = result;
+                            Log.i("data是否绑卡", data);
+                            Gson gson = new Gson();
+                            BankJuadgeBean juadgeBean = gson.fromJson(data, BankJuadgeBean.class);
+                            eventBank = juadgeBean.getEvent();
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+            }
+        }
+    };
 }

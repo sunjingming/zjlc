@@ -2,28 +2,39 @@ package com.example.administrator.zjlc.userMessage;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshExpandableListView;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserMail extends AppCompatActivity {
 
     private TextView tv_title;
     private Toolbar toolbar;
-    private ListView user_mail;
+    private int page = 1;
+    private int pageCount = 1;
+    private PullToRefreshListView listView;
+    private List<UserMailBean.DataBean> beanList = new ArrayList<>();
+    private UserMailAdapter adapter;
     private String token;
 
     @Override
@@ -44,19 +55,83 @@ public class UserMail extends AppCompatActivity {
         });
         tv_title.setText("站内信");
 
+        new Handler().postDelayed(new Runnable(){
+            public void run(){
+                listView.setRefreshing();
+                loadData();
+            }
+        },2000);
+
+
+
+        //2实例化适配器
+        adapter = new UserMailAdapter(UserMail.this, beanList);
+        //3设置适配器
+        listView.setAdapter(adapter);
+
+        //2实例化适配器
+        adapter = new UserMailAdapter(UserMail.this, beanList);
+        //3设置适配器
+        listView.setAdapter(adapter);
+
+
+        //4.设置刷新模式[上下拉都有]
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            /**
+             * 下拉刷新
+             * 作用:清空原数据，加载新数据
+             * @param refreshView
+             */
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                //清空原数据
+                beanList.clear();
+                page = 1;
+                //加载新数据
+                loadData();
+            }
+
+            /**
+             * 上拉刷新
+             * 作用：添加下一页数据
+             * @param refreshView
+             */
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                if (page==pageCount){
+                    Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    listView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.onRefreshComplete();
+                        }
+                    }, 1000);
+                }else {
+                    page++;
+                    loadData();
+
+                }
+            }
+        });
+
+    }
+
+    private void loadData() {
         //获取站内信
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCMail);
-        params.addBodyParameter("token",token);
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCMail);
+        params.addBodyParameter("token", token);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data站内信",data);
+                Log.i("data站内信", data);
                 Gson gson = new Gson();
-                UserMailBean mailbean = gson.fromJson(data,UserMailBean.class);
-                final List<UserMailBean.DataBean> data1 = mailbean.getData();
-                UserMailAdapter adapter = new UserMailAdapter(UserMail.this,data1);
-                user_mail.setAdapter(adapter);
+                UserMailBean mailbean = gson.fromJson(data, UserMailBean.class);
+                beanList.addAll(mailbean.getData());
+                adapter.notifyDataSetChanged();
+                //5刷新完成,隐藏刷新进度条
+                listView.onRefreshComplete();
 
             }
 
@@ -76,12 +151,11 @@ public class UserMail extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        user_mail = (ListView) findViewById(R.id.user_mail);
+        listView = (PullToRefreshListView) findViewById(R.id.user_mail);
     }
 }
