@@ -8,22 +8,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.DetailsBean;
 import com.example.administrator.zjlc.invest.RedPacketBean;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
-import com.example.administrator.zjlc.utils.MD5Encoder;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.example.administrator.zjlc.view.MyScrollView;
 import com.google.gson.Gson;
@@ -35,7 +35,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends Activity implements MyScrollView.OnScrollListener {
 
     private TextView tv_lilv;
     private TextView tv_times;
@@ -49,9 +49,12 @@ public class DetailsActivity extends Activity {
     private TextView tv_pasnt;
     private int id;
     private DetailsBean noticeBean;
-    private MyScrollView sv_container;
+    private MyScrollView tv_scr;
     private String nametitle;
     private TextView tvjineeee;
+    private LinearLayout tequanjine;
+    private TextView tequanjin;
+    private LinearLayout ll_passs;
 
 
     public Handler handler = new Handler(new Handler.Callback() {
@@ -67,10 +70,23 @@ public class DetailsActivity extends Activity {
                 public void onClick(View v) {
                     String s1 = et_mm.getText().toString();
                     String s = et_je.getText().toString();
+                    et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     if( s.equals("") || s1.equals("")) {
                         new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额和投资密码").show();
                     }else{
                         requeseDate1(s, s1);
+                    }
+                }
+            });
+            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
+                @Override
+                public void onScrollBottomListener(boolean isBottom) {
+                    if(isBottom) {
+                        Intent intent;
+                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
                     }
                 }
             });
@@ -100,7 +116,7 @@ public class DetailsActivity extends Activity {
                 packetBean = gson.fromJson(data,RedPacketBean.class);
 
                 msg = new String[packetBean.getData().size()];
-                boolean[] bol = new boolean[packetBean.getData().size()];
+                final boolean[] bol = new boolean[packetBean.getData().size()];
                 Log.e("标11", String.valueOf(packetBean.getData().size()));
                 for(int i=0;i<packetBean.getData().size();i++){
                     dataBeanArrayList.add(packetBean.getData().get(i));
@@ -109,17 +125,24 @@ public class DetailsActivity extends Activity {
                     Log.e("sad",msg[i]);
                 }
                 if(packetBean.getData().size()>0) {
-                    new AlertDialog.Builder(DetailsActivity.this)
-                            .setTitle("选择特权金")
-                            .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                    requeseDate(s, s1, dataBeanArrayList.get(which));
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setNegativeButton("取消", null)
-                            .show();
+                    tequanjine.setVisibility(View.VISIBLE);
+                    tequanjin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(DetailsActivity.this)
+                                    .setTitle("选择特权金")
+                                    .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                            requeseDate(s, s1, dataBeanArrayList.get(which));
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setNegativeButton("取消", null)
+                                    .show();
+                        }
+                    });
+
                 }else{
                     requeseDate(s, s1, null);
                 }
@@ -252,7 +275,7 @@ public class DetailsActivity extends Activity {
     //初始化视图
     private void initView() {
         //初始化组件
-        sv_container = (MyScrollView) findViewById(R.id.sv_container);
+        tv_scr = (MyScrollView) findViewById(R.id.tv_scr);
         tv_lilv = (TextView) findViewById(R.id.tv_lilv);
         tv_times = (TextView) findViewById(R.id.tv_times);
         tv_timess = (TextView) findViewById(R.id.tv_timess);
@@ -264,7 +287,18 @@ public class DetailsActivity extends Activity {
         lijigou = (Button) findViewById(R.id.lijigou);
         tv_pasnt = (TextView) findViewById(R.id.tv_pasnt);
         tvjineeee = (TextView) findViewById(R.id.tvjineeee);
+        tequanjine = (LinearLayout) findViewById(R.id.tequanjine);
+        tequanjin = (TextView) findViewById(R.id.tequanjin);
+        ll_passs = (LinearLayout) findViewById(R.id.ll_passs);
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+//        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+//        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+//        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
 
+
+        ll_passs.setMinimumHeight(height+1);
         tv_pasnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -351,41 +385,47 @@ public class DetailsActivity extends Activity {
         });
     }
 
-
-    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
-    float x1 = 0;
-    float x2 = 0;
-    float y1 = 0;
-    float y2 = 0;
-    //设置滑动
-
-    Intent intent;
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        //继承了Activity的onTouchEvent方法，直接监听点击事件
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            //当手指按下的时候
-            x1 = event.getX();
-            y1 = event.getY();
-        }
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            //当手指离开的时候
-            x2 = event.getX();
-            y2 = event.getY();
-            if(y1 - y2 > 100) {
-                Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-                intent = new Intent(DetailsActivity.this,DetailsActivity2.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
-            }
-        }
-        return super.onTouchEvent(event);
+    public void onScroll(int y) {
+
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-    }
-    //上滑加载
+//    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
+//    float x1 = 0;
+//    float x2 = 0;
+//    float y1 = 0;
+//    float y2 = 0;
+//    //设置滑动
+//
+//    Intent intent;
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        //继承了Activity的onTouchEvent方法，直接监听点击事件
+//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//            //当手指按下的时候
+//            x1 = event.getX();
+//            y1 = event.getY();
+//        }
+//        if(event.getAction() == MotionEvent.ACTION_UP) {
+//            //当手指离开的时候
+//            x2 = event.getX();
+//            y2 = event.getY();
+//            if(y1 - y2 > 100) {
+//                Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+//                intent = new Intent(DetailsActivity.this,DetailsActivity2.class);
+//                intent.putExtra("id",id);
+//                startActivity(intent);
+//            }
+//        }
+//        return super.onTouchEvent(event);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//    }
+    //点击加载
+
 }

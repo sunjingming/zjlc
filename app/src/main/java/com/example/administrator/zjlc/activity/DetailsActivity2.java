@@ -44,6 +44,7 @@ public class DetailsActivity2 extends AppCompatActivity {
     private TextView tv9;
     private Button but1;
     private Button but2;
+    private TextView tv_pasnt;
     private LinearLayout ll_layout;
     private LinearLayout ll_rec;
 
@@ -92,9 +93,15 @@ public class DetailsActivity2 extends AppCompatActivity {
         tv7 = (TextView) findViewById(R.id.tv_name7);
         tv8 = (TextView) findViewById(R.id.tv_name8);
         tv9 = (TextView) findViewById(R.id.tv_name9);
+        tv_pasnt = (TextView) findViewById(R.id.tv_pasnt);
         ll_layout = (LinearLayout) findViewById(R.id.ll_layout);
         ll_rec = (LinearLayout) findViewById(R.id.ll_rec);
-
+        tv_pasnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         but1 = (Button) findViewById(R.id.but1);
         but2 = (Button) findViewById(R.id.but2);
         dataBeanArrayList = new ArrayList<SanBiaoGouBean.DataBean>();
@@ -137,7 +144,7 @@ public class DetailsActivity2 extends AppCompatActivity {
             }
         });
 
-      //设置数据
+        //设置数据
         initData();
     }
 
@@ -214,16 +221,13 @@ public class DetailsActivity2 extends AppCompatActivity {
 
     //更新数据
     private void updateSingleView(ArrayList<SanBiaoGouBean.DataBean> singModelArrayList) {
-            ((AdapterJiLu)recyclerview_rec.getAdapter()).setDatas(singModelArrayList);
+        ((AdapterJiLu)recyclerview_rec.getAdapter()).setDatas(singModelArrayList);
     }
 
     @Override
     protected void onStop() {
+        finish();
         super.onStop();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

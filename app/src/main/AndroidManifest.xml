@@ -48,7 +48,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".activity.DetailsActivity"
+            android:launchMode="standard" />
         <activity android:name=".login.Register" />
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".login.Login" />
@@ -130,7 +131,8 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".userMessage.UserMail" />
-        <activity android:name=".activity.DetailsActivity2" />
+        <activity android:name=".activity.DetailsActivity2"
+            android:launchMode="standard"/>
         <activity android:name=".activity.ZQZRActivity" />
         <activity android:name=".userMessage.UserMail" />
         <activity android:name=".invest.Invest" />
