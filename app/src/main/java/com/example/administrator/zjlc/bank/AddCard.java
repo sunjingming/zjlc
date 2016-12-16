@@ -133,7 +133,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                            Intent intent = new Intent(AddCard.this, ReMainActivity.class);
-                            intent.putExtra("tagid",2);
+                            intent.putExtra("id",1);
                             startActivity(intent);
                         }
                     }).show();
