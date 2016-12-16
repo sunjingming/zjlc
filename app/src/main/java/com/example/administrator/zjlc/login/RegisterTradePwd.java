@@ -99,7 +99,6 @@ public class RegisterTradePwd extends AppCompatActivity implements View.OnClickL
             case R.id.register_pwd_submit:
                 if (setting_pwd.getText().toString().equals(setting_check_pwd.getText().toString())){
                     RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-                    // params.addBodyParameter("pin_pass", MD5Utils.Md5(setting_pwd.getText().toString()));
                     params.addBodyParameter("pin_pass_new", MD5Utils.Md5(setting_check_pwd.getText().toString()));
                     params.addBodyParameter("token", token);
                     params.addBodyParameter("type", "1");
