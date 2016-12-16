@@ -9,6 +9,7 @@ import android.widget.ScrollView;
  * Created by MrGuo on 2016/7/5.
  */
 public class MyScrollView extends ScrollView{
+    private OnScrollToBottomListener onScrollToBottom;
     private Context mContext;
     private static int mMaxOverDistance = 50;
     private OnScrollListener onScrollListener;
@@ -42,9 +43,9 @@ public class MyScrollView extends ScrollView{
         return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, mMaxOverDistance, isTouchEvent);
     }
 
-   public void setOnScrollListener(OnScrollListener onScrollListener){
-       this.onScrollListener=onScrollListener;
-   }
+    public void setOnScrollListener(OnScrollListener onScrollListener){
+        this.onScrollListener=onScrollListener;
+    }
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
@@ -52,11 +53,21 @@ public class MyScrollView extends ScrollView{
 
     }
 
-
-
-    public interface OnScrollListener{
-        public void onScroll(int y);
+    @Override
+    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+        if(scrollY > 0 && null != onScrollToBottom){
+            onScrollToBottom.onScrollBottomListener(clampedY);
+        }
     }
 
-
+    public interface OnScrollListener{
+        void onScroll(int y);
+    }
+    public void setOnScrollToBottomLintener(OnScrollToBottomListener listener){
+        onScrollToBottom = listener;
+    }
+    public interface OnScrollToBottomListener{
+        void onScrollBottomListener(boolean isBottom);
+    }
 }

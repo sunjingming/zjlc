@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/6/23.
  */
 public class Find extends Fragment {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView,recyclerView1;
     private MyRecyclerView myRecyclerView;
     private MyRecyclerView2 myRecyclerView2;
     private ArrayList<ZQZLbean.DataBean> zqzLbeen;
@@ -55,7 +55,8 @@ public class Find extends Fragment {
     private View view;
     private Button but1;
     private Button but2;
-    private SwipeRefreshLayout mRefreshLayout;
+    private SwipeRefreshLayout mRefreshLayout,mRefreshLayout1;
+    private LinearLayout ll_llsys,ll_llsys1;
 
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -84,9 +85,14 @@ public class Find extends Fragment {
     private void initView() {
         //实现上拉刷新
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh);
-
+        mRefreshLayout1 = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh1);
         //初始化列表
         recyclerView = (RecyclerView) view.findViewById(R.id.id_recyclerview);
+        recyclerView1 = (RecyclerView) view.findViewById(R.id.id_recyclerview1);
+
+        ll_llsys = (LinearLayout) view.findViewById(R.id.ll_llsys);
+        ll_llsys1 = (LinearLayout) view.findViewById(R.id.ll_llsys1);
+
         dataBeanArrayList = new ArrayList<SanBiaobean.DataBean>();
         zqzLbeen = new ArrayList<ZQZLbean.DataBean>();
         but1 = (Button) view.findViewById(R.id.but1);
@@ -101,16 +107,20 @@ public class Find extends Fragment {
         myRecyclerView2 = new MyRecyclerView2(getActivity(), zqzLbeen);
 
         recyclerView.getParent().requestDisallowInterceptTouchEvent(false);
-
+        recyclerView1.getParent().requestDisallowInterceptTouchEvent(false);
 
         recyclerView.addItemDecoration(new AddressSpacesItemDecoration(20, 20, 20, 20));
+        recyclerView1.addItemDecoration(new AddressSpacesItemDecoration(20, 20, 20, 20));
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayout.VERTICAL);//默认是LinearLayout.VERTICAL
+        final LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity());
+        layoutManager1.setOrientation(LinearLayout.VERTICAL);//默认是LinearLayout.VERTICAL
         //设置布局管理器
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView1.setLayoutManager(layoutManager1);
         //设置Adapter
         recyclerView.setAdapter(myRecyclerView);
+        recyclerView1.setAdapter(myRecyclerView2);
         myRecyclerView.setOnItemClickListener(new MyRecyclerView.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, SanBiaobean.DataBean data) {
@@ -143,12 +153,12 @@ public class Find extends Fragment {
             }
         });
         //上拉加载更多
-//        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-//            @Override
-//            public void onLoadMore(int currentPage) {
-//                loadMoreData();
-//            }
-//        });
+        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        });
         //设置增加或删除条目的动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //设置按钮切换
@@ -161,7 +171,8 @@ public class Find extends Fragment {
                 but1.setBackgroundResource(R.drawable.yuanshi);
                 but1.setTextColor(Color.WHITE);
 
-
+                ll_llsys.setVisibility(View.VISIBLE);
+                ll_llsys1.setVisibility(View.GONE);
                 //设置Adapter
                 recyclerView.setAdapter(myRecyclerView);
                 myRecyclerView.setOnItemClickListener(new MyRecyclerView.OnRecyclerViewItemClickListener() {
@@ -181,7 +192,7 @@ public class Find extends Fragment {
                         }
                     }
                 });
-                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
                     @Override
                     public void onLoadMore(int currentPage) {
                         loadMoreData();
@@ -196,10 +207,13 @@ public class Find extends Fragment {
                 but1.setTextColor(Color.RED);
                 but2.setBackgroundResource(R.drawable.yuanrightshi);
                 but2.setTextColor(Color.WHITE);
-                //设置Adapter
-                recyclerView.setAdapter(myRecyclerView2);
 
-                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                ll_llsys1.setVisibility(View.VISIBLE);
+                ll_llsys.setVisibility(View.GONE);
+                //设置Adapter
+                recyclerView1.setAdapter(myRecyclerView2);
+
+                recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
                     @Override
                     public void onLoadMore(int currentPage) {
                         loadMoreData2();
