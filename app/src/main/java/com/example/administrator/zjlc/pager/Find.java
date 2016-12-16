@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.activity.DetailsActivity;
 import com.example.administrator.zjlc.activity.ZQZRActivity;
 import com.example.administrator.zjlc.adapter.AddressSpacesItemDecoration;
+import com.example.administrator.zjlc.adapter.EndLessOnScrollListener;
 import com.example.administrator.zjlc.adapter.MyRecyclerView;
 import com.example.administrator.zjlc.adapter.MyRecyclerView2;
 import com.example.administrator.zjlc.domain.SanBiaobean;
@@ -53,7 +55,7 @@ public class Find extends Fragment {
     private View view;
     private Button but1;
     private Button but2;
-
+    private SwipeRefreshLayout mRefreshLayout;
 
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -80,6 +82,9 @@ public class Find extends Fragment {
      * 3.2,至少要实现4个方法
      */
     private void initView() {
+        //实现上拉刷新
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh);
+
         //初始化列表
         recyclerView = (RecyclerView) view.findViewById(R.id.id_recyclerview);
         dataBeanArrayList = new ArrayList<SanBiaobean.DataBean>();
@@ -99,7 +104,7 @@ public class Find extends Fragment {
 
 
         recyclerView.addItemDecoration(new AddressSpacesItemDecoration(20, 20, 20, 20));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayout.VERTICAL);//默认是LinearLayout.VERTICAL
         //设置布局管理器
         recyclerView.setLayoutManager(layoutManager);
@@ -121,8 +126,29 @@ public class Find extends Fragment {
                     intent.putExtra("id", data.getId() + "");
                     getActivity().startActivity(intent);
                 }
+
+
             }
         });
+        //下拉刷新
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+        //上拉加载更多
+//        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+//            @Override
+//            public void onLoadMore(int currentPage) {
+//                loadMoreData();
+//            }
+//        });
         //设置增加或删除条目的动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //设置按钮切换
@@ -155,6 +181,12 @@ public class Find extends Fragment {
                         }
                     }
                 });
+                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                    @Override
+                    public void onLoadMore(int currentPage) {
+                        loadMoreData();
+                    }
+                });
             }
         });
         but2.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +198,13 @@ public class Find extends Fragment {
                 but2.setTextColor(Color.WHITE);
                 //设置Adapter
                 recyclerView.setAdapter(myRecyclerView2);
+
+                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                    @Override
+                    public void onLoadMore(int currentPage) {
+                        loadMoreData2();
+                    }
+                });
                 myRecyclerView2.setOnItemClickListener(new MyRecyclerView2.OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, ZQZLbean.DataBean data) {
@@ -182,6 +221,7 @@ public class Find extends Fragment {
                         }
                     }
                 });
+
             }
         });
 
@@ -267,4 +307,90 @@ public class Find extends Fragment {
         }
     }
 
+
+    //上拉刷新
+    //每次上拉加载的时候，给RecyclerView的后面添加了10条数据数据
+    //散标列表刷新
+    int ii = 2;
+    private void loadMoreData(){
+
+        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBorrow_list);
+        paramsNotice.addBodyParameter("page", String.valueOf(ii));
+        paramsNotice.addBodyParameter("pagesize", String.valueOf(6));
+        x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.e("标", data);
+                Gson gson = new Gson();
+                sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
+
+                for (int i = 0; i < sanBiaobean.getData().size(); i++) {
+                    Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
+                    dataBeanArrayList.add(sanBiaobean.getData().get(i));
+                }
+
+                handler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("标", "onError");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e("标", "onCancelled");
+
+            }
+
+            @Override
+            public void onFinished() {
+                Log.i("标", "onFinished");
+            }
+        });
+        ii++;
+    }
+
+    int iis = 2;
+    private void loadMoreData2(){
+
+        RequestParams paramsNotice2 = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCDebt_list);
+
+        paramsNotice2.addBodyParameter("page", String.valueOf(iis));
+        paramsNotice2.addBodyParameter("pagesize", String.valueOf(6));
+        x.http().post(paramsNotice2, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data1 = result;
+                Log.e("标", data1);
+                Gson gson = new Gson();
+
+                zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
+
+                for (int i = 0; i < zqzLbeans.getData().size(); i++) {
+                    Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
+                    zqzLbeen.add(zqzLbeans.getData().get(i));
+                }
+                handler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("标", "onError");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Log.e("标", "onCancelled");
+
+            }
+
+            @Override
+            public void onFinished() {
+                Log.i("标", "onFinished");
+            }
+        });
+        iis++;
+    }
 }
