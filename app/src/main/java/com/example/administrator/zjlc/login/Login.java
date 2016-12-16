@@ -76,6 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             editor.putString("token", loginBean.getData());
                             editor.commit();
                             Intent intent = new Intent(Login.this, ReMainActivity.class);
+                            intent.putExtra("id","1");
                             startActivity(intent);
                         } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();

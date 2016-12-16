@@ -1,10 +1,16 @@
 package com.example.administrator.zjlc;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,6 +26,7 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
     private RadioButton rb_home;
     private RadioButton rb_govaffair;
     private RadioButton rb_newscenter;
+    private FragmentManager fragmentManager;
     private RadioGroup rg_bottom_tab;
     private Fragment homeFragment, findFragment, accountFragment, currentFragment;
 
@@ -36,7 +43,16 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         rb_newscenter.setOnClickListener(this);
         rg_bottom_tab.setOnClickListener(this);
 
+        accountFragment = new Account();
+
+        fragmentManager = getSupportFragmentManager();
         initTab();
+        if ("1".equals(id)){
+            if (accountFragment == null) {
+                accountFragment = new Account();
+            }
+            addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
+        }
     }
 
     private void initTab() {
@@ -100,6 +116,35 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         }
 
         currentFragment = fragment;
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            ExitDialog(ReMainActivity.this).show();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private Dialog ExitDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("系统信息");
+        builder.setMessage("确定要退出程序吗?");
+        builder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+        return builder.create();
     }
 }
 
