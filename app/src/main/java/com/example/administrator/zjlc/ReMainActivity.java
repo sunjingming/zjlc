@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +38,8 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_main);
         initView();
+
+        initTab();
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
 
@@ -46,7 +51,6 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         accountFragment = new Account();
 
         fragmentManager = getSupportFragmentManager();
-        initTab();
         if ("1".equals(id)){
             if (accountFragment == null) {
                 accountFragment = new Account();
@@ -64,8 +68,13 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
             // 提交事务
             getSupportFragmentManager().beginTransaction().add(R.id.content_layout, homeFragment).commit();
             // 记录当前Fragment
+            Drawable img_off;
+            Resources res = getResources();
+            img_off = res.getDrawable(R.drawable.tabbar_home_sel);
+            img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
             currentFragment = homeFragment;
-
+            rb_home.setTextColor(getResources().getColor(R.color.red));
+            rb_home .setCompoundDrawables(null,img_off,null,null);
         }
     }
 
@@ -82,12 +91,26 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
             case R.id.rb_govaffair:
                 if (findFragment == null) {
                     findFragment = new Find();
+                    Drawable img_off;
+                    Resources res = getResources();
+                    img_off = res.getDrawable(R.drawable.tabbar_home);
+                    img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
+                    currentFragment = homeFragment;
+                    rb_home.setTextColor(Color.GRAY);
+                    rb_home .setCompoundDrawables(null,img_off,null,null);
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), findFragment);
                 break;
             case R.id.rb_newscenter:
                 if (accountFragment == null) {
                     accountFragment = new Account();
+                    Drawable img_off;
+                    Resources res = getResources();
+                    img_off = res.getDrawable(R.drawable.tabbar_home);
+                    img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
+                    currentFragment = homeFragment;
+                    rb_home.setTextColor(Color.GRAY);
+                    rb_home .setCompoundDrawables(null,img_off,null,null);
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
 
@@ -103,11 +126,9 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
     }
 
 
-    private void addOrShowFragment(FragmentTransaction transaction,
-                                   Fragment fragment) {
+    private void addOrShowFragment(FragmentTransaction transaction, Fragment fragment) {
         if (currentFragment == fragment)
             return;
-
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
             transaction.hide(currentFragment)
                     .add(R.id.content_layout, fragment).commit();
