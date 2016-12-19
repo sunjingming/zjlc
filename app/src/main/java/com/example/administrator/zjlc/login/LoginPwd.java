@@ -62,7 +62,7 @@ public class LoginPwd extends AppCompatActivity implements View.OnClickListener{
                 finish();
             }
         });
-        tv_title.setText("登陆密码");
+        tv_title.setText("登录密码");
 
         old_trade_pwwd.addTextChangedListener(textWacther);
         new_trade_pwd.addTextChangedListener(textWacther);

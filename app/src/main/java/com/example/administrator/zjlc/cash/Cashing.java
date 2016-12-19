@@ -79,7 +79,9 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 com.example.administrator.zjlc.login.UserBean userBean = gson.fromJson(data, com.example.administrator.zjlc.login.UserBean.class);
                 com.example.administrator.zjlc.login.UserBean.DataBean datalist = userBean.getData();
-                cashing_use_money.setText("¥  " + String.valueOf(datalist.getBalance_money()));
+                double f = datalist.getBalance_money();
+                String f1 = String.format("%.2f", f);
+                cashing_use_money.setText("¥" + f1);
             }
 
             @Override
