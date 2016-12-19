@@ -1,6 +1,7 @@
 package com.example.administrator.zjlc.userMessage;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,17 +48,24 @@ public class UserMailAdapter extends BaseAdapter {
             holder = new ItemViewHolder();
             holder.time = (TextView) view.findViewById(R.id.user_mail_time);
             holder.title = (TextView) view.findViewById(R.id.user_mail_title);
-            holder.content = (TextView) view.findViewById(R.id.user_mail_content);
+            holder.status = (TextView) view.findViewById(R.id.user_mail_status);
             view.setTag(holder);
         }else {
             holder = (ItemViewHolder) view.getTag();
         }
+        final int status = data.get(i).getStatus();
+        if (status==1){
+            holder.title.setTextColor(Color.GRAY);
+        }else {
+            holder.title.setTextColor(Color.BLACK);
+        }
+
         holder.title.setText(data.get(i).getTitle());
-        holder.content.setText(data.get(i).getMsg());
         holder.time.setText(data.get(i).getSend_time());
+        holder.status.setText(String.valueOf(data.get(i).getId()));
         return view;
     }
     class ItemViewHolder{
-        TextView title, content,time;
+        TextView title,time,status;
     }
 }

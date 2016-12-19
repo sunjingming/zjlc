@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +38,8 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_main);
         initView();
+
+        initTab();
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
 
@@ -46,7 +51,6 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         accountFragment = new Account();
 
         fragmentManager = getSupportFragmentManager();
-        initTab();
         if ("1".equals(id)){
             if (accountFragment == null) {
                 accountFragment = new Account();
@@ -66,31 +70,62 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
             // 记录当前Fragment
             currentFragment = homeFragment;
 
+            Drawable img_off;
+            Resources res = getResources();
+            img_off = res.getDrawable(R.drawable.tabbar_home_sel);
+            img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
+            rb_home.setTextColor(getResources().getColor(R.color.red));
+            rb_home.setCompoundDrawables(null, img_off, null, null);
         }
     }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rb_home:
+                Drawable img_offs;
+                Resources ress = getResources();
+                img_offs = ress.getDrawable(R.drawable.tabbar_home_sel);
+                img_offs.setBounds(0, 0, img_offs.getMinimumWidth(), img_offs.getMinimumHeight());
+                rb_home.setTextColor(Color.RED);
+                rb_home .setCompoundDrawables(null,img_offs,null,null);
                 if (homeFragment == null) {
                     homeFragment = new HomePager();
+                    currentFragment = homeFragment;
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), homeFragment);
                 break;
             case R.id.rb_govaffair:
+                Drawable img_of;
+                Resources r = getResources();
+                img_of = r.getDrawable(R.drawable.tabbar_home);
+                img_of.setBounds(0, 0, img_of.getMinimumWidth(), img_of.getMinimumHeight());
+                rb_home.setTextColor(Color.GRAY);
+                rb_home .setCompoundDrawables(null,img_of,null,null);
                 if (findFragment == null) {
                     findFragment = new Find();
+                    Drawable img_off;
+                    Resources res = getResources();
+                    img_off = res.getDrawable(R.drawable.tabbar_home);
+                    img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
+                    currentFragment = homeFragment;
+                    rb_home.setTextColor(Color.GRAY);
+                    rb_home .setCompoundDrawables(null,img_off,null,null);
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), findFragment);
                 break;
             case R.id.rb_newscenter:
+                Drawable img;
+                Resources rr = getResources();
+                img = rr.getDrawable(R.drawable.tabbar_home);
+                img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                rb_home.setTextColor(Color.GRAY);
+                rb_home .setCompoundDrawables(null,img,null,null);
                 if (accountFragment == null) {
                     accountFragment = new Account();
+                    currentFragment = homeFragment;
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
-
         }
     }
 
@@ -103,14 +138,11 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
     }
 
 
-    private void addOrShowFragment(FragmentTransaction transaction,
-                                   Fragment fragment) {
+    private void addOrShowFragment(FragmentTransaction transaction, Fragment fragment) {
         if (currentFragment == fragment)
             return;
-
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            transaction.hide(currentFragment)
-                    .add(R.id.content_layout, fragment).commit();
+            transaction.hide(currentFragment).add(R.id.content_layout, fragment).commit();
         } else {
             transaction.hide(currentFragment).show(fragment).commit();
         }

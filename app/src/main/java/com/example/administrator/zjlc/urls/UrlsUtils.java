@@ -88,6 +88,8 @@ public class UrlsUtils {
     public static final  String ZJLCDebt_list = "debt_list";
     //债权
     public static final  String ZJLCDebt_detail = "debt_detail";
+    //站内信状态
+    public static final  String ZJLCInner_status = "inner_msg_status";
     //
     public static final String ZJLCBorrow_invest_list = "borrow_invest_list";
 }

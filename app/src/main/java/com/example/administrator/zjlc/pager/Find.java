@@ -75,6 +75,8 @@ public class Find extends Fragment {
         view = inflater.inflate(R.layout.mepager, container, false);
         initView();
         tv_title.setText("理财");
+
+
         return view;
 
     }
