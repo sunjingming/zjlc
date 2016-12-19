@@ -62,7 +62,7 @@ public class Find extends Fragment {
 
         @Override
         public boolean handleMessage(Message msg) {
-            updateSingleView(dataBeanArrayList, zqzLbeen);
+            updateSingleView(dataBeanArrayList);
             return false;
         }
     });
@@ -148,8 +148,22 @@ public class Find extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        updateSingleView(dataBeanArrayList);
                         // TODO Auto-generated method stub
                         mRefreshLayout.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+        //下拉刷新
+        mRefreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateSingleView1(zqzLbeen);
+                        // TODO Auto-generated method stub
+                        mRefreshLayout1.setRefreshing(false);
                     }
                 }, 1000);
             }
@@ -205,6 +219,7 @@ public class Find extends Fragment {
         but2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 but1.setBackgroundResource(R.drawable.yuanjiao);
                 but1.setTextColor(Color.RED);
                 but2.setBackgroundResource(R.drawable.yuanrightshi);
@@ -246,6 +261,7 @@ public class Find extends Fragment {
     }
 
     private void setData() {
+        sanBiaobean = new SanBiaobean();
         RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBorrow_list);
         x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
             @Override
@@ -279,7 +295,7 @@ public class Find extends Fragment {
                 Log.i("标", "onFinished");
             }
         });
-
+        zqzLbeans = new ZQZLbean();
         RequestParams paramsNotice2 = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCDebt_list);
         x.http().post(paramsNotice2, new Callback.CommonCallback<String>() {
             @Override
@@ -316,14 +332,19 @@ public class Find extends Fragment {
 
     }
 
-    //更新数据
-    private void updateSingleView(ArrayList<SanBiaobean.DataBean> singModelArrayList, ArrayList<ZQZLbean.DataBean> sin) {
-        if (singModelArrayList != null && singModelArrayList.size() != 0 || sin != null && sin.size() != 0) {
-            ((MyRecyclerView) recyclerView.getAdapter()).setDatas(singModelArrayList);
+    //散标更新数据
+    private void updateSingleView(ArrayList<SanBiaobean.DataBean> singModelArrayListn) {
+        if (singModelArrayListn != null && singModelArrayListn.size() != 0 ) {
+            ((MyRecyclerView) recyclerView.getAdapter()).setDatas(singModelArrayListn);
         }
     }
+    //债权更新数据
 
-
+    private void updateSingleView1( ArrayList<ZQZLbean.DataBean> sin) {
+        if (sin != null && sin.size() != 0 || sin != null && sin.size() != 0) {
+            ((MyRecyclerView2) recyclerView1.getAdapter()).setDatas(sin);
+        }
+    }
     //上拉刷新
     //每次上拉加载的时候，给RecyclerView的后面添加了10条数据数据
     //散标列表刷新

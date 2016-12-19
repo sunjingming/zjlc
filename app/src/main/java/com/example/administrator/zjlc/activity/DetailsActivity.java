@@ -78,16 +78,26 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     }
                 }
             });
-            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
+//            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
+//                @Override
+//                public void onScrollBottomListener(boolean isBottom) {
+//                    if(isBottom) {
+//                        Intent intent;
+//                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+//                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+//                        intent.putExtra("id", id);
+//                        startActivity(intent);
+//                    }
+//                }
+//            });
+            tv_xiangqing.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onScrollBottomListener(boolean isBottom) {
-                    if(isBottom) {
-                        Intent intent;
-                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
-                        intent.putExtra("id", id);
-                        startActivity(intent);
-                    }
+                public void onClick(View v) {
+                    Intent intent;
+                    Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
                 }
             });
             return false;
@@ -290,12 +300,10 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         tequanjine = (LinearLayout) findViewById(R.id.tequanjine);
         tequanjin = (TextView) findViewById(R.id.tequanjin);
         ll_passs = (LinearLayout) findViewById(R.id.ll_passs);
+        //测量屏幕
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
-//        int width = metric.widthPixels;     // 屏幕宽度（像素）
         int height = metric.heightPixels;   // 屏幕高度（像素）
-//        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
-//        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
 
 
         ll_passs.setMinimumHeight(height+1);
