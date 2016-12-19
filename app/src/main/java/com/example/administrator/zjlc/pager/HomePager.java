@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class HomePager extends Fragment {
     private Button iv_lijitouzi;
     private TextView tv_title;
     private Toolbar toolbar;
+    private SwipeRefreshLayout layout_swipe_refresh;
 
     private String id;
 
@@ -106,6 +108,7 @@ public class HomePager extends Fragment {
      * 2.在代码实例化ViewPager
      */
     private void initView() {
+        layout_swipe_refresh = (SwipeRefreshLayout) view.findViewById(R.id.layout_swipe_refresh);
         //初始化组件
         tv_biao = (TextView) view.findViewById(R.id.tv_biao);
         tv_lv = (TextView) view.findViewById(R.id.tv_lv);
@@ -128,6 +131,19 @@ public class HomePager extends Fragment {
         setViewText();
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        layout_swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setViewpagerData();
+                        // TODO Auto-generated method stub
+                        layout_swipe_refresh.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
     }
 
     private void setViewText() {
@@ -258,13 +274,13 @@ public class HomePager extends Fragment {
 
         @Override
         public void destroyItem(ViewGroup views, int position, Object object) {
-            ((ViewPager) views).removeView(mListViews.get(position));
+            views.removeView(mListViews.get(position));
 
         }
 
         @Override
         public Object instantiateItem(ViewGroup views, int position) {
-            ((ViewPager) views).addView(mListViews.get(position));
+            views.addView(mListViews.get(position));
             return mListViews.get(position);
         }
     }

@@ -8,14 +8,15 @@ import java.util.List;
 
 public class SanBiaobean {
 
+
     /**
      * event : 88
      * msg : success
-     * data : [{"id":615,"borrow_name":"鍊熸娴嬭瘯1616","borrow_duration":"12涓湀","borrow_money":160000,"has_borrow":1000,"borrow_interest_rate":12,"borrow_status":4,"repayment_type":"鎸夋湀鍒嗘湡杩樻","borrow_type":"鎶垫娂鏍�","reward_num":"3.00","credits":21,"level":"E","progress":0.63},{"id":611,"borrow_name":"鍊熸娴嬭瘯1030","borrow_duration":"12涓湀","borrow_money":120000,"has_borrow":6000,"borrow_interest_rate":12,"borrow_status":4,"repayment_type":"姣忔湀杩樻伅鍒版湡杩樻湰","borrow_type":"鎶垫娂鏍�","reward_num":"0.00","credits":21,"level":"E","progress":5},{"id":605,"borrow_name":"100","borrow_duration":"3涓湀","borrow_money":1000,"has_borrow":100,"borrow_interest_rate":10,"borrow_status":4,"repayment_type":"鎸夋湀鍒嗘湡杩樻","borrow_type":"鎶垫娂鏍�","reward_num":"0.00","credits":10,"level":"HR","progress":10},{"id":604,"borrow_name":"瀹氬悜鏍�","borrow_duration":"3涓湀","borrow_money":100000,"has_borrow":200,"borrow_interest_rate":10,"borrow_status":4,"repayment_type":"鎸夋湀鍒嗘湡杩樻","borrow_type":"鎶垫娂鏍�","reward_num":"0.00","credits":10,"level":"HR","progress":0.2},{"id":602,"borrow_name":"鍊熸娴嬭瘯1144","borrow_duration":"6涓湀","borrow_money":120000,"has_borrow":3950,"borrow_interest_rate":12,"borrow_status":4,"repayment_type":"鎸夋湀鍒嗘湡杩樻","borrow_type":"鎶垫娂鏍�","reward_num":"0.00","credits":21,"level":"E","progress":3.29},{"id":601,"borrow_name":"鍊熸娴嬭瘯0845","borrow_duration":"1涓湀","borrow_money":60000,"has_borrow":1000,"borrow_interest_rate":12,"borrow_status":4,"repayment_type":"鎸夋湀鍒嗘湡杩樻","borrow_type":"鎶垫娂鏍�","reward_num":"0.00","credits":21,"level":"E","progress":1.67}]
+     * data : [{"id":4,"borrow_name":"PC端发布担保标","borrow_duration":"2个月","borrow_money":9800,"has_borrow":200,"borrow_interest_rate":11.24,"borrow_status":2,"repayment_type":"按月分期还款","borrow_type":"担保标","reward_num":"0.00","credits":20,"level":"HR","progress":2.04,"has_pass":0},{"id":3,"borrow_name":"借款测试1150","borrow_duration":"10个月","borrow_money":120000,"has_borrow":120000,"borrow_interest_rate":12,"borrow_status":6,"repayment_type":"每月还息到期还本","borrow_type":"担保标","reward_num":"0.00","credits":10,"level":"HR","progress":100,"has_pass":0},{"id":2,"borrow_name":"借款测试1100","borrow_duration":"10个月","borrow_money":12000,"has_borrow":12000,"borrow_interest_rate":12,"borrow_status":6,"repayment_type":"每月还息到期还本","borrow_type":"担保标","reward_num":"0.00","credits":10,"level":"HR","progress":100,"has_pass":0},{"id":5,"borrow_name":"抵押标测试","borrow_duration":"1个月","borrow_money":50000,"has_borrow":50000,"borrow_interest_rate":12,"borrow_status":7,"repayment_type":"按月分期还款","borrow_type":"抵押标","reward_num":"2.00","credits":10,"level":"HR","progress":100,"has_pass":0},{"id":1,"borrow_name":"借款测试","borrow_duration":"12个月","borrow_money":10000,"has_borrow":10000,"borrow_interest_rate":12,"borrow_status":7,"repayment_type":"按月分期还款","borrow_type":"担保标","reward_num":"0.00","credits":10,"level":"HR","progress":100,"has_pass":0}]
      * currentPage : 1
      * pageSize : 6
-     * maxCount : 477
-     * maxPage : 80
+     * maxCount : 5
+     * maxPage : 1
      */
 
     private int event;
@@ -84,19 +85,20 @@ public class SanBiaobean {
 
     public static class DataBean {
         /**
-         * id : 615
-         * borrow_name : 鍊熸娴嬭瘯1616
-         * borrow_duration : 12涓湀
-         * borrow_money : 160000
-         * has_borrow : 1000
-         * borrow_interest_rate : 12
-         * borrow_status : 4
-         * repayment_type : 鎸夋湀鍒嗘湡杩樻
-         * borrow_type : 鎶垫娂鏍�
-         * reward_num : 3.00
-         * credits : 21
-         * level : E
-         * progress : 0.63
+         * id : 4
+         * borrow_name : PC端发布担保标
+         * borrow_duration : 2个月
+         * borrow_money : 9800
+         * has_borrow : 200
+         * borrow_interest_rate : 11.24
+         * borrow_status : 2
+         * repayment_type : 按月分期还款
+         * borrow_type : 担保标
+         * reward_num : 0.00
+         * credits : 20
+         * level : HR
+         * progress : 2.04
+         * has_pass : 0
          */
 
         private int id;
@@ -104,7 +106,7 @@ public class SanBiaobean {
         private String borrow_duration;
         private int borrow_money;
         private int has_borrow;
-        private int borrow_interest_rate;
+        private double borrow_interest_rate;
         private int borrow_status;
         private String repayment_type;
         private String borrow_type;
@@ -112,6 +114,7 @@ public class SanBiaobean {
         private int credits;
         private String level;
         private double progress;
+        private int has_pass;
 
         public int getId() {
             return id;
@@ -153,11 +156,11 @@ public class SanBiaobean {
             this.has_borrow = has_borrow;
         }
 
-        public int getBorrow_interest_rate() {
+        public double getBorrow_interest_rate() {
             return borrow_interest_rate;
         }
 
-        public void setBorrow_interest_rate(int borrow_interest_rate) {
+        public void setBorrow_interest_rate(double borrow_interest_rate) {
             this.borrow_interest_rate = borrow_interest_rate;
         }
 
@@ -215,6 +218,14 @@ public class SanBiaobean {
 
         public void setProgress(double progress) {
             this.progress = progress;
+        }
+
+        public int getHas_pass() {
+            return has_pass;
+        }
+
+        public void setHas_pass(int has_pass) {
+            this.has_pass = has_pass;
         }
     }
 }

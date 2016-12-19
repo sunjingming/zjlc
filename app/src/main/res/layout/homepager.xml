@@ -5,206 +5,214 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
-
-    <RelativeLayout
-        android:id="@+id/webMainLayout"
-        android:layout_gravity="top"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_guide"
-            scaleType="fitXY"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_gravity="center"
-                android:gravity="bottom"
-                android:orientation="horizontal" >
-
-                <View
-                    android:id="@+id/dot_1"
-                    android:layout_width="10dip"
-                    android:layout_height="10dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal" />
-
-                <View
-                    android:id="@+id/dot_2"
-                    android:layout_width="10dip"
-                    android:layout_height="10dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal" />
-                <View
-                    android:id="@+id/dot_3"
-                    android:layout_width="10dip"
-                    android:layout_height="10dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal" />
-                <View
-                    android:id="@+id/dot_4"
-                    android:layout_width="10dip"
-                    android:layout_height="10dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal" />
-                <View
-                    android:id="@+id/dot_5"
-                    android:layout_width="10dip"
-                    android:layout_height="10dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tuijian"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="130dp">
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@color/colorhei"
-                  android:textSize="@dimen/p24"
-                  android:id="@+id/tv_biao"
-                  android:text="暂无推荐项目"
-                  />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/p24"
-                    android:id="@+id/tv_lv"
-                    android:text="0.0%"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@drawable/detail_background"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/layout_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textSize="@dimen/spd10"
-                android:layout_weight="1"
-                android:textColor="@color/colorhei"
-                android:text="  投资期限"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/colorcheng"
-                android:id="@+id/tv_time"
-                android:text="0个月"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textSize="@dimen/spd10"
-                android:layout_weight="1"
-                android:textColor="@color/colorhei"
-                android:text="投资总额"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView" />
-
-            <TextView
-                android:textColor="@color/colorcheng"
-                android:id="@+id/tv_ss"
-                android:text="0元"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="@dimen/spd10"
-                android:layout_weight="1"
-                android:textColor="@color/colorhei"
-                android:text="投资进度"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/colorcheng"
-                android:id="@+id/tv_jindu"
-                android:text="0.0%"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:gravity="center"
-            android:paddingTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/iv_lijitouzi"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                style="@style/SubmitButtonStyle"
-                android:text="立即投标"
+            <RelativeLayout
+                android:id="@+id/webMainLayout"
+                android:layout_gravity="top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <!--<ImageView-->
-                   <!--android:id="@+id/iv_lijitouzi"-->
-                   <!--android:background="@drawable/lijitouzi"-->
-                   <!--android:layout_width="wrap_content"-->
-                   <!--android:layout_height="match_parent" />-->
+                android:layout_height="150dp">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager_guide"
+                    scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+                        android:orientation="horizontal" >
+
+                        <View
+                            android:id="@+id/dot_1"
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/dot_normal" />
+
+                        <View
+                            android:id="@+id/dot_2"
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/dot_normal" />
+                        <View
+                            android:id="@+id/dot_3"
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/dot_normal" />
+                        <View
+                            android:id="@+id/dot_4"
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/dot_normal" />
+                        <View
+                            android:id="@+id/dot_5"
+                            android:layout_width="10dip"
+                            android:layout_height="10dip"
+                            android:layout_marginLeft="2dip"
+                            android:layout_marginRight="2dip"
+                            android:background="@drawable/dot_normal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tuijian"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="130dp">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorhei"
+                        android:textSize="@dimen/p24"
+                        android:id="@+id/tv_biao"
+                        android:text="暂无推荐项目"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/p24"
+                            android:id="@+id/tv_lv"
+                            android:text="0.0%"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/detail_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/spd10"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorhei"
+                        android:text="  投资期限"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/colorcheng"
+                        android:id="@+id/tv_time"
+                        android:text="0个月"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textSize="@dimen/spd10"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorhei"
+                        android:text="投资总额"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView" />
+
+                    <TextView
+                        android:textColor="@color/colorcheng"
+                        android:id="@+id/tv_ss"
+                        android:text="0元"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="@dimen/spd10"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorhei"
+                        android:text="投资进度"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/colorcheng"
+                        android:id="@+id/tv_jindu"
+                        android:text="0.0%"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:paddingTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/iv_lijitouzi"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        style="@style/SubmitButtonStyle"
+                        android:text="立即投标"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <!--<ImageView-->
+                    <!--android:id="@+id/iv_lijitouzi"-->
+                    <!--android:background="@drawable/lijitouzi"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent" />-->
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

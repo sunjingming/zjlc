@@ -72,6 +72,9 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
         holder.wancheng_qingkuang.setText("%"+String.valueOf(dataBeanArrayList.get(position).getProgress()));
         holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
+        if(dataBeanArrayList.get(position).getHas_pass() == 1){
+            holder.imageView3.setVisibility(View.VISIBLE);
+        }
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":
@@ -152,6 +155,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView1;
         ImageView imageView2;
+        ImageView imageView3;
         ImageView im_touzi;
 
         TextView tv_titles;
@@ -161,10 +165,13 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         TextView wancheng_qingkuang;
         ProgressBar progressBar;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView1 = (ImageView) itemView.findViewById(R.id.imageView1);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
+            imageView3 = (ImageView) itemView.findViewById(R.id.imageView3);
+
             im_touzi = (ImageView) itemView.findViewById(R.id.im_touzi);
 
             tv_titles = (TextView) itemView.findViewById(R.id.tv_titles);
@@ -182,7 +189,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
     private MyRecyclerView.OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     //定义接口
-    public static interface OnRecyclerViewItemClickListener {
+    public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view , SanBiaobean.DataBean data);
     }
 

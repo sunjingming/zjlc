@@ -33,7 +33,7 @@
                     android:layout_gravity="center"
                     android:textSize="@dimen/m24"
                     android:textColor="@color/black_gray"
-                    android:text="年华利率"
+                    android:text="年化利率"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -42,7 +42,7 @@
                     android:layout_gravity="center"
                     android:textSize="@dimen/m32"
                     android:textColor="@color/black_gray"
-                    android:text="12%"
+                    android:text="0.00%"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
@@ -68,7 +68,7 @@
                             android:padding="15dp"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
-                            android:text="3"
+                            android:text="0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -90,7 +90,7 @@
                             android:padding="15dp"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
-                            android:text="10个月"
+                            android:text="0个月"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/tv_timess" />
@@ -113,7 +113,7 @@
                             android:padding="15dp"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
-                            android:text="120000.00"
+                            android:text="0.00"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -235,6 +235,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="50dp"
                 android:layout_gravity="bottom"
                 android:gravity="bottom|center"
                 android:layout_width="match_parent"
