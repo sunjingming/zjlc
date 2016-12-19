@@ -270,13 +270,14 @@ public class Find extends Fragment {
                 Log.e("标", data);
                 Gson gson = new Gson();
                 sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
+                if(sanBiaobean.getEvent()!=0) {
+                    for (int i = 0; i < sanBiaobean.getData().size(); i++) {
+                        Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
+                        dataBeanArrayList.add(sanBiaobean.getData().get(i));
+                    }
 
-                for (int i = 0; i < sanBiaobean.getData().size(); i++) {
-                    Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
-                    dataBeanArrayList.add(sanBiaobean.getData().get(i));
+                    handler.sendEmptyMessage(1);
                 }
-
-                handler.sendEmptyMessage(1);
             }
 
             @Override
@@ -305,10 +306,11 @@ public class Find extends Fragment {
                 Gson gson = new Gson();
 
                 zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
-
-                for (int i = 0; i < zqzLbeans.getData().size(); i++) {
-                    Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
-                    zqzLbeen.add(zqzLbeans.getData().get(i));
+                if (zqzLbeans.getEvent()!=0) {
+                    for (int i = 0; i < zqzLbeans.getData().size(); i++) {
+                        Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
+                        zqzLbeen.add(zqzLbeans.getData().get(i));
+                    }
                 }
             }
 
@@ -360,6 +362,7 @@ public class Find extends Fragment {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
+
                 sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
 
                 for (int i = 0; i < sanBiaobean.getData().size(); i++) {

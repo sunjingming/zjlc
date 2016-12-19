@@ -6,11 +6,10 @@ package com.example.administrator.zjlc.domain;
 
 public class DetailsBean {
 
-
     /**
      * event : 88
      * msg : success
-     * data : {"id":604,"borrow_name":"定向标","borrow_duration":"3个月","borrow_money":100000,"borrow_interest_rate":10,"has_borrow":200,"borrow_times":4,"repayment_type":"按月分期还款","borrow_type":"抵押标","borrow_status":4,"add_time":"2016-10-22 10:40","collect_day":7,"borrow_info":"<p>10<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_status_str":"标满，复审中","has_pass":1,"progress":0.2}
+     * data : {"id":643,"borrow_name":"借款测试1416","borrow_duration":"12个月","borrow_money":120000,"borrow_interest_rate":12,"has_borrow":1000,"borrow_times":10,"repayment_type":"每月还息到期还本","borrow_type":"担保标","borrow_status":2,"add_time":"2016-12-19 14:16","collect_day":10,"borrow_info":"<p>12<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_bid":1,"borrow_status_str":"正在招标中","has_pass":0,"progress":0.83}
      */
 
     private int event;
@@ -43,28 +42,29 @@ public class DetailsBean {
 
     public static class DataBean {
         /**
-         * id : 604
-         * borrow_name : 定向标
-         * borrow_duration : 3个月
-         * borrow_money : 100000
-         * borrow_interest_rate : 10
-         * has_borrow : 200
-         * borrow_times : 4
-         * repayment_type : 按月分期还款
-         * borrow_type : 抵押标
-         * borrow_status : 4
-         * add_time : 2016-10-22 10:40
-         * collect_day : 7
-         * borrow_info : <p>10</p>
+         * id : 643
+         * borrow_name : 借款测试1416
+         * borrow_duration : 12个月
+         * borrow_money : 120000
+         * borrow_interest_rate : 12
+         * has_borrow : 1000
+         * borrow_times : 10
+         * repayment_type : 每月还息到期还本
+         * borrow_type : 担保标
+         * borrow_status : 2
+         * add_time : 2016-12-19 14:16
+         * collect_day : 10
+         * borrow_info : <p>12</p>
          * reward_num : 0
          * borrow_min : 50
          * borrow_max : 0
          * is_new : 0
          * updata : null
          * money_collect : 0
-         * borrow_status_str : 标满，复审中
-         * has_pass : 1
-         * progress : 0.2
+         * borrow_bid : 1
+         * borrow_status_str : 正在招标中
+         * has_pass : 0
+         * progress : 0.83
          */
 
         private int id;
@@ -86,6 +86,7 @@ public class DetailsBean {
         private int is_new;
         private Object updata;
         private int money_collect;
+        private int borrow_bid;
         private String borrow_status_str;
         private int has_pass;
         private double progress;
@@ -240,6 +241,14 @@ public class DetailsBean {
 
         public void setMoney_collect(int money_collect) {
             this.money_collect = money_collect;
+        }
+
+        public int getBorrow_bid() {
+            return borrow_bid;
+        }
+
+        public void setBorrow_bid(int borrow_bid) {
+            this.borrow_bid = borrow_bid;
         }
 
         public String getBorrow_status_str() {

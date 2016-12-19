@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.DetailsBean;
 import com.example.administrator.zjlc.invest.RedPacketBean;
+import com.example.administrator.zjlc.login.RegisterCodeBean;
 import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.MD5Utils;
@@ -50,7 +51,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private int id;
     private DetailsBean noticeBean;
     private MyScrollView tv_scr;
-    private String nametitle;
+    //    private String nametitle;
     private TextView tvjineeee;
     private LinearLayout tequanjine;
     private TextView tequanjin;
@@ -63,43 +64,45 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             tv_lilv.setText(String.valueOf(noticeBean.getData().getBorrow_interest_rate())+"%");
             tv_times.setText(String.valueOf(noticeBean.getData().getCollect_day())+"天");
             tv_timess.setText(noticeBean.getData().getBorrow_duration());
-            tv_menoy.setText(String.valueOf(noticeBean.getData().getBorrow_money())+"元");
+            tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+"元");
             tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+",最大投资金额"+noticeBean.getData().getBorrow_max());
+
             lijigou.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String s1 = et_mm.getText().toString();
                     String s = et_je.getText().toString();
                     et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    if( s.equals("") || s1.equals("")) {
+                    if (s.equals("") || s1.equals("")) {
                         new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额和投资密码").show();
-                    }else{
+                    } else {
                         requeseDate1(s, s1);
                     }
                 }
             });
-//            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
-//                @Override
-//                public void onScrollBottomListener(boolean isBottom) {
-//                    if(isBottom) {
-//                        Intent intent;
-//                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-//                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
-//                        intent.putExtra("id", id);
-//                        startActivity(intent);
-//                    }
-//                }
-//            });
-            tv_xiangqing.setOnClickListener(new View.OnClickListener() {
+
+            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent;
-                    Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
+                public void onScrollBottomListener(boolean isBottom) {
+                    if(isBottom) {
+                        Intent intent;
+                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                    }
                 }
             });
+//            tv_xiangqing.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent;
+//                    Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+//                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+//                    intent.putExtra("id", id);
+//                    startActivity(intent);
+//                }
+//            });
             return false;
         }
     });
@@ -124,35 +127,42 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 Gson gson = new Gson();
 
                 packetBean = gson.fromJson(data,RedPacketBean.class);
-
-                msg = new String[packetBean.getData().size()];
-                final boolean[] bol = new boolean[packetBean.getData().size()];
-                Log.e("标11", String.valueOf(packetBean.getData().size()));
-                for(int i=0;i<packetBean.getData().size();i++){
-                    dataBeanArrayList.add(packetBean.getData().get(i));
-                    msg[i] = packetBean.getData().get(i).getMoney()+"元";
-                    bol[i] = false;
-                    Log.e("sad",msg[i]);
-                }
-                if(packetBean.getData().size()>0) {
-                    tequanjine.setVisibility(View.VISIBLE);
-                    tequanjin.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new AlertDialog.Builder(DetailsActivity.this)
-                                    .setTitle("选择特权金")
-                                    .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                            requeseDate(s, s1, dataBeanArrayList.get(which));
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .setNegativeButton("取消", null)
-                                    .show();
+                if(packetBean.getEvent() !=0){
+                    if(noticeBean.getData().getBorrow_bid() == 1) {
+                        msg = new String[packetBean.getData().size()];
+                        final boolean[] bol = new boolean[packetBean.getData().size()];
+                        Log.e("标11", String.valueOf(packetBean.getData().size()));
+                        for (int i = 0; i < packetBean.getData().size(); i++) {
+                            dataBeanArrayList.add(packetBean.getData().get(i));
+                            msg[i] = packetBean.getData().get(i).getMoney() + "元";
+                            bol[i] = false;
+                            Log.e("sad", msg[i]);
                         }
-                    });
+                        if (packetBean.getData().size() > 0) {
+                            tequanjine.setVisibility(View.VISIBLE);
+                            tequanjin.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    new AlertDialog.Builder(DetailsActivity.this)
+                                            .setTitle("选择特权金")
+                                            .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                                    requeseDate(s, s1, dataBeanArrayList.get(which));
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .setNegativeButton("取消", null)
+                                            .show();
+                                }
+                            });
 
+                        } else {
+                            requeseDate(s, s1, null);
+                        }
+                    }else{
+                        requeseDate(s, s1, null);
+                    }
                 }else{
                     requeseDate(s, s1, null);
                 }
@@ -206,7 +216,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                                 public void onSuccess(String result) {
                                     String data = result;
                                     Log.e("标321", data);
-                                    Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
+
+                                    Gson gson = new Gson();
+                                    RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                                    codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                                    Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -244,8 +258,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 public void onSuccess(String result) {
                     String data = result;
                     Log.e("标321", data);
+
                     Gson gson = new Gson();
-                    Toast.makeText(DetailsActivity.this,data,Toast.LENGTH_SHORT).show();
+                    RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                    codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                    Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -341,7 +358,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 Log.e("标", data);
                 Gson gson = new Gson();
                 noticeBean = gson.fromJson(data, DetailsBean.class);
-                nametitle = noticeBean.getData().getBorrow_name();
+//                nametitle = noticeBean.getData().getBorrow_name();
                 handler.sendEmptyMessage(1);
             }
 
