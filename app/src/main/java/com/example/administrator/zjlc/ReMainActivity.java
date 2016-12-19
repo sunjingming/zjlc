@@ -68,27 +68,40 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
             // 提交事务
             getSupportFragmentManager().beginTransaction().add(R.id.content_layout, homeFragment).commit();
             // 记录当前Fragment
+            currentFragment = homeFragment;
+
             Drawable img_off;
             Resources res = getResources();
             img_off = res.getDrawable(R.drawable.tabbar_home_sel);
             img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
-            currentFragment = homeFragment;
             rb_home.setTextColor(getResources().getColor(R.color.red));
-            rb_home .setCompoundDrawables(null,img_off,null,null);
+            rb_home.setCompoundDrawables(null, img_off, null, null);
         }
     }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rb_home:
+                Drawable img_offs;
+                Resources ress = getResources();
+                img_offs = ress.getDrawable(R.drawable.tabbar_home_sel);
+                img_offs.setBounds(0, 0, img_offs.getMinimumWidth(), img_offs.getMinimumHeight());
+                rb_home.setTextColor(Color.RED);
+                rb_home .setCompoundDrawables(null,img_offs,null,null);
                 if (homeFragment == null) {
                     homeFragment = new HomePager();
+                    currentFragment = homeFragment;
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), homeFragment);
                 break;
             case R.id.rb_govaffair:
+                Drawable img_of;
+                Resources r = getResources();
+                img_of = r.getDrawable(R.drawable.tabbar_home);
+                img_of.setBounds(0, 0, img_of.getMinimumWidth(), img_of.getMinimumHeight());
+                rb_home.setTextColor(Color.GRAY);
+                rb_home .setCompoundDrawables(null,img_of,null,null);
                 if (findFragment == null) {
                     findFragment = new Find();
                     Drawable img_off;
@@ -102,18 +115,17 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), findFragment);
                 break;
             case R.id.rb_newscenter:
+                Drawable img;
+                Resources rr = getResources();
+                img = rr.getDrawable(R.drawable.tabbar_home);
+                img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+                rb_home.setTextColor(Color.GRAY);
+                rb_home .setCompoundDrawables(null,img,null,null);
                 if (accountFragment == null) {
                     accountFragment = new Account();
-                    Drawable img_off;
-                    Resources res = getResources();
-                    img_off = res.getDrawable(R.drawable.tabbar_home);
-                    img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
                     currentFragment = homeFragment;
-                    rb_home.setTextColor(Color.GRAY);
-                    rb_home .setCompoundDrawables(null,img_off,null,null);
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
-
         }
     }
 
@@ -130,8 +142,7 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         if (currentFragment == fragment)
             return;
         if (!fragment.isAdded()) { // 如果当前fragment未被添加，则添加到Fragment管理器中
-            transaction.hide(currentFragment)
-                    .add(R.id.content_layout, fragment).commit();
+            transaction.hide(currentFragment).add(R.id.content_layout, fragment).commit();
         } else {
             transaction.hide(currentFragment).show(fragment).commit();
         }

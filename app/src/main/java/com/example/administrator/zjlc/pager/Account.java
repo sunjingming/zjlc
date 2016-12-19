@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ import com.example.administrator.zjlc.userExercise.UserExercise;
 import com.example.administrator.zjlc.userMessage.UserMail;
 import com.example.administrator.zjlc.userMessage.UserMessage;
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -67,6 +70,7 @@ public class Account extends Fragment implements View.OnClickListener {
     private TextView user_invite;
     private TextView tv_title;
     private Toolbar toolbar;
+    private PullToRefreshScrollView scrollView;
 
 
     @Nullable
@@ -88,6 +92,9 @@ public class Account extends Fragment implements View.OnClickListener {
             login.setOnClickListener(this);
         }
 
+        approveName();
+        bankWhether();
+
         approve.setOnClickListener(this);
         bank.setOnClickListener(this);
         head.setOnClickListener(this);
@@ -98,7 +105,83 @@ public class Account extends Fragment implements View.OnClickListener {
         user_invite.setOnClickListener(this);
         user_manage.setOnClickListener(this);
 
-        //判断是否进行实名认证
+
+        scrollView.setMode(PullToRefreshBase.Mode.BOTH);
+        scrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+            /**
+             * 下拉刷新
+             * 作用:清空原数据，加载新数据
+             * @param refreshView
+             */
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                //清空原数据
+                getData();
+                approveName();
+                bankWhether();
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.onRefreshComplete();
+                    }
+                }, 1000);
+            }
+
+            /**
+             * 上拉刷新
+             * 作用：添加下一页数据
+             * @param refreshView
+             */
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.onRefreshComplete();
+                    }
+                }, 1000);
+
+            }
+        });
+
+
+
+
+        return view;
+
+    }
+    //判断是否绑定银行卡
+    private void bankWhether() {
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_juadge);
+        params.addBodyParameter("token", token);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data是否绑卡", data);
+                Gson gson = new Gson();
+                BankJuadgeBean juadgeBean = gson.fromJson(data, BankJuadgeBean.class);
+                eventBank = juadgeBean.getEvent();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    //判断是否进行实名认证
+    private void approveName() {
         RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
         paramms.addBodyParameter("token", token);
         x.http().post(paramms, new Callback.CommonCallback<String>() {
@@ -127,37 +210,8 @@ public class Account extends Fragment implements View.OnClickListener {
 
             }
         });
-        //判断是否绑定银行卡
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_juadge);
-        params.addBodyParameter("token", token);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.i("data是否绑卡", data);
-                Gson gson = new Gson();
-                BankJuadgeBean juadgeBean = gson.fromJson(data, BankJuadgeBean.class);
-                eventBank = juadgeBean.getEvent();
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-        return view;
-
     }
+
 
     private void getData() {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);
@@ -170,6 +224,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(data, UserBean.class);
                 UserBean.DataBean datalist = userBean.getData();
+
                 double f = datalist.getAll_money();
                 String f1 = String.format("%.2f", f);
                 asset.setText("¥" + String.valueOf(f1));
@@ -227,6 +282,7 @@ public class Account extends Fragment implements View.OnClickListener {
         exercise = (TextView) view.findViewById(R.id.user_activity);
         user_invite = (TextView) view.findViewById(R.id.user_invest);
         user_manage = (TextView) view.findViewById(R.id.user_manage);
+        scrollView = (PullToRefreshScrollView) view.findViewById(R.id.scroll_view);
 
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -242,6 +298,8 @@ public class Account extends Fragment implements View.OnClickListener {
             case R.id.user_approve:
                 if ("".equals(token)) {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
+                }else if (event==0){
+                    Toast.makeText(getActivity(), "实名认证待审核，请耐心等待", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intentApprove = new Intent(getActivity(), Approve.class);
                     getActivity().startActivity(intentApprove);
@@ -310,7 +368,6 @@ public class Account extends Fragment implements View.OnClickListener {
                 }
                 break;
             //进入特权金页面
-
             case R.id.user_manage:
                 if ("".equals(token)) {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
@@ -321,85 +378,4 @@ public class Account extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        handler.post(runnable);
-    }
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            handler.sendEmptyMessage(1);
-        }
-    };
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case 1:
-
-                    getData();
-
-                    //判断是否进行实名认证
-                    RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
-                    paramms.addBodyParameter("token", token);
-                    x.http().post(paramms, new org.xutils.common.Callback.CommonCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            String data = result;
-                            Log.i("data是否实名", data);
-                            Gson gson = new Gson();
-                            ApproveJuadgeBean juadgeBean = gson.fromJson(data, ApproveJuadgeBean.class);
-                            event = juadgeBean.getEvent();
-
-                        }
-
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(CancelledException cex) {
-
-                        }
-
-                        @Override
-                        public void onFinished() {
-
-                        }
-                    });
-                    //判断是否绑定银行卡
-                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_juadge);
-                    params.addBodyParameter("token", token);
-                    x.http().post(params, new org.xutils.common.Callback.CommonCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            String data = result;
-                            Log.i("data是否绑卡", data);
-                            Gson gson = new Gson();
-                            BankJuadgeBean juadgeBean = gson.fromJson(data, BankJuadgeBean.class);
-                            eventBank = juadgeBean.getEvent();
-                        }
-
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(CancelledException cex) {
-
-                        }
-
-                        @Override
-                        public void onFinished() {
-
-                        }
-                    });
-            }
-        }
-    };
 }

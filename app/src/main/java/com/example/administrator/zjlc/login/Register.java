@@ -20,6 +20,7 @@ import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.approve.ApproveName;
 import com.example.administrator.zjlc.utils.CountDownTimerUtils;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.utils.MD5Utils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -120,7 +121,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     paramsRegister.addBodyParameter("phone", register_phone.getText().toString());
                     paramsRegister.addBodyParameter("code", register_code.getText().toString());
                     paramsRegister.addBodyParameter("invite_code", register_invite.getText().toString());
-                    paramsRegister.addBodyParameter("pwd", register_password.getText().toString());
+                    paramsRegister.addBodyParameter("pwd", MD5Utils.Md5(register_password.getText().toString()));
                     paramsRegister.addBodyParameter("user_name", "");
                     paramsRegister.addBodyParameter("verify_code", codeBean.getData());
                     x.http().post(paramsRegister, new Callback.CommonCallback<String>() {

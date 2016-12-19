@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.bank.ApproveJuadgeBean;
 import com.example.administrator.zjlc.login.RegisterTradePwd;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.userMessage.TradePwdSetting;
@@ -55,12 +56,50 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
         });
         tv_title.setText("实名认证");
 
-        SharedPreferences fence = getSharedPreferences("usetoken",MODE_PRIVATE);
+        final SharedPreferences fence = getSharedPreferences("usetoken",MODE_PRIVATE);
         token = fence.getString("token",null);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         approve_name.addTextChangedListener(textWatcher);
         approve_number.addTextChangedListener(textWatcher);
+
+        RequestParams paramms = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_juadge);
+        paramms.addBodyParameter("token", token);
+        x.http().post(paramms, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data是否实名", data);
+                Gson gson = new Gson();
+                ApproveJuadgeBean juadgeBean = gson.fromJson(data, ApproveJuadgeBean.class);
+                final int event = juadgeBean.getEvent();
+                if (event==88){
+                    approve_name.setText(juadgeBean.getData().getReal_name());
+                    approve_number.setText(juadgeBean.getData().getIdNo());
+
+                    approve_number.setEnabled(false);
+                    approve_name.setEnabled(false);
+                    approve_name_submit.setEnabled(false);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
     }
 
     private void initView() {

@@ -30,6 +30,7 @@
                 <RadioButton
                     android:id="@+id/rb_home"
                     style="@style/bottom_tab_style"
+                    android:checked="true"
                     android:drawableTop="@drawable/rb_home_selector"
                     android:text="首页" />
 
@@ -44,13 +45,6 @@
                     style="@style/bottom_tab_style"
                     android:drawableTop="@drawable/rb_chanpin_selector"
                     android:text="账户" />
-                <!--<RadioButton-->
-                <!--android:id="@+id/rb_setting"-->
-                <!--style="@style/bottom_tab_style"-->
-                <!--android:text="更多"-->
-                <!--android:drawableTop="@drawable/rb_wo_selector"-->
-                <!--/>-->
-
             </RadioGroup>
         </LinearLayout>
 

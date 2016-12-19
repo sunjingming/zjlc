@@ -1,18 +1,10 @@
 [
     {
-        "merged": "G:\\wrod\\ThinkAndroid-master\\zjlc\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "G:\\wrod\\ThinkAndroid-master\\zjlc\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
         "merged": "D:\\zjlc\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
         "source": "D:\\zjlc\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     },
     {
         "merged": "D:\\zjlc\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
         "source": "D:\\zjlc\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
-        "merged": "G:\\wrod\\ThinkAndroid-master\\zjlc\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "G:\\wrod\\ThinkAndroid-master\\zjlc\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     }
 ]

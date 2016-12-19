@@ -1,18 +1,24 @@
 package com.example.administrator.zjlc.userMessage;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.bank.ProvinceAdapter;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -60,21 +66,16 @@ public class UserMail extends AppCompatActivity {
                 listView.setRefreshing();
                 loadData();
             }
-        },2000);
-
-
+        },500);
 
         //2实例化适配器
         adapter = new UserMailAdapter(UserMail.this, beanList);
         //3设置适配器
         listView.setAdapter(adapter);
-
         //2实例化适配器
         adapter = new UserMailAdapter(UserMail.this, beanList);
         //3设置适配器
         listView.setAdapter(adapter);
-
-
         //4.设置刷新模式[上下拉都有]
         listView.setMode(PullToRefreshBase.Mode.BOTH);
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -115,12 +116,55 @@ public class UserMail extends AppCompatActivity {
             }
         });
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, final int i, long id) {
+                TextView mailId = (TextView) view.findViewById(R.id.user_mail_status);
+                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInner_status);
+                    params.addBodyParameter("token",token);
+                    params.addBodyParameter("id",mailId.getText().toString());
+                    x.http().post(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            String data = result;
+                            Log.i("data站内信状态",data);
+                        }
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+//
+                AlertDialog dialog = new AlertDialog.Builder(UserMail.this).setTitle("消息提示").setMessage(beanList.get(i).getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TextView title = (TextView) view.findViewById(R.id.user_mail_title);
+                        title.setTextColor(Color.GRAY);
+
+                    }
+                }).show();
+            }
+        });
+
     }
 
     private void loadData() {
         //获取站内信
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCMail);
         params.addBodyParameter("token", token);
+        params.addBodyParameter("page",page+"");
+        params.addBodyParameter("pagesize","3");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -128,6 +172,7 @@ public class UserMail extends AppCompatActivity {
                 Log.i("data站内信", data);
                 Gson gson = new Gson();
                 UserMailBean mailbean = gson.fromJson(data, UserMailBean.class);
+                pageCount = mailbean.getMaxPage();
                 beanList.addAll(mailbean.getData());
                 adapter.notifyDataSetChanged();
                 //5刷新完成,隐藏刷新进度条
