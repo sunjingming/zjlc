@@ -54,7 +54,9 @@ public class CashRecordAdapter extends BaseAdapter {
         }
 
         holder.time.setText(data.get(i).getAdd_time());
-        holder.money.setText(String.valueOf(data.get(i).getWithdraw_money()));
+        double d = data.get(i).getWithdraw_money();
+        String f4 = String.format("%.2f", d);
+        holder.money.setText(("¥" + f4));
         holder.state.setText(data.get(i).getWithdraw_status());
         return view;
     }

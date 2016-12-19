@@ -1,6 +1,7 @@
 package com.example.administrator.zjlc.invest;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
@@ -27,6 +36,7 @@ import java.util.TimerTask;
 public class InvestBorrow extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_title;
+    private TextView code;
     private Toolbar toolbar;
     private EditText borrow_money;
     private EditText borrow_name;
@@ -34,6 +44,19 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
     private EditText borrow_address;
     private EditText borrow_introduce;
     private Button borrow_submit;
+    private Spinner borrow_style;
+    private Spinner borrow_area;
+    private Spinner borrow_time;
+    private EditText borrow_code;
+    private ImageView get_image_code;
+    private String style;
+    private int timing;
+    private int cityId;
+    private String token;
+    String[] str = new String[]{"个人贷款", "企业贷款"};
+    String[] city = new String[]{"昭通", "玉溪", "西双版纳", "文山", "曲靖", "临沧", "红河", "迪庆", "德宏", "大理", "楚雄", "保山", "丽江", "普洱", "怒江", "昆明"};
+    String[] time = new String[]{"一个月", "二个月", "三个月", "四个月", "五个月", "六个月", "七个月", "八个月", "九个月", "十个月", "十一个月", "十二个月"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +72,134 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
         });
         tv_title.setText("我要借款");
 
+        SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
+        token = fence.getString("token", "");
         //edittext设置监听事件
         borrow_money.addTextChangedListener(textWatcher);
         borrow_name.addTextChangedListener(textWatcher);
         borrow_phone.addTextChangedListener(textWatcher);
         borrow_address.addTextChangedListener(textWatcher);
         borrow_introduce.addTextChangedListener(textWatcher);
+        borrow_code.addTextChangedListener(textWatcher);
+
+        ArrayAdapter aaa = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, str);
+        borrow_style.setAdapter(aaa);
+
+        ArrayAdapter sss = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, time);
+        borrow_time.setAdapter(sss);
+
+        ArrayAdapter ddd = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, city);
+        borrow_area.setAdapter(ddd);
+
+        borrow_style.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.black));
+                tv.setGravity(Gravity.CENTER);
+                style = tv.getText().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        borrow_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.black));
+                tv.setGravity(Gravity.CENTER);
+                if ("昭通".equals(tv.getText().toString())){
+                    cityId = 382;
+                }else  if ("玉溪".equals(tv.getText().toString())){
+                    cityId = 381;
+                }else if ("西双版纳".equals(tv.getText().toString())){
+                    cityId = 380;
+                }else if ("文山".equals(tv.getText().toString())){
+                    cityId = 379;
+                }else if ("曲靖".equals(tv.getText().toString())){
+                    cityId = 378;
+                }else if ("临沧".equals(tv.getText().toString())){
+                    cityId = 377;
+                }else if ("红河".equals(tv.getText().toString())){
+                    cityId = 376;
+                }else if ("迪庆".equals(tv.getText().toString())){
+                    cityId = 375;
+                }else if ("德宏".equals(tv.getText().toString())){
+                    cityId = 374;
+                }else if ("大理".equals(tv.getText().toString())){
+                    cityId = 373;
+                }else if ("楚雄".equals(tv.getText().toString())){
+                    cityId = 372;
+                }else if ("保山".equals(tv.getText().toString())){
+                    cityId = 371;
+                }else if ("丽江".equals(tv.getText().toString())){
+                    cityId = 370;
+                }else if ("怒山".equals(tv.getText().toString())){
+                    cityId = 368;
+                }else if ("普洱".equals(tv.getText().toString())){
+                    cityId = 369;
+                }else if ("昆明".equals(tv.getText().toString())){
+                    cityId = 367;
+                }
+
+                Toast.makeText(InvestBorrow.this, cityId+"", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        borrow_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.black));
+                tv.setGravity(Gravity.CENTER);
+                if ("一个月".equals(tv.getText().toString())){
+                    timing = 1;
+                }else if ("二个月".equals(tv.getText().toString())){
+                    timing = 2;
+                }else if ("三个月".equals(tv.getText().toString())){
+                    timing = 3;
+                }else if ("四个月".equals(tv.getText().toString())){
+                    timing = 4;
+                }else if ("五个月".equals(tv.getText().toString())){
+                    timing = 5;
+                }else if ("六个月".equals(tv.getText().toString())){
+                    timing = 6;
+                }else if ("七个月".equals(tv.getText().toString())){
+                    timing = 7;
+                }else if ("八个月".equals(tv.getText().toString())){
+                    timing = 8;
+                }else if ("九个月".equals(tv.getText().toString())){
+                    timing = 9;
+                }else if ("十个月".equals(tv.getText().toString())){
+                    timing = 10;
+                }else if ("十一个月".equals(tv.getText().toString())){
+                    timing = 11;
+                }else if ("十二个月".equals(tv.getText().toString())){
+                    timing = 12;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Glide.with(InvestBorrow.this).load("http://zhuojin.petope.com/member/common/verify").into(get_image_code);
+        get_image_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Glide.with(InvestBorrow.this).load("http://zhuojin.petope.com/member/common/verify?t="+Math.random()).into(get_image_code);
+            }
+        });
+
     }
 
     private void initView() {
@@ -68,6 +213,11 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
         borrow_submit = (Button) findViewById(R.id.borrow_submit);
 
         borrow_submit.setOnClickListener(this);
+        borrow_style = (Spinner) findViewById(R.id.borrow_style);
+        borrow_area = (Spinner) findViewById(R.id.borrow_area);
+        borrow_time = (Spinner) findViewById(R.id.borrow_time);
+        borrow_code = (EditText) findViewById(R.id.borrow_code);
+        get_image_code = (ImageView) findViewById(R.id.get_image_code);
     }
 
     @Override
@@ -80,28 +230,23 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow);
-        params.addBodyParameter("address",borrow_address.getText().toString());
-        params.addBodyParameter("amount",borrow_money.getText().toString());
-        params.addBodyParameter("name",borrow_name.getText().toString());
-        params.addBodyParameter("phone",borrow_phone.getText().toString());
-        params.addBodyParameter("remark",borrow_introduce.getText().toString());
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBorrow);
+        params.addBodyParameter("address", borrow_address.getText().toString());
+        params.addBodyParameter("amount", borrow_money.getText().toString());
+        params.addBodyParameter("name", borrow_name.getText().toString());
+        params.addBodyParameter("duration", timing+"");
+        params.addBodyParameter("contact", borrow_phone.getText().toString());
+        params.addBodyParameter("city", cityId+"");
+        params.addBodyParameter("classify", style);
+        params.addBodyParameter("other", borrow_introduce.getText().toString());
+        params.addBodyParameter("code", borrow_code.getText().toString());
+        params.addBodyParameter("province", "30");
+        params.addBodyParameter("token",token );
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data借款申请",data);
-                Gson gson  = new Gson();
-                BorrowBean bean = gson.fromJson(data,BorrowBean.class);
-                if (bean.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(InvestBorrow.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    }).show();
-                }
-                getHomeAcvtivity();
+                Log.i("data借款申请", data);
             }
 
             @Override
@@ -134,14 +279,15 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (borrow_money.getText().toString().length()>0&&borrow_name.getText().toString().length()>0&&borrow_phone.getText().toString().length()>0&&borrow_address.getText().toString().length()>0&&borrow_introduce.getText().toString().length()>0){
+            if (borrow_money.getText().toString().length() > 0 && borrow_name.getText().toString().length() > 0 && borrow_phone.getText().toString().length() > 0 && borrow_address.getText().toString().length() > 0 && borrow_introduce.getText().toString().length() > 0&&borrow_code.getText().toString().length()>0) {
                 borrow_submit.setEnabled(true);
-            }else {
+            } else {
                 borrow_submit.setEnabled(false);
             }
 
         }
     };
+
     private void getHomeAcvtivity() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
@@ -152,5 +298,6 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
         };
         timer.schedule(task, 1500);
     }
+
 
 }

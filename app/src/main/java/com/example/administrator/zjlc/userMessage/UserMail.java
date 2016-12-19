@@ -146,7 +146,7 @@ public class UserMail extends AppCompatActivity {
                         }
                     });
 //
-                AlertDialog dialog = new AlertDialog.Builder(UserMail.this).setTitle("消息提示").setMessage(beanList.get(i).getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(UserMail.this).setTitle("消息提示").setMessage(beanList.get(i-1).getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TextView title = (TextView) view.findViewById(R.id.user_mail_title);

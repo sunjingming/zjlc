@@ -128,7 +128,6 @@ public class CardMsg extends AppCompatActivity {
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        bank_short = (TextView) findViewById(R.id.bank_short);
         bank_msg_name = (TextView) findViewById(R.id.bank_msg_name);
         bnak_msg_number = (TextView) findViewById(R.id.bnak_msg_number);
         change_bank = (Button) findViewById(R.id.change_bank);

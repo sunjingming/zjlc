@@ -132,9 +132,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     AlertDialog dialog = new AlertDialog.Builder(AddCard.this).setTitle("消息提示").setMessage(bindBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           Intent intent = new Intent(AddCard.this, ReMainActivity.class);
-                            intent.putExtra("id",1);
-                            startActivity(intent);
+                            submit.setEnabled(false);
+                          finish();
                         }
                     }).show();
                 } else {

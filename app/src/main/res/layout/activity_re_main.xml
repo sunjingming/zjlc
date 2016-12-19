@@ -10,42 +10,91 @@
         android:layout_height="match_parent">
 
         <!-- 底部tab -->
-
         <LinearLayout
             android:id="@+id/ll_bottom_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_alignParentBottom="true"
-            android:baselineAligned="true"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:background="#ffffffff">
 
-            <RadioGroup
-                android:id="@+id/rg_bottom_tab"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/rl_home"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:layout_weight="1.0" >
 
-                <RadioButton
-                    android:id="@+id/rb_home"
-                    style="@style/bottom_tab_style"
-                    android:checked="true"
-                    android:drawableTop="@drawable/rb_home_selector"
-                    android:text="首页" />
+                <ImageView
+                    android:id="@+id/iv_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/tabbar_home"
+                    android:contentDescription="@null"/>
 
-                <RadioButton
-                    android:id="@+id/rb_govaffair"
-                    style="@style/bottom_tab_style"
-                    android:drawableTop="@drawable/rb_faxian_selector"
-                    android:text="理财" />
+                <TextView
+                    android:id="@+id/tv_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_home"
+                    android:layout_centerHorizontal="true"
+                    android:text="首页"
+                    android:textColor="@color/bottomtab_normal"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-                <RadioButton
-                    android:id="@+id/rb_newscenter"
-                    style="@style/bottom_tab_style"
-                    android:drawableTop="@drawable/rb_chanpin_selector"
-                    android:text="账户" />
-            </RadioGroup>
+            <RelativeLayout
+                android:id="@+id/rl_assitant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <ImageView
+                    android:id="@+id/iv_assitant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/tabbar_financial"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/tv_assitant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_assitant"
+                    android:layout_centerHorizontal="true"
+                    android:text="理财"
+                    android:textColor="@color/bottomtab_normal"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <ImageView
+                    android:id="@+id/iv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/tabbar_person"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_account"
+                    android:layout_centerHorizontal="true"
+                    android:text="账户"
+                    android:textColor="@color/bottomtab_normal"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <!-- 内容部分， fragment切换 -->

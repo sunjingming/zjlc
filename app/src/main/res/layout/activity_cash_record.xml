@@ -38,12 +38,12 @@
     </LinearLayout>
     <include layout="@layout/split_h1"/>
 
-    <ListView
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/cash_record_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-    </ListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

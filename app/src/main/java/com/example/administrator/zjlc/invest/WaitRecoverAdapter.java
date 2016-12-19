@@ -60,21 +60,21 @@ public class WaitRecoverAdapter extends BaseAdapter {
         }else {
             holder = (ItemViewHolder) view.getTag();
         }
-        holder.number.setText("编号："+data.get(i).getId());
+        holder.number.setText("编号："+data.get(i).getBorrow_id());
         holder.time.setText("添加时间："+data.get(i).getAdd_time());
         holder.grage.setText("原始借款标号："+data.get(i).getBorrow_id());
-        holder.name.setText("原始借款名称"+data.get(i).getBorrow_name());
-        holder.money.setText("投资本金"+data.get(i).getInvestor_capital());
-        holder.fee.setText("投资利息"+data.get(i).getInvestor_interest());
+        holder.name.setText("原始借款名称："+data.get(i).getBorrow_name());
+        holder.money.setText("投资本金："+data.get(i).getInvestor_capital());
+        holder.fee.setText("投资利息："+data.get(i).getInvestor_interest());
         final String is_auto = data.get(i).getIs_auto();
         if ("0".equals(is_auto)) {
-            holder.automatic.setText("是否自动化投标：否");
+            holder.automatic.setText("是否自动投标：否");
         }else {
-            holder.automatic.setText("是否自动化投标：是");
+            holder.automatic.setText("是否自动投标：是");
         }
         holder.year.setText("年华收益："+data.get(i).getRate()+"%");
         holder.repayMoney.setText("已还本金："+data.get(i).getReceive_capital());
-        holder.repayFee.setText("已还本金："+data.get(i).getReceive_interest());
+        holder.repayFee.setText("已还利息："+data.get(i).getReceive_interest());
 
         return view;
     }

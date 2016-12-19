@@ -142,6 +142,8 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
                                     }
                                 }).show();
                                 getHomeAcvtivity();
+                            }else {
+                                Toast.makeText(Cashing.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                             }
                         }
 

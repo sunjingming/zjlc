@@ -15,8 +15,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.administrator.zjlc.pager.Account;
 import com.example.administrator.zjlc.pager.Find;
@@ -25,13 +28,14 @@ import com.example.administrator.zjlc.view.NoScrollViewPager;
 
 public class ReMainActivity extends FragmentActivity implements View.OnClickListener {
 
-    private NoScrollViewPager vp_content_fragment;
-    private RadioButton rb_home;
-    private RadioButton rb_govaffair;
-    private RadioButton rb_newscenter;
+
     private FragmentManager fragmentManager;
-    private RadioGroup rg_bottom_tab;
     private Fragment homeFragment, findFragment, accountFragment, currentFragment;
+    private RelativeLayout homeLayout, assitantLayout, accountLayout;
+    // 底部标签图片
+    private ImageView homeImg, assitantImg, accountImg;
+    // 底部标签的文本
+    private TextView homeTv, assitantTv, accountTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +47,6 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
 
-        rb_home.setOnClickListener(this);
-        rb_govaffair.setOnClickListener(this);
-        rb_newscenter.setOnClickListener(this);
-        rg_bottom_tab.setOnClickListener(this);
-
         accountFragment = new Account();
 
         fragmentManager = getSupportFragmentManager();
@@ -57,84 +56,106 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
             }
             addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
         }
+
+        homeLayout.setOnClickListener(this);
+        assitantLayout.setOnClickListener(this);
+        accountLayout.setOnClickListener(this);
     }
 
     private void initTab() {
         if (homeFragment == null) {
             homeFragment = new HomePager();
         }
-
         if (!homeFragment.isAdded()) {
             // 提交事务
-            getSupportFragmentManager().beginTransaction().add(R.id.content_layout, homeFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content_layout, homeFragment).commit();
+
             // 记录当前Fragment
             currentFragment = homeFragment;
+            // 设置图片文本的变化
+            homeImg.setImageResource(R.drawable.tabbar_home_sel);
+            homeTv.setTextColor(getResources().getColor(R.color.red));
+            assitantImg.setImageResource(R.drawable.tabbar_financial);
+            assitantTv.setTextColor(getResources().getColor(R.color.gray15));
 
-            Drawable img_off;
-            Resources res = getResources();
-            img_off = res.getDrawable(R.drawable.tabbar_home_sel);
-            img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
-            rb_home.setTextColor(getResources().getColor(R.color.red));
-            rb_home.setCompoundDrawables(null, img_off, null, null);
+            accountImg.setImageResource(R.drawable.tabbar_person);
+            accountTv.setTextColor(getResources().getColor(R.color.gray15));
         }
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rb_home:
-                Drawable img_offs;
-                Resources ress = getResources();
-                img_offs = ress.getDrawable(R.drawable.tabbar_home_sel);
-                img_offs.setBounds(0, 0, img_offs.getMinimumWidth(), img_offs.getMinimumHeight());
-                rb_home.setTextColor(Color.RED);
-                rb_home .setCompoundDrawables(null,img_offs,null,null);
+            case R.id.rl_home:
                 if (homeFragment == null) {
                     homeFragment = new HomePager();
-                    currentFragment = homeFragment;
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), homeFragment);
+                // 设置底部tab变化
+                homeImg.setImageResource(R.drawable.tabbar_home_sel);
+                homeTv.setTextColor(getResources().getColor(R.color.red));
+
+                assitantImg.setImageResource(R.drawable.tabbar_financial);
+                assitantTv.setTextColor(getResources().getColor(R.color.gray15));
+
+                accountImg.setImageResource(R.drawable.tabbar_person);
+                accountTv.setTextColor(getResources().getColor(R.color.gray15));
+
                 break;
-            case R.id.rb_govaffair:
-                Drawable img_of;
-                Resources r = getResources();
-                img_of = r.getDrawable(R.drawable.tabbar_home);
-                img_of.setBounds(0, 0, img_of.getMinimumWidth(), img_of.getMinimumHeight());
-                rb_home.setTextColor(Color.GRAY);
-                rb_home .setCompoundDrawables(null,img_of,null,null);
+            case R.id.rl_assitant:
                 if (findFragment == null) {
                     findFragment = new Find();
-                    Drawable img_off;
-                    Resources res = getResources();
-                    img_off = res.getDrawable(R.drawable.tabbar_home);
-                    img_off.setBounds(0, 0, img_off.getMinimumWidth(), img_off.getMinimumHeight());
-                    currentFragment = homeFragment;
-                    rb_home.setTextColor(Color.GRAY);
-                    rb_home .setCompoundDrawables(null,img_off,null,null);
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), findFragment);
+                // 设置底部tab变化
+                homeImg.setImageResource(R.drawable.tabbar_home);
+                homeTv.setTextColor(getResources().getColor(R.color.gray15));
+
+                assitantImg.setImageResource(R.drawable.tabbar_financial_select);
+                assitantTv.setTextColor(getResources().getColor(R.color.red));
+
+                accountImg.setImageResource(R.drawable.tabbar_person);
+                accountTv.setTextColor(getResources().getColor(R.color.gray15));
+
                 break;
-            case R.id.rb_newscenter:
-                Drawable img;
-                Resources rr = getResources();
-                img = rr.getDrawable(R.drawable.tabbar_home);
-                img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
-                rb_home.setTextColor(Color.GRAY);
-                rb_home .setCompoundDrawables(null,img,null,null);
+            case R.id.rl_account:
                 if (accountFragment == null) {
                     accountFragment = new Account();
-                    currentFragment = homeFragment;
                 }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
+                // 设置底部tab变化
+                homeImg.setImageResource(R.drawable.tabbar_home);
+                homeTv.setTextColor(getResources().getColor(R.color.gray15));
+
+                assitantImg.setImageResource(R.drawable.tabbar_financial);
+                assitantTv.setTextColor(getResources().getColor(R.color.gray15));
+
+                accountImg.setImageResource(R.drawable.tabbar_person_select);
+                accountTv.setTextColor(getResources().getColor(R.color.red));
+
+
         }
     }
 
     private void initView() {
-        vp_content_fragment = (NoScrollViewPager) findViewById(R.id.vp_content_fragment);
-        rb_home = (RadioButton) findViewById(R.id.rb_home);
-        rb_govaffair = (RadioButton) findViewById(R.id.rb_govaffair);
-        rb_newscenter = (RadioButton) findViewById(R.id.rb_newscenter);
-        rg_bottom_tab = (RadioGroup) findViewById(R.id.rg_bottom_tab);
+        homeLayout = (RelativeLayout) findViewById(R.id.rl_home);
+        assitantLayout = (RelativeLayout) findViewById(R.id.rl_assitant);
+        accountLayout = (RelativeLayout) findViewById(R.id.rl_account);
+
+        homeLayout.setOnClickListener(this);
+        assitantLayout.setOnClickListener(this);
+        accountLayout.setOnClickListener(this);
+
+        homeImg = (ImageView) findViewById(R.id.iv_home);
+        assitantImg = (ImageView) findViewById(R.id.iv_assitant);
+        accountImg = (ImageView) findViewById(R.id.iv_account);
+
+        homeTv = (TextView) findViewById(R.id.tv_home);
+        assitantTv = (TextView) findViewById(R.id.tv_assitant);
+        accountTv = (TextView) findViewById(R.id.tv_account);
     }
 
 
