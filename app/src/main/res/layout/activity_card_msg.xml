@@ -8,10 +8,10 @@
     android:background="@color/white"
     tools:context="com.example.administrator.zjlc.bank.CardMsg">
     <include layout="@layout/toolbar"/>
+
     <TextView
-        android:id="@+id/bank_short"
+        android:id="@+id/bank_user_name"
         style="@style/MoreItemStyle"
-        android:text="银行缩写"
         android:textColor="@color/black"
         android:paddingLeft="@dimen/m8"/>
     <include layout="@layout/split_h1"/>

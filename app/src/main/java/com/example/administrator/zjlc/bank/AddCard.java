@@ -132,9 +132,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     AlertDialog dialog = new AlertDialog.Builder(AddCard.this).setTitle("消息提示").setMessage(bindBean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           Intent intent = new Intent(AddCard.this, ReMainActivity.class);
-                            intent.putExtra("id",1);
-                            startActivity(intent);
+                            submit.setEnabled(false);
+                          finish();
                         }
                     }).show();
                 } else {
@@ -254,8 +253,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                             String data = result;
                             Log.i("data用户信息", data);
                             Gson gson = new Gson();
-                            UserBean userbean = gson.fromJson(data, UserBean.class);
-                            name.setText(userbean.getData().getReal_name());
+                            UserNamebean msgBean = gson.fromJson(data, UserNamebean.class);
+                            name.setText(msgBean.getData().getReal_name());
                         }
 
                         @Override
@@ -288,7 +287,12 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     submit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            biddingCard();
+                            if (cardNumber.getText().toString().length()<16){
+                                Toast.makeText(AddCard.this, "请输入不小16位的银行卡号", Toast.LENGTH_SHORT).show();
+                            }else {
+                                biddingCard();
+                            }
+
                         }
                     });
 
@@ -308,6 +312,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
+
+
             if (cardNumber.getText().toString().length() > 0 && cardNumberCheck.getText().toString().length() > 0 && code.getText().toString().length() > 0) {
                 submit.setEnabled(true);
             } else {

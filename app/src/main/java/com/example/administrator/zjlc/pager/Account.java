@@ -105,7 +105,6 @@ public class Account extends Fragment implements View.OnClickListener {
         user_invite.setOnClickListener(this);
         user_manage.setOnClickListener(this);
 
-
         scrollView.setMode(PullToRefreshBase.Mode.BOTH);
         scrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             /**
@@ -126,7 +125,6 @@ public class Account extends Fragment implements View.OnClickListener {
                     }
                 }, 1000);
             }
-
             /**
              * 上拉刷新
              * 作用：添加下一页数据
@@ -144,11 +142,7 @@ public class Account extends Fragment implements View.OnClickListener {
             }
         });
 
-
-
-
         return view;
-
     }
     //判断是否绑定银行卡
     private void bankWhether() {
@@ -339,6 +333,7 @@ public class Account extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intentCash = new Intent(getActivity(), Cash.class);
+                    intentCash.putExtra("money",balance.getText().toString());
                     getActivity().startActivity(intentCash);
                 }
                 break;

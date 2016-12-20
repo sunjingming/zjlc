@@ -90,6 +90,8 @@ public class UrlsUtils {
     public static final  String ZJLCDebt_detail = "debt_detail";
     //站内信状态
     public static final  String ZJLCInner_status = "inner_msg_status";
+    //图片验证码
+    public static final  String ZJLCImageCode = "http://zhuojin.petope.com/member/common/verify";
     //
     public static final String ZJLCBorrow_invest_list = "borrow_invest_list";
 }

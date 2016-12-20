@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
@@ -38,8 +39,8 @@ public class CardMsg extends AppCompatActivity {
         setContentView(R.layout.activity_card_msg);
         initView();
 
-        SharedPreferences fence = getSharedPreferences("usetoken",MODE_PRIVATE);
-        token = fence.getString("token",null);
+        SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
+        token = fence.getString("token", null);
 
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -55,8 +56,15 @@ public class CardMsg extends AppCompatActivity {
         change_bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CardMsg.this,AddCard.class);
+                Intent intent = new Intent(CardMsg.this, AddCard.class);
                 startActivity(intent);
+            }
+        });
+
+        bank_short.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CardMsg.this, bank_short.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -71,8 +79,8 @@ public class CardMsg extends AppCompatActivity {
                 String data = result;
                 Log.i("data账户首页", data);
                 Gson gson = new Gson();
-                MsgBean msgBean = gson.fromJson(data,MsgBean.class);
-                bank_short.setText("户主姓名："+msgBean.getData().getReal_name());
+                UserNamebean msgBean = gson.fromJson(data, UserNamebean.class);
+                bank_short.setText("户主姓名：" + msgBean.getData().getReal_name());
             }
 
             @Override
@@ -93,19 +101,19 @@ public class CardMsg extends AppCompatActivity {
     }
 
     private void loadData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBank_msg);
-        params.addBodyParameter("token",token);
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBank_msg);
+        params.addBodyParameter("token", token);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data银行卡信息",data);
+                Log.i("data银行卡信息", data);
                 Gson gson = new Gson();
-                CardMsgBean msgBean = gson.fromJson(data,CardMsgBean.class);
-                bank_msg_name.setText("银行名称:  "+ msgBean.getData().getBank_name());
+                CardMsgBean msgBean = gson.fromJson(data, CardMsgBean.class);
+                bank_msg_name.setText("银行名称:  " + msgBean.getData().getBank_name());
                 String cadr = msgBean.getData().getBank_num();
-                String S  = cadr.substring(0,4)+"******"+cadr.substring(15,cadr.length());
-                bnak_msg_number.setText("卡号:  "+S);
+                String S = cadr.substring(0, 4) + "******" + cadr.substring(15, cadr.length());
+                bnak_msg_number.setText("卡号:  " + S);
             }
 
             @Override
@@ -128,10 +136,10 @@ public class CardMsg extends AppCompatActivity {
     private void initView() {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        bank_short = (TextView) findViewById(R.id.bank_short);
         bank_msg_name = (TextView) findViewById(R.id.bank_msg_name);
         bnak_msg_number = (TextView) findViewById(R.id.bnak_msg_number);
         change_bank = (Button) findViewById(R.id.change_bank);
+        bank_short = (TextView) findViewById(R.id.bank_user_name);
 
     }
 
@@ -147,11 +155,11 @@ public class CardMsg extends AppCompatActivity {
             handler.sendEmptyMessage(1);
         }
     };
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     loadData();
                     loadMore();

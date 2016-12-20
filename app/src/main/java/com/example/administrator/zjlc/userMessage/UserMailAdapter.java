@@ -49,23 +49,32 @@ public class UserMailAdapter extends BaseAdapter {
             holder.time = (TextView) view.findViewById(R.id.user_mail_time);
             holder.title = (TextView) view.findViewById(R.id.user_mail_title);
             holder.status = (TextView) view.findViewById(R.id.user_mail_status);
+            holder.content = (TextView) view.findViewById(R.id.user_mail_content);
+            holder.str = (TextView) view.findViewById(R.id.user_mail_str);
             view.setTag(holder);
-        }else {
+        }else{
             holder = (ItemViewHolder) view.getTag();
         }
         final int status = data.get(i).getStatus();
         if (status==1){
-            holder.title.setTextColor(Color.GRAY);
-        }else {
+            holder.str.setTextColor(Color.BLACK);
             holder.title.setTextColor(Color.BLACK);
+            holder.content.setTextColor(Color.GRAY);
+            holder.str.setText("(已读)");
+        }else {
+            holder.str.setTextColor(Color.RED);
+            holder.title.setTextColor(Color.RED);
+            holder.content.setTextColor(Color.BLACK);
+            holder.str.setText("(未读)");
         }
 
         holder.title.setText(data.get(i).getTitle());
         holder.time.setText(data.get(i).getSend_time());
+        holder.content.setText(data.get(i).getMsg());
         holder.status.setText(String.valueOf(data.get(i).getId()));
         return view;
     }
     class ItemViewHolder{
-        TextView title,time,status;
+        TextView title,time,status,content,str;
     }
 }

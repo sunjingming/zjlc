@@ -74,6 +74,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             SharedPreferences prence = getSharedPreferences("usetoken", MODE_PRIVATE);
                             SharedPreferences.Editor editor = prence.edit();
                             editor.putString("token", loginBean.getData());
+                            editor.putString("phone", login_phone.getText().toString());
                             editor.commit();
                             Intent intent = new Intent(Login.this, ReMainActivity.class);
                             intent.putExtra("id","1");

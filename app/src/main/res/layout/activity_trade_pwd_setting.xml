@@ -66,7 +66,7 @@
             style="@style/TextStyle"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
 
             <EditText
                 android:id="@+id/trade_code"
-                android:layout_width="167dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/m8"
                 android:background="@color/white"
@@ -92,7 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/m8"
-                android:text="获取验证码" />
+                android:text="获取验证码"
+                android:layout_weight="1.13" />
         </LinearLayout>
 
         <View

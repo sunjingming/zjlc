@@ -37,7 +37,6 @@ public class Invest extends AppCompatActivity implements View.OnClickListener{
         initView();
         SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
         token = fence.getString("token", "");
-
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

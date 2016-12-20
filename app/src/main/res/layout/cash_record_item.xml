@@ -14,20 +14,20 @@
             android:id="@+id/cash_record_time"
             style="@style/MoreItemStyle"
             android:gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/cash_record_money"
             style="@style/MoreItemStyle"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/cash_record_state"
             style="@style/MoreItemStyle"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="@color/black" />
 

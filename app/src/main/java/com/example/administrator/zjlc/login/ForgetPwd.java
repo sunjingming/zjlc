@@ -50,6 +50,7 @@ public class ForgetPwd extends AppCompatActivity implements View.OnClickListener
         forget_phone.addTextChangedListener(textWatcher);
         forget_code.addTextChangedListener(textWatcher);
         forget_pwd_password.addTextChangedListener(textWatcher);
+        forget_pwd_check.addTextChangedListener(textWatcher);
     }
 
     private void initView() {
@@ -74,7 +75,14 @@ public class ForgetPwd extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.forget_submit:
                 //找回密码
-                findPwd();
+                if ("获取验证码".equals(forget_get_code.getText().toString())){
+                    Toast.makeText(this, "请发送验证码", Toast.LENGTH_SHORT).show();
+                }else if (forget_pwd_password.getText().toString().equals(forget_pwd_check.getText().toString())){
+                    findPwd();
+                }else{
+                    Toast.makeText(this, "两次输入密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }
@@ -138,6 +146,8 @@ public class ForgetPwd extends AppCompatActivity implements View.OnClickListener
                         }
                     }).show();
                     getHomeAcvtivity();
+                }else {
+                    Toast.makeText(ForgetPwd.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -179,7 +189,7 @@ public class ForgetPwd extends AppCompatActivity implements View.OnClickListener
                 forget_get_code.setEnabled(false);
             }
 
-            if (forget_phone.getText().toString().length()==11&&forget_code.getText().toString().length()>5&&forget_pwd_password.getText().toString().length()>5){
+            if (forget_phone.getText().toString().length()==11&&forget_code.getText().toString().length()>5&&forget_pwd_password.getText().toString().length()>5&&forget_pwd_check.getText().toString().length()>5){
                 forget_submit.setEnabled(true);
             }else {
                 forget_submit.setEnabled(false);

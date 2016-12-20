@@ -50,7 +50,7 @@
             android:layout_marginLeft="@dimen/m8"
             android:background="@color/white"
             android:gravity="start"
-            android:hint="请输入密码"
+            android:hint="请输入您在手机号"
             android:inputType="number"
             android:textColor="@color/gray18"
             android:textColorHint="@color/gray8"

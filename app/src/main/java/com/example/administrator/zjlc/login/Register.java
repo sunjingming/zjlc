@@ -142,6 +142,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                         Intent  intent = new Intent(Register.this, ApproveName.class);
                                         intent.putExtra("id","1");
                                         intent.putExtra("token",bean.getData());
+                                        intent.putExtra("phone",register_phone.getText().toString());
                                         startActivity(intent);
 
                                     }

@@ -58,8 +58,12 @@ public class MoneyRecordAdapter extends BaseAdapter {
         }else {
             holder = (ItemViewHolder) view.getTag();
         }
+        Double a = Double.parseDouble(data.get(i).getAccount_money());
+        Double b = Double.parseDouble(data.get(i).getBack_money());
+        double c  =a+b;
+
         holder.title.setText("编号："+data.get(i).getId());
-        holder.useMoney.setText("可用金额："+data.get(i).getAccount_money());
+        holder.useMoney.setText("可用金额："+String.valueOf(c));
         holder.time.setText("添加时间："+data.get(i).getAdd_time());
         holder.recovery.setText("回款金额："+data.get(i).getBack_money());
         holder.wait.setText("待收金额："+data.get(i).getCollect_money());
