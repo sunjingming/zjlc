@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.utils.CacheUtils;
 
 public class SplashActivity extends Activity {
@@ -27,21 +28,21 @@ public class SplashActivity extends Activity {
         AnimationSet set = new AnimationSet(false);
         //三个动画：缩放动画，渐变动画，旋转动画
 
-//        if(is_start_main) {
-//            rl_splash_rootview.setBackgroundResource(R.drawable.screen);
-//            ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, ScaleAnimation.RELATIVE_TO_SELF, 0.5f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
-//            scaleAnimation.setDuration(1000);//动画持续时间
-//            scaleAnimation.setFillAfter(true);//停留在动画播放完成后的状态
-//
-//
-//            AlphaAnimation aa = new AlphaAnimation(0f, 1f);
-//            aa.setDuration(1000);
-//            aa.setFillAfter(true);
-//
-//
-//            set.addAnimation(aa);
-//            set.addAnimation(scaleAnimation);
-//        }
+        if(is_start_main) {
+            rl_splash_rootview.setBackgroundResource(R.drawable.screen);
+            ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, ScaleAnimation.RELATIVE_TO_SELF, 0.5f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
+            scaleAnimation.setDuration(1000);//动画持续时间
+            scaleAnimation.setFillAfter(true);//停留在动画播放完成后的状态
+
+
+            AlphaAnimation aa = new AlphaAnimation(0f, 1f);
+            aa.setDuration(1000);
+            aa.setFillAfter(true);
+
+
+            set.addAnimation(aa);
+            set.addAnimation(scaleAnimation);
+        }
         rl_splash_rootview.startAnimation(set);
         //监听动画播放完成-进入引导页面
         set.setAnimationListener(new MyAnimationListener());
@@ -64,7 +65,7 @@ public class SplashActivity extends Activity {
             Intent intent = null;
             if (is_start_main) {
                 //直接跳转到主页面
-                intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent = new Intent(SplashActivity.this, ReMainActivity.class);
             } else {
                 //进入引导页面
                 intent = new Intent(SplashActivity.this, GuideActivity.class);

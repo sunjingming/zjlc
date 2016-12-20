@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.utils.CacheUtils;
 
 import org.xutils.common.util.DensityUtil;
@@ -101,7 +102,7 @@ public class GuideActivity extends AppCompatActivity {
                 CacheUtils.putBoolean(GuideActivity.this,START_MAIN, true);
 
                 //点击进入主页面
-                Intent intent = new Intent(GuideActivity.this,MainActivity.class);
+                Intent intent = new Intent(GuideActivity.this,ReMainActivity.class);
                 startActivity(intent);
                 finish();
 
