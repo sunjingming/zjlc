@@ -74,16 +74,31 @@ public class ZQZRActivity extends AppCompatActivity {
                     break;
 
             }
-            tv6.setText(noticeBean.getData().getRate()+"");
+            tv6.setText(noticeBean.getData().getRate()+"%");
             tv7.setText(noticeBean.getData().getTransfer_price()+"");
             tv8.setText(noticeBean.getData().getValid()+"");
             tv9.setText(noticeBean.getData().getBorrow_user()+"");
             tv10.setText(noticeBean.getData().getInvest_user()+"");
             tv11.setText(noticeBean.getData().getCredits()+"");
             tv12.setText(noticeBean.getData().getLevel()+"");
-            tv13.setText(noticeBean.getData().getEmail_status()+"");
-            tv14.setText(noticeBean.getData().getId_status()+"");
-            tv15.setText(noticeBean.getData().getPhone_status()+"");
+            if(noticeBean.getData().getEmail_status() == 1){
+                tv13.setText("已认证");
+            }else{
+                tv13.setText("未认证");
+            }
+            if(noticeBean.getData().getId_status() == 1){
+                tv14.setText("已认证");
+            }else{
+                tv14.setText("未认证");
+            }
+            if(noticeBean.getData().getPhone_status() == 1){
+                tv15.setText("已认证");
+            }else{
+                tv15.setText("未认证");
+            }
+//            tv13.setText(noticeBean.getData().getEmail_status()+"");
+//            tv14.setText(noticeBean.getData().getId_status()+"");
+//            tv15.setText(noticeBean.getData().getPhone_status()+"");
             return false;
         }
     });

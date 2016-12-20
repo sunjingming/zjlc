@@ -148,6 +148,8 @@ public class Find extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        dataBeanArrayList = new ArrayList<SanBiaobean.DataBean>();
+                        setData();
                         updateSingleView(dataBeanArrayList);
                         // TODO Auto-generated method stub
                         mRefreshLayout.setRefreshing(false);
@@ -161,6 +163,8 @@ public class Find extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        zqzLbeen = new ArrayList<ZQZLbean.DataBean>();
+                        setData();
                         updateSingleView1(zqzLbeen);
                         // TODO Auto-generated method stub
                         mRefreshLayout1.setRefreshing(false);

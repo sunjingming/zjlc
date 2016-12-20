@@ -262,7 +262,13 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     Gson gson = new Gson();
                     RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
                     codeBean = gson.fromJson(data, RegisterCodeBean.class);
+
                     Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
+                    if("投资成功".equals(codeBean.getMsg())){
+                        et_je.setText("");
+                        et_mm.setText("");
+                        initDatas();
+                    }
                 }
 
                 @Override
