@@ -92,34 +92,7 @@ public class Cash extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
-        //获取提现手续费
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_fee);
-        params.addBodyParameter("token", token);
-        params.addBodyParameter("money", cash_money.getText().toString());
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                String data = result;
-                Log.i("data提现手续费", data);
-                Gson gson = new Gson();
-                feeBean = gson.fromJson(data, CashingFeeBean.class);
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
 
     }
 
@@ -158,6 +131,8 @@ public class Cash extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,6 +148,35 @@ public class Cash extends AppCompatActivity implements View.OnClickListener {
         public void afterTextChanged(Editable s) {
             if (cash_money.getText().toString().length() > 0) {
                 cashing.setEnabled(true);
+                //获取提现手续费
+                final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_fee);
+                params.addBodyParameter("token", token);
+                params.addBodyParameter("money", cash_money.getText().toString());
+                x.http().post(params, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        String data = result;
+                        Log.i("data提现手续费", data);
+                        Log.i("data提现手续费", params+"");
+                        Gson gson = new Gson();
+                        feeBean = gson.fromJson(data, CashingFeeBean.class);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
             } else {
                 cashing.setEnabled(false);
             }

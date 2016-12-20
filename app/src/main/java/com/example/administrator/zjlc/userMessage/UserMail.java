@@ -165,7 +165,7 @@ public class UserMail extends AppCompatActivity {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCMail);
         params.addBodyParameter("token", token);
         params.addBodyParameter("page",page+"");
-        params.addBodyParameter("pagesize","3");
+        params.addBodyParameter("pagesize","10");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
