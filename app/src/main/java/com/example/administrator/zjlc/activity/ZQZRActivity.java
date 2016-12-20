@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -138,7 +139,8 @@ public class ZQZRActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText editText = new EditText(ZQZRActivity.this);
-                new android.app.AlertDialog.Builder(ZQZRActivity.this).setMessage("请输入支付密码").
+                editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                new android.app.AlertDialog.Builder(ZQZRActivity.this).setMessage("请输入交易密码").
                         setView(editText).setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

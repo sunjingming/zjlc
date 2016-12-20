@@ -73,7 +73,21 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getMoney()));
         holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));
 
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
+//        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
+        switch (dataBeanArrayList.get(position).getBorrow_status()){
+            case 1:
+                holder.im_touzi.setBackgroundResource(R.drawable.t6);
+                break;
+            case 2:
+                holder.im_touzi.setBackgroundResource(R.drawable.icon_zhaiquan_debt);
+                break;
+            case 3:
+                holder.im_touzi.setBackgroundResource(R.drawable.t4);
+                break;
+            case 4:
+                holder.im_touzi.setBackgroundResource(R.drawable.icon_zhaiquan_finish);
+                break;
+        }
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":
@@ -176,7 +190,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     //定义接口
-    public static interface OnRecyclerViewItemClickListener {
+    public interface OnRecyclerViewItemClickListener {
         void onItemClick(View view , ZQZLbean.DataBean data);
     }
 

@@ -62,7 +62,18 @@ public class Find extends Fragment {
 
         @Override
         public boolean handleMessage(Message msg) {
-            updateSingleView(dataBeanArrayList);
+            switch (msg.what){
+                case 1:
+                    updateSingleView(dataBeanArrayList);
+                    updateSingleView1(zqzLbeen);
+                    break;
+                case 2:
+                    dataBeanArrayList = new ArrayList<SanBiaobean.DataBean>();
+                    zqzLbeen = new ArrayList<ZQZLbean.DataBean>();
+                    setData();
+                    break;
+            }
+
             return false;
         }
     });
@@ -102,7 +113,7 @@ public class Find extends Fragment {
         but1.setBackgroundResource(R.drawable.yuanshi);
         but1.setTextColor(Color.WHITE);
 
-        setData();
+//        setData();
 
 
         myRecyclerView = new MyRecyclerView(getActivity(), dataBeanArrayList);
@@ -155,6 +166,13 @@ public class Find extends Fragment {
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 1000);
+                //上拉加载更多
+                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                    @Override
+                    public void onLoadMore(int currentPage) {
+                        loadMoreData();
+                    }
+                });
             }
         });
         //下拉刷新
@@ -168,6 +186,12 @@ public class Find extends Fragment {
                         updateSingleView1(zqzLbeen);
                         // TODO Auto-generated method stub
                         mRefreshLayout1.setRefreshing(false);
+                        recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                            @Override
+                            public void onLoadMore(int currentPage) {
+                                loadMoreData2();
+                            }
+                        });
                     }
                 }, 1000);
             }
@@ -437,4 +461,16 @@ public class Find extends Fragment {
         });
         iis++;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.post(runnable);
+    }
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.sendEmptyMessage(2);
+        }
+    };
 }

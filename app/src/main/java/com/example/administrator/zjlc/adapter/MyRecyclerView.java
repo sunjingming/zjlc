@@ -71,9 +71,28 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
         holder.wancheng_qingkuang.setText(String.valueOf(dataBeanArrayList.get(position).getProgress())+"%");
-        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
+//        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
+        switch (dataBeanArrayList.get(position).getBorrow_status()){
+            case 2:
+                holder.im_touzi.setBackgroundResource(R.drawable.t2);
+                break;
+            case 4:
+                holder.im_touzi.setBackgroundResource(R.drawable.t4);
+                break;
+            case 6:
+                holder.im_touzi.setBackgroundResource(R.drawable.t6);
+                break;
+            case 7:
+                holder.im_touzi.setBackgroundResource(R.drawable.t7);
+                break;
+            case 8:
+                holder.im_touzi.setBackgroundResource(R.drawable.t8);
+                break;
+        }
         if(dataBeanArrayList.get(position).getHas_pass() == 1){
             holder.imageView3.setVisibility(View.VISIBLE);
+        }else{
+            holder.imageView3.setVisibility(View.GONE);
         }
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
