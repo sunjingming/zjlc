@@ -53,7 +53,7 @@ public class AdapterJiLu extends RecyclerView.Adapter<AdapterJiLu.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv1.setText(dataBeanArrayList.get(position).getAdd_time());
         holder.tv2.setText(dataBeanArrayList.get(position).getIs_auto());
-        holder.tv3.setText(String.valueOf(dataBeanArrayList.get(position).getInvestor_capital()));
+        holder.tv3.setText(String.valueOf(dataBeanArrayList.get(position).getInvestor_capital())+".00");
         holder.tv4.setText(dataBeanArrayList.get(position).getUser_name());
     }
 

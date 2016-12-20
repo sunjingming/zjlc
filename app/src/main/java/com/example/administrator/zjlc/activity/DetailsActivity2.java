@@ -62,13 +62,13 @@ public class DetailsActivity2 extends AppCompatActivity {
         public boolean handleMessage(Message msg) {
             tv1.setText(detalsBeans.getData().getBorrow_name());
             tv2.setText(detalsBeans.getData().getBorrow_status_str());
-            tv3.setText(String.valueOf(detalsBeans.getData().getBorrow_money()));
+            tv3.setText(String.valueOf(detalsBeans.getData().getBorrow_money())+".00");
             tv4.setText(detalsBeans.getData().getAdd_time());
-            tv5.setText(String.valueOf(detalsBeans.getData().getBorrow_times()));
+            tv5.setText(String.valueOf(detalsBeans.getData().getBorrow_times())+"次");
             tv6.setText(detalsBeans.getData().getBorrow_type());
-            tv7.setText(String.valueOf(detalsBeans.getData().getProgress()));
+            tv7.setText(String.valueOf(detalsBeans.getData().getProgress())+"%");
             tv8.setText(detalsBeans.getData().getRepayment_type());
-            tv9.setText(String.valueOf(detalsBeans.getData().getReward_num()));
+            tv9.setText(String.valueOf(detalsBeans.getData().getReward_num())+"%");
             updateSingleView(dataBeanArrayList);
             return false;
         }

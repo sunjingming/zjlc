@@ -65,7 +65,12 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             tv_times.setText(String.valueOf(noticeBean.getData().getCollect_day())+"天");
             tv_timess.setText(noticeBean.getData().getBorrow_duration());
             tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+".00元");
-            tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+",最大投资金额"+noticeBean.getData().getBorrow_max());
+            if(noticeBean.getData().getBorrow_max() == 0){
+                tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+".00,最大投资金额无限制");
+            }else{
+                tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+".00,最大投资金额"+noticeBean.getData().getBorrow_max()+".00");
+            }
+
 
             lijigou.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,7 +91,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 public void onScrollBottomListener(boolean isBottom) {
                     if(isBottom) {
                         Intent intent;
-                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
                         intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
                         intent.putExtra("id", id);
                         startActivity(intent);
