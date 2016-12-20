@@ -74,7 +74,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
         holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));
 
 //        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
-        switch (dataBeanArrayList.get(position).getBorrow_status()){
+        switch (dataBeanArrayList.get(position).getStatus()){
             case 1:
                 holder.im_touzi.setBackgroundResource(R.drawable.t6);
                 break;

@@ -235,6 +235,8 @@ public class HomePager extends Fragment {
                     ImageView imageView = new ImageView(getActivity());
 
                     Glide.with(getActivity()).load(jrb.get(i)).into(imageView);
+
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     viewList.add(imageView);
                 }
                 handler.sendEmptyMessage(1);
