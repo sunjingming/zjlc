@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textColor="@color/colorAccent"
-        android:text="项目详情" />
+        android:text="债权详情" />
     <com.example.administrator.zjlc.view.MyScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/sv_container"

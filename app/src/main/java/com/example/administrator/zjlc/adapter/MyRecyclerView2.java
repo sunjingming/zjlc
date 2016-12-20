@@ -68,7 +68,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
-        holder.tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price()));
+        holder.tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price())+".00");
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getMoney()));
         holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));

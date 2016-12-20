@@ -46,6 +46,7 @@ public class ZQZRActivity extends AppCompatActivity {
     private TextView tv13;
     private TextView tv14;
     private TextView tv15;
+    private TextView tv_pasnt;
 
     private Button lijigou;
 
@@ -77,7 +78,7 @@ public class ZQZRActivity extends AppCompatActivity {
 
             }
             tv6.setText(noticeBean.getData().getRate()+"%");
-            tv7.setText(noticeBean.getData().getTransfer_price()+"");
+            tv7.setText(noticeBean.getData().getTransfer_price()+".00");
             tv8.setText(noticeBean.getData().getValid()+"");
             tv9.setText(noticeBean.getData().getBorrow_user()+"");
             tv10.setText(noticeBean.getData().getInvest_user()+"");
@@ -132,6 +133,13 @@ public class ZQZRActivity extends AppCompatActivity {
         tv13 = (TextView) findViewById(R.id.tv13);
         tv14 = (TextView) findViewById(R.id.tv14);
         tv15 = (TextView) findViewById(R.id.tv15);
+        tv_pasnt = (TextView) findViewById(R.id.tv_pasnt);
+        tv_pasnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lijigou = (Button) findViewById(R.id.lijigou);
 
@@ -164,7 +172,7 @@ public class ZQZRActivity extends AppCompatActivity {
     private void setDataset() {
         RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCDebt_invest_money);
 
-        paramsNotice.addBodyParameter("invest_id", String.valueOf(id));
+        paramsNotice.addBodyParameter("invest_id", String.valueOf(noticeBean.getData().getInvest_id()));
         paramsNotice.addBodyParameter("pin", pin);
         paramsNotice.addBodyParameter("token", token);
         x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
