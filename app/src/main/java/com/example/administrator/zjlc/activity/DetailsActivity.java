@@ -64,7 +64,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             tv_lilv.setText(String.valueOf(noticeBean.getData().getBorrow_interest_rate())+"%");
             tv_times.setText(String.valueOf(noticeBean.getData().getCollect_day())+"天");
             tv_timess.setText(noticeBean.getData().getBorrow_duration());
-            tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+"元");
+            tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+".00元");
             tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+",最大投资金额"+noticeBean.getData().getBorrow_max());
 
             lijigou.setOnClickListener(new View.OnClickListener() {

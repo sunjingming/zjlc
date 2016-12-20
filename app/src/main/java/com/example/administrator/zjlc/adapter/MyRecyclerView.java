@@ -70,7 +70,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         holder.tv_monh.setText(dataBeanArrayList.get(position).getBorrow_duration());
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
         holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
-        holder.wancheng_qingkuang.setText("%"+String.valueOf(dataBeanArrayList.get(position).getProgress()));
+        holder.wancheng_qingkuang.setText(String.valueOf(dataBeanArrayList.get(position).getProgress())+"%");
         holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
         if(dataBeanArrayList.get(position).getHas_pass() == 1){
             holder.imageView3.setVisibility(View.VISIBLE);

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.ZQXQBean;
+import com.example.administrator.zjlc.login.RegisterCodeBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 
@@ -170,8 +171,10 @@ public class ZQZRActivity extends AppCompatActivity {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
+                RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                codeBean = gson.fromJson(data, RegisterCodeBean.class);
 
-                Toast.makeText(ZQZRActivity.this,data,Toast.LENGTH_SHORT).show();
+                Toast.makeText(ZQZRActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
