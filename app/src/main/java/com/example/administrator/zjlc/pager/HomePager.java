@@ -113,7 +113,7 @@ public class HomePager extends Fragment {
         tv_biao = (TextView) view.findViewById(R.id.tv_biao);
         tv_lv = (TextView) view.findViewById(R.id.tv_lv);
         tv_jindu = (TextView) view.findViewById(R.id.tv_jindu);
-        tv_ss = (TextView) view.findViewById(R.id.tv_jindu);
+        tv_ss = (TextView) view.findViewById(R.id.tv_ss);
         tv_time = (TextView) view.findViewById(R.id.tv_time);
         iv_lijitouzi = (Button) view.findViewById(R.id.iv_lijitouzi);
 
@@ -138,6 +138,7 @@ public class HomePager extends Fragment {
                     @Override
                     public void run() {
                         setViewpagerData();
+                        setViewText();
                         // TODO Auto-generated method stub
                         layout_swipe_refresh.setRefreshing(false);
                     }
@@ -156,13 +157,21 @@ public class HomePager extends Fragment {
                 Gson gson = new Gson();
                 TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
 
-                id = tjbBean.getData().getId();
-                //获取到数据部署上去
-                tv_biao.setText(tjbBean.getData().getBorrow_name());
-                tv_lv.setText(tjbBean.getData().getBorrow_interest_rate() + "%");
-                tv_time.setText(tjbBean.getData().getBorrow_duration());
-                tv_ss.setText(tjbBean.getData().getBorrow_money());
-                tv_jindu.setText(tjbBean.getData().getProgress() + "%");
+                if(tjbBean.getEvent() == 88){
+                    id = tjbBean.getData().getId();
+                    //获取到数据部署上去
+                    tv_biao.setText(tjbBean.getData().getBorrow_name());
+                    tv_lv.setText(tjbBean.getData().getBorrow_interest_rate() + "%");
+                    tv_time.setText(tjbBean.getData().getBorrow_duration());
+                    tv_ss.setText(tjbBean.getData().getBorrow_money()+"元");
+                    tv_jindu.setText(tjbBean.getData().getProgress() + "%");
+                }else{
+                    tv_biao.setText(tjbBean.getData().getBorrow_name());
+                    tv_lv.setText("0.00%");
+                    tv_time.setText("0天");
+                    tv_ss.setText("0.00元");
+                    tv_jindu.setText("0.00%");
+                }
             }
 
             @Override
