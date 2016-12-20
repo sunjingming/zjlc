@@ -44,6 +44,7 @@ public class CashRecord extends AppCompatActivity {
         setContentView(R.layout.activity_cash_record);
 
         initView();
+
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,14 +109,13 @@ public class CashRecord extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void loadData() {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_record);
         params.addBodyParameter("token",token);
         params.addBodyParameter("page",page+"");
-        params.addBodyParameter("pagesize","1");
+        params.addBodyParameter("pagesize","5");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

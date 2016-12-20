@@ -122,7 +122,8 @@ public class UserMail extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, final View view, final int i, long id) {
                 TextView mailId = (TextView) view.findViewById(R.id.user_mail_status);
                     RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInner_status);
-                    params.addBodyParameter("token",token);
+                    params.addBodyParameter("token", token);
+
                     params.addBodyParameter("id",mailId.getText().toString());
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override

@@ -287,7 +287,12 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     submit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            biddingCard();
+                            if (cardNumber.getText().toString().length()<16){
+                                Toast.makeText(AddCard.this, "请输入不小16位的银行卡号", Toast.LENGTH_SHORT).show();
+                            }else {
+                                biddingCard();
+                            }
+
                         }
                     });
 
@@ -307,6 +312,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
+
+
             if (cardNumber.getText().toString().length() > 0 && cardNumberCheck.getText().toString().length() > 0 && code.getText().toString().length() > 0) {
                 submit.setEnabled(true);
             } else {

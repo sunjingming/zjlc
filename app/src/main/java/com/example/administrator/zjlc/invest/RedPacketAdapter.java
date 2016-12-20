@@ -71,10 +71,10 @@ public class RedPacketAdapter extends BaseAdapter {
             holder.back.setBackgroundResource(R.color.red_packet_background);
         }
         holder.money.setText("¥"+data.get(i).getMoney());
-        holder.source.setText("活动来源"+data.get(i).getName());
+        holder.source.setText("活动来源："+data.get(i).getName());
 
         holder.introduce.setText(data.get(i).getStr());
-        holder.time.setText("截止日期"+data.get(i).getDeadline());
+        holder.time.setText("截止日期："+data.get(i).getDeadline());
 
 
         return view;
