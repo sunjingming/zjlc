@@ -61,12 +61,12 @@ public class UserMail extends AppCompatActivity {
         });
         tv_title.setText("站内信");
 
-        new Handler().postDelayed(new Runnable(){
-            public void run(){
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
                 listView.setRefreshing();
                 loadData();
             }
-        },500);
+        }, 500);
 
         //2实例化适配器
         adapter = new UserMailAdapter(UserMail.this, beanList);
@@ -100,7 +100,7 @@ public class UserMail extends AppCompatActivity {
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                if (page==pageCount){
+                if (page == pageCount) {
                     Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                     listView.postDelayed(new Runnable() {
                         @Override
@@ -108,7 +108,7 @@ public class UserMail extends AppCompatActivity {
                             listView.onRefreshComplete();
                         }
                     }, 1000);
-                }else {
+                } else {
                     page++;
                     loadData();
 
@@ -121,38 +121,43 @@ public class UserMail extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int i, long id) {
                 TextView mailId = (TextView) view.findViewById(R.id.user_mail_status);
-                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInner_status);
-                    params.addBodyParameter("token", token);
+                TextView title = (TextView) view.findViewById(R.id.user_mail_title);
+                TextView status = (TextView) view.findViewById(R.id.user_mail_str);
+                TextView content = (TextView) view.findViewById(R.id.user_mail_content);
+                status.setText("（已读）");
+                title.setTextColor(Color.BLACK);
+                status.setTextColor(Color.BLACK);
+                content.setTextColor(Color.GRAY);
+                RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCInner_status);
+                params.addBodyParameter("token", token);
 
-                    params.addBodyParameter("id",mailId.getText().toString());
-                    x.http().post(params, new Callback.CommonCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            String data = result;
-                            Log.i("data站内信状态",data);
-                        }
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
+                params.addBodyParameter("id", mailId.getText().toString());
+                x.http().post(params, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        String data = result;
+                        Log.i("data站内信状态", data);
+                    }
 
-                        }
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
 
-                        @Override
-                        public void onCancelled(CancelledException cex) {
+                    }
 
-                        }
+                    @Override
+                    public void onCancelled(CancelledException cex) {
 
-                        @Override
-                        public void onFinished() {
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
 //
-                AlertDialog dialog = new AlertDialog.Builder(UserMail.this).setTitle("消息提示").setMessage(beanList.get(i-1).getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(UserMail.this).setTitle("消息提示").setMessage(beanList.get(i - 1).getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TextView title = (TextView) view.findViewById(R.id.user_mail_title);
-                        title.setTextColor(Color.GRAY);
-
                     }
                 }).show();
             }
@@ -164,8 +169,8 @@ public class UserMail extends AppCompatActivity {
         //获取站内信
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCMail);
         params.addBodyParameter("token", token);
-        params.addBodyParameter("page",page+"");
-        params.addBodyParameter("pagesize","10");
+        params.addBodyParameter("page", page + "");
+        params.addBodyParameter("pagesize", "10");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

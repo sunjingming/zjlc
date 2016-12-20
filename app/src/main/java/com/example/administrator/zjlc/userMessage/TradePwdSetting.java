@@ -127,7 +127,8 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 } else if (change.getText().toString().equals("使用原密码修改")) {
                     if (trade_code.getText().toString().length()<1){
                         Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-                    }else if (old_trade_pwwd.getText().toString().equals(check_trade_pwd.getText().toString())){
+                    }else if (new_trade_pwd.getText().toString().equals(check_trade_pwd.getText().toString())){
+
                         codeData();
                     }else {
                         Toast.makeText(this, "两次密码输入不一致，请重新输入", Toast.LENGTH_SHORT).show();

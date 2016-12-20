@@ -253,8 +253,8 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                             String data = result;
                             Log.i("data用户信息", data);
                             Gson gson = new Gson();
-                            UserBean userbean = gson.fromJson(data, UserBean.class);
-                            name.setText(userbean.getData().getReal_name());
+                            UserNamebean msgBean = gson.fromJson(data, UserNamebean.class);
+                            name.setText(msgBean.getData().getReal_name());
                         }
 
                         @Override

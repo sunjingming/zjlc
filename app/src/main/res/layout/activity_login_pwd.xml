@@ -53,7 +53,7 @@
                 android:background="@color/white"
                 android:gravity="start"
                 android:hint="请输入旧密码"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
                 android:textSize="14dp" />
@@ -81,7 +81,7 @@
                 android:background="@color/white"
                 android:gravity="start"
                 android:hint="请输入验证码"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
                 android:textSize="14dp" />
@@ -121,7 +121,7 @@
                 android:background="@color/white"
                 android:gravity="start"
                 android:hint="请输入新密码"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
                 android:textSize="14dp" />
@@ -153,7 +153,7 @@
                 android:background="@color/white"
                 android:gravity="start"
                 android:hint="请再次输入新密码"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:textColor="@color/gray18"
                 android:textColorHint="@color/gray8"
                 android:textSize="14dp" />
