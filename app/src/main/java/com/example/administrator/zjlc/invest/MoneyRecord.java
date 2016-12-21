@@ -2,6 +2,7 @@ package com.example.administrator.zjlc.invest;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.cash.CashRecord;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userMessage.UserMail;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -31,8 +34,8 @@ public class MoneyRecord extends AppCompatActivity {
     private List<MoneyRecordBean.DataBean> listData = new ArrayList<MoneyRecordBean.DataBean>();
     private MoneyRecordAdapter adapter;
     private String token;
-    private int page=1;
-    private int pageCount=1;
+    private int page = 1;
+    private int pageCount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,23 @@ public class MoneyRecord extends AppCompatActivity {
         SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
         token = fence.getString("token", "");
         loadData();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                loadData();
+                money_record_list.setRefreshing();
+                money_record_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        money_record_list.onRefreshComplete();
+                    }
+                }, 1000);
+
+            }
+        }, 500);
 
 
         //2实例化适配器
-        adapter=new MoneyRecordAdapter(MoneyRecord.this,listData);
+        adapter = new MoneyRecordAdapter(MoneyRecord.this, listData);
         //3设置适配器
         money_record_list.setAdapter(adapter);
 
@@ -69,9 +85,18 @@ public class MoneyRecord extends AppCompatActivity {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //清空原数据
                 listData.clear();
-                page = 1;
                 //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                money_record_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        money_record_list.onRefreshComplete();
+                    }
+                }, 1000);
             }
 
             /**
@@ -81,7 +106,7 @@ public class MoneyRecord extends AppCompatActivity {
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                if (page==pageCount){
+                if (page == pageCount) {
                     Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                     money_record_list.postDelayed(new Runnable() {
                         @Override
@@ -89,7 +114,7 @@ public class MoneyRecord extends AppCompatActivity {
                             money_record_list.onRefreshComplete();
                         }
                     }, 1000);
-                }else {
+                } else {
                     page++;
                     loadData();
 
@@ -100,17 +125,17 @@ public class MoneyRecord extends AppCompatActivity {
     }
 
     private void loadData() {
-        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCMoney_record);
-        params.addBodyParameter("token",token);
-        params.addBodyParameter("page",page+"");
-        params.addBodyParameter("pagesize","5");
+        RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCMoney_record);
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("page", page + "");
+        params.addBodyParameter("pagesize", "5");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String data = result;
-                Log.i("data资金记录",data);
+                Log.i("data资金记录", data);
                 Gson gson = new Gson();
-                MoneyRecordBean bean  = gson.fromJson(data,MoneyRecordBean.class);
+                MoneyRecordBean bean = gson.fromJson(data, MoneyRecordBean.class);
                 pageCount = bean.getMaxPage();
                 listData.addAll(bean.getData());
                 adapter.notifyDataSetChanged();

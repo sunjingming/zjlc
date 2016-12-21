@@ -97,8 +97,40 @@ public class Invest extends AppCompatActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.user_borrow:
                 if (event==88){
-                    Intent intent = new Intent(Invest.this,InvestBorrow.class);
-                    startActivity(intent);
+                    //进行借款验证，通过则进入借款界面，否则不饿坑进入
+                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_verify);
+                    params.addBodyParameter("token",token);
+                    x.http().post(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            String data = result;
+                            Log.i("data借款验证",data);
+                            Gson gson = new Gson();
+                            BorrowVerifyBean bean = gson.fromJson(data,BorrowVerifyBean.class);
+                            if (bean.getEvent()==88){
+                                Intent intent = new Intent(Invest.this,InvestBorrow.class);
+                                startActivity(intent);
+                            }else {
+                                Toast.makeText(Invest.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+
                 }else {
                     Toast.makeText(this, "尚未通过实名认证，暂不能使用我要借款功能", Toast.LENGTH_SHORT).show();
                 }

@@ -63,8 +63,18 @@ public class UserMail extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                listView.setRefreshing();
                 loadData();
+                listView.setRefreshing();
+                if (page == pageCount) {
+                    Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    listView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.onRefreshComplete();
+                        }
+                    }, 1000);
+                }
+
             }
         }, 500);
 

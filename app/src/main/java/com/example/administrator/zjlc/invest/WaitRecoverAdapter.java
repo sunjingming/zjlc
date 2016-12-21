@@ -60,7 +60,7 @@ public class WaitRecoverAdapter extends BaseAdapter {
         }else {
             holder = (ItemViewHolder) view.getTag();
         }
-        holder.number.setText("编号："+data.get(i).getBorrow_id());
+        holder.number.setText("标号："+data.get(i).getBorrow_id());
         holder.time.setText("添加时间："+data.get(i).getAdd_time());
         holder.grage.setText("原始借款标号："+data.get(i).getBorrow_id());
         holder.name.setText("原始借款名称："+data.get(i).getBorrow_name());
@@ -72,7 +72,7 @@ public class WaitRecoverAdapter extends BaseAdapter {
         }else {
             holder.automatic.setText("是否自动投标：是");
         }
-        holder.year.setText("年华收益："+data.get(i).getRate()+"%");
+        holder.year.setText("年化收益："+data.get(i).getRate()+"%");
         holder.repayMoney.setText("已还本金："+data.get(i).getReceive_capital());
         holder.repayFee.setText("已还利息："+data.get(i).getReceive_interest());
 

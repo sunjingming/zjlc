@@ -4,7 +4,7 @@
     android:id="@+id/activity_cash_record"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/gray3"
     android:orientation="vertical"
     tools:context="com.example.administrator.zjlc.cash.CashRecord">
     <include layout="@layout/toolbar"/>
@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView

@@ -2,6 +2,7 @@ package com.example.administrator.zjlc.invest;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -52,6 +53,20 @@ public class RedPacket extends AppCompatActivity {
         SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
         token = fence.getString("token", "");
 
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                loadData();
+                red_packet_list.setRefreshing();
+                red_packet_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        red_packet_list.onRefreshComplete();
+                    }
+                }, 1000);
+
+            }
+        }, 500);
+
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +74,6 @@ public class RedPacket extends AppCompatActivity {
                 finish();
             }
         });
-        loadData();
 
         //2实例化适配器
         adapter=new RedPacketAdapter(RedPacket.this,listData);
@@ -78,9 +92,19 @@ public class RedPacket extends AppCompatActivity {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //清空原数据
                 listData.clear();
-                page = 1;
                 //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(RedPacket.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                red_packet_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        red_packet_list.onRefreshComplete();
+                    }
+                }, 1000);
+
             }
 
             /**
