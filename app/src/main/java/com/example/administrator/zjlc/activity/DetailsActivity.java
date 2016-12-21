@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -70,22 +72,25 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 tvjineeee.setText("最小投资金额:"+noticeBean.getData().getBorrow_min()+".00,最大投资金额:"+noticeBean.getData().getBorrow_max()+".00");
             }
 
-
-            lijigou.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String s1 = et_mm.getText().toString();
-                    String s = et_je.getText().toString();
-                    et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    if (s.equals("")) {
-                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
-                    }else if(s1.equals("") ){
-                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资密码").show();
-                    } else {
-                        requeseDate1(s, s1);
+            if(noticeBean.getData().getBorrow_status() == 4){
+                lijigou.setText("标满，复审中");
+            }else{
+                lijigou.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String s1 = et_mm.getText().toString();
+                        String s = et_je.getText().toString();
+                        et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        if (s.equals("")) {
+                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
+                        }else if(s1.equals("") ){
+                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资密码").show();
+                        } else {
+                           requeseDate(s, s1,s11);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
                 @Override
@@ -107,8 +112,8 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private ArrayList<RedPacketBean.DataBean> dataBeanArrayList;
     private ListView lv;
     private String[] msg;
-
-    private void requeseDate1(final String s, final String s1) {
+    private RedPacketBean.DataBean s11;
+    private void requeseDate1(final String s) {
         dataBeanArrayList = new ArrayList<RedPacketBean.DataBean>();
         final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCCoupon);
 
@@ -123,45 +128,47 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 Gson gson = new Gson();
 
                 packetBean = gson.fromJson(data,RedPacketBean.class);
-                if(packetBean.getEvent() !=0){
-                    if(noticeBean.getData().getBorrow_bid() == 1) {
-                        msg = new String[packetBean.getData().size()];
-                        final boolean[] bol = new boolean[packetBean.getData().size()];
-                        Log.e("标11", String.valueOf(packetBean.getData().size()));
-                        for (int i = 0; i < packetBean.getData().size(); i++) {
-                            dataBeanArrayList.add(packetBean.getData().get(i));
-                            msg[i] = packetBean.getData().get(i).getMoney() + "元";
-                            bol[i] = false;
-                            Log.e("sad", msg[i]);
-                        }
-                        if (packetBean.getData().size() > 0) {
-                            tequanjine.setVisibility(View.VISIBLE);
-                            tequanjin.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    new AlertDialog.Builder(DetailsActivity.this)
-                                            .setTitle("选择特权金")
-                                            .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                                    requeseDate(s, s1, dataBeanArrayList.get(which));
-                                                    dialog.dismiss();
-                                                }
-                                            })
-                                            .setNegativeButton("取消", null)
-                                            .show();
-                                }
-                            });
-
-                        } else {
-                            requeseDate(s, s1, null);
-                        }
-                    }else{
-                        requeseDate(s, s1, null);
-                    }
-                }else{
-                    requeseDate(s, s1, null);
+                msg = new String[packetBean.getData().size()];
+                final boolean[] bol = new boolean[packetBean.getData().size()];
+                Log.e("标11", String.valueOf(packetBean.getData().size()));
+                for (int i = 0; i < packetBean.getData().size(); i++) {
+                    dataBeanArrayList.add(packetBean.getData().get(i));
+                    msg[i] = packetBean.getData().get(i).getMoney() + "元";
+                    bol[i] = false;
+                    Log.e("sad", msg[i]);
                 }
+                tequanjine.setVisibility(View.VISIBLE);
+                tequanjin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(DetailsActivity.this)
+                                .setTitle("选择特权金")
+                                .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                                            requeseDate(s, s1, dataBeanArrayList.get(which));
+                                        s11 = dataBeanArrayList.get(which);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("取消", null)
+                                .show();
+                    }
+                });
+//                if(packetBean.getEvent() !=0){
+////                    if(noticeBean.getData().getBorrow_bid() == 1) {
+//
+//
+//
+//                        } else {
+//                            requeseDate(s, s1, null);
+//                        }
+////                    }else{
+////                        requeseDate(s, s1, null);
+////                    }
+//                }else{
+//                    requeseDate(s, s1, null);
+//                }
             }
 
             @Override
@@ -328,8 +335,23 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         int height = metric.heightPixels;   // 屏幕高度（像素）
+        et_je.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String s1 = et_je.getText().toString();
+                requeseDate1(s1);
+            }
+        });
         ll_passs.setMinimumHeight(height+1);
         tv_pasnt.setOnClickListener(new View.OnClickListener() {
             @Override

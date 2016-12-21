@@ -112,6 +112,7 @@
                         android:textSize="20sp"
                         android:id="@+id/tv_biao"
                         android:text="暂无推荐项目"
+                        android:maxLines="10"
                         />
                 </LinearLayout>
                 <LinearLayout

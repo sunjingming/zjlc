@@ -95,6 +95,11 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         }else{
             holder.imageView3.setVisibility(View.GONE);
         }
+        if(dataBeanArrayList.get(position).getReward_num().equals("0.00")){
+            holder.imageView4.setVisibility(View.VISIBLE);
+        }else{
+            holder.imageView4.setVisibility(View.GONE);
+        }
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){
             case "担保标":
@@ -176,6 +181,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         ImageView imageView1;
         ImageView imageView2;
         ImageView imageView3;
+        ImageView imageView4;
         ImageView im_touzi;
 
         TextView tv_titles;
@@ -191,6 +197,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
             imageView1 = (ImageView) itemView.findViewById(R.id.imageView1);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             imageView3 = (ImageView) itemView.findViewById(R.id.imageView3);
+            imageView4 = (ImageView) itemView.findViewById(R.id.imageView4);
 
             im_touzi = (ImageView) itemView.findViewById(R.id.im_touzi);
 

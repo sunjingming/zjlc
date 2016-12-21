@@ -98,9 +98,17 @@ public class UserMail extends AppCompatActivity {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //清空原数据
                 beanList.clear();
-                page = 1;
-                //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                listView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.onRefreshComplete();
+                    }
+                }, 1000);
             }
 
             /**
