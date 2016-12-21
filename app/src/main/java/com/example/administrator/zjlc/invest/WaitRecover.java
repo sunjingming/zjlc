@@ -2,6 +2,7 @@ package com.example.administrator.zjlc.invest;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.urls.UrlsUtils;
+import com.example.administrator.zjlc.userMessage.UserMail;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -34,6 +36,8 @@ public class WaitRecover extends Fragment {
     private String token;
     private List<WaitRecoverBean.DataBean>listData = new ArrayList<>();
     private WaitRecoverAdapter adapter;
+    private int page = 1;
+    private int pageCount = 1;
 
 
     @Override
@@ -43,6 +47,22 @@ public class WaitRecover extends Fragment {
         initView(view);
         SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
         token = fence.getString("token", "");
+
+
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                loadData();
+                wait_recover_list.setRefreshing();
+                    wait_recover_list.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wait_recover_list.onRefreshComplete();
+                        }
+                    }, 1000);
+
+            }
+        }, 500);
 
         //2实例化适配器
         adapter=new WaitRecoverAdapter(getActivity(),listData);
@@ -61,8 +81,18 @@ public class WaitRecover extends Fragment {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //清空原数据
                 listData.clear();
-                //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                wait_recover_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        wait_recover_list.onRefreshComplete();
+                    }
+                }, 1000);
+
             }
 
             /**
@@ -72,29 +102,31 @@ public class WaitRecover extends Fragment {
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
-                wait_recover_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        wait_recover_list.onRefreshComplete();
-                    }
-                }, 1000);
+                if (page == pageCount) {
+                    Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    wait_recover_list.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wait_recover_list.onRefreshComplete();
+                        }
+                    }, 1000);
+                } else {
+                    page++;
+                    loadData();
+
+                }
+
             }
         });
 
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        loadData();
-    }
-
     private void loadData() {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_record);
         params.addBodyParameter("token",token);
         params.addBodyParameter("type","1");
+        params.addBodyParameter("page", page + "");
+        params.addBodyParameter("pagesize", "5");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -104,6 +136,7 @@ public class WaitRecover extends Fragment {
                 WaitRecoverBean bean = gson.fromJson(data,WaitRecoverBean.class);
                 listData.addAll(bean.getData());
                 adapter.notifyDataSetChanged();
+                pageCount = bean.getMaxPage();
                 wait_recover_list.onRefreshComplete();
             }
 

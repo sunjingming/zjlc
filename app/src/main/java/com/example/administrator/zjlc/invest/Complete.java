@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,6 +34,8 @@ public class Complete extends Fragment {
     private String token;
     private List<WaitRecoverBean.DataBean> listData = new ArrayList<>();
     private WaitRecoverAdapter adapter;
+    private int page = 1;
+    private int pageCount = 1;
 
 
     @Override
@@ -42,6 +45,21 @@ public class Complete extends Fragment {
         initView(view);
         SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
         token = fence.getString("token", "");
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                loadData();
+                wait_recover_list.setRefreshing();
+                wait_recover_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        wait_recover_list.onRefreshComplete();
+                    }
+                }, 1000);
+
+            }
+        }, 500);
+
 
         //2实例化适配器
         adapter=new WaitRecoverAdapter(getActivity(),listData);
@@ -62,6 +80,17 @@ public class Complete extends Fragment {
                 listData.clear();
                 //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                wait_recover_list.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        wait_recover_list.onRefreshComplete();
+                    }
+                }, 1000);
+
             }
 
             /**
@@ -71,13 +100,19 @@ public class Complete extends Fragment {
              */
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
-                wait_recover_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        wait_recover_list.onRefreshComplete();
-                    }
-                }, 1000);
+                if (page == pageCount) {
+                    Toast.makeText(getActivity(), "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    wait_recover_list.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            wait_recover_list.onRefreshComplete();
+                        }
+                    }, 1000);
+                } else {
+                    page++;
+                    loadData();
+
+                }
             }
         });
 
@@ -94,6 +129,8 @@ public class Complete extends Fragment {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_record);
         params.addBodyParameter("token",token);
         params.addBodyParameter("type","2");
+        params.addBodyParameter("page", page + "");
+        params.addBodyParameter("pagesize", "5");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -103,6 +140,7 @@ public class Complete extends Fragment {
                 WaitRecoverBean bean = gson.fromJson(data,WaitRecoverBean.class);
                 listData.addAll(bean.getData());
                 adapter.notifyDataSetChanged();
+                pageCount = bean.getMaxPage();
                 wait_recover_list.onRefreshComplete();
             }
 

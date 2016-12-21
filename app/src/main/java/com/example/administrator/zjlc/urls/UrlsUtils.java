@@ -92,6 +92,8 @@ public class UrlsUtils {
     public static final  String ZJLCInner_status = "inner_msg_status";
     //图片验证码
     public static final  String ZJLCImageCode = "http://zhuojin.petope.com/member/common/verify";
+    //借款信息验证
+    public static final  String ZJLCBorrow_verify= "applyverify";
     //
     public static final String ZJLCBorrow_invest_list = "borrow_invest_list";
 }

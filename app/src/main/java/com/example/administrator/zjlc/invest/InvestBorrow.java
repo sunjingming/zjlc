@@ -97,13 +97,13 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
         drop_style_down.setOnClickListener(this);
         drop_time_down.setOnClickListener(this);
 
-        ArrayAdapter aaa = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, str);
+        ArrayAdapter aaa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, str);
         borrow_style.setAdapter(aaa);
 
-        ArrayAdapter sss = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, time);
+        ArrayAdapter sss = new ArrayAdapter(this, android.R.layout.simple_spinner_item, time);
         borrow_time.setAdapter(sss);
 
-        ArrayAdapter ddd = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, city);
+        ArrayAdapter ddd = new ArrayAdapter(this, android.R.layout.simple_spinner_item, city);
         borrow_area.setAdapter(ddd);
 
         borrow_style.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

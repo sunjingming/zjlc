@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.invest.RedPacket;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.userMessage.UserMail;
 import com.example.administrator.zjlc.userMessage.UserMailAdapter;
@@ -57,12 +58,23 @@ public class CashRecord extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("usetoken", MODE_APPEND);
         token = preferences.getString("token", null);
 
-        new Handler().postDelayed(new Runnable(){
-            public void run(){
-                listView.setRefreshing();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
                 loadData();
+                listView.setRefreshing();
+                if (page == pageCount) {
+                    Toast.makeText(CashRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    listView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.onRefreshComplete();
+                        }
+                    }, 1000);
+                }
+
             }
-        },500);
+        }, 500);
+
 
 
         //2实例化适配器
@@ -81,9 +93,18 @@ public class CashRecord extends AppCompatActivity {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 //清空原数据
                 beanList.clear();
-                page = 1;
                 //加载新数据
                 loadData();
+                page =1;
+                if (page == pageCount) {
+                    Toast.makeText(CashRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
+                listView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.onRefreshComplete();
+                    }
+                }, 1000);
             }
 
             /**
