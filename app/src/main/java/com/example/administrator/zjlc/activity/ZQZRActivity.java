@@ -29,6 +29,8 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.DecimalFormat;
+
 public class ZQZRActivity extends AppCompatActivity {
     private int id;
     private TextView tv1;
@@ -59,7 +61,7 @@ public class ZQZRActivity extends AppCompatActivity {
         public boolean handleMessage(Message msg) {
             //更新页面
             tv1.setText(noticeBean.getData().getDebt_name()+"");
-            tv2.setText(noticeBean.getData().getMoney()+"");
+            tv2.setText(new DecimalFormat("00.00").format(noticeBean.getData().getMoney()));
             tv3.setText(noticeBean.getData().getPeriod()+"");
             tv4.setText(noticeBean.getData().getTotal_period()+"");
             switch (noticeBean.getData().getStatus()) {
@@ -147,14 +149,19 @@ public class ZQZRActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText editText = new EditText(ZQZRActivity.this);
-                editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                editText.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 new android.app.AlertDialog.Builder(ZQZRActivity.this).setMessage("请输入交易密码").
                         setView(editText).setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String text = editText.getText().toString();
-                        pin = text;
-                        setDataset();
+                        if(!"".equals(text)){
+                            pin = text;
+                            setDataset();
+                        }else{
+                            Toast.makeText(ZQZRActivity.this,"请输入定向密码",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override

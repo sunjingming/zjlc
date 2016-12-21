@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.utils.CacheUtils;
@@ -100,12 +99,10 @@ public class GuideActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //保存一下进入主页面
                 CacheUtils.putBoolean(GuideActivity.this,START_MAIN, true);
-
                 //点击进入主页面
                 Intent intent = new Intent(GuideActivity.this,ReMainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 

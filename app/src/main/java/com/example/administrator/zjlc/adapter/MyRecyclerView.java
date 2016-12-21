@@ -15,6 +15,7 @@ import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.SanBiaoGouBean;
 import com.example.administrator.zjlc.domain.SanBiaobean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -69,7 +70,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         holder.tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
         holder.tv_monh.setText(dataBeanArrayList.get(position).getBorrow_duration());
         holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
-        holder.tv_jinee.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_money()));
+        holder.tv_jinee.setText(new DecimalFormat("00.00").format(dataBeanArrayList.get(position).getBorrow_money()));
         holder.wancheng_qingkuang.setText(String.valueOf(dataBeanArrayList.get(position).getProgress())+"%");
 //        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
         switch (dataBeanArrayList.get(position).getBorrow_status()){
