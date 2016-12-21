@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        sunjingming {
+            keyAlias 'sunjingming'
+            keyPassword 'sunjingming'
+            storeFile file('sunjingming')
+            storePassword 'sunjingming'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {

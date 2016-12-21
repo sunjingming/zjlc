@@ -51,7 +51,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private int id;
     private DetailsBean noticeBean;
     private MyScrollView tv_scr;
-    //    private String nametitle;
     private TextView tvjineeee;
     private LinearLayout tequanjine;
     private TextView tequanjin;
@@ -66,9 +65,9 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             tv_timess.setText(noticeBean.getData().getBorrow_duration());
             tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+".00元");
             if(noticeBean.getData().getBorrow_max() == 0){
-                tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+".00,最大投资金额无限制");
+                tvjineeee.setText("最小投资金额:"+noticeBean.getData().getBorrow_min()+".00,最大投资金额:无限制");
             }else{
-                tvjineeee.setText("最小投资金额"+noticeBean.getData().getBorrow_min()+".00,最大投资金额"+noticeBean.getData().getBorrow_max()+".00");
+                tvjineeee.setText("最小投资金额:"+noticeBean.getData().getBorrow_min()+".00,最大投资金额:"+noticeBean.getData().getBorrow_max()+".00");
             }
 
 
@@ -78,8 +77,10 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     String s1 = et_mm.getText().toString();
                     String s = et_je.getText().toString();
                     et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    if (s.equals("") || s1.equals("")) {
-                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额和投资密码").show();
+                    if (s.equals("")) {
+                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
+                    }else if(s1.equals("") ){
+                        new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资密码").show();
                     } else {
                         requeseDate1(s, s1);
                     }
@@ -91,23 +92,13 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 public void onScrollBottomListener(boolean isBottom) {
                     if(isBottom) {
                         Intent intent;
-//                        Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
+
                         intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
                         intent.putExtra("id", id);
                         startActivity(intent);
                     }
                 }
             });
-//            tv_xiangqing.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent;
-//                    Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-//                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
-//                    intent.putExtra("id", id);
-//                    startActivity(intent);
-//                }
-//            });
             return false;
         }
     });
@@ -195,10 +186,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCInvest_money);
 
         final EditText editText = new EditText(DetailsActivity.this);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         paramsNotice.addBodyParameter("borrow_id", String.valueOf(id));
         if(noticeBean.getData().getHas_pass() == 1){
             new AlertDialog.Builder(DetailsActivity.this)
-                    .setTitle("请输入定向标密码")
+                    .setTitle("请输入定向密码")
                     .setView(editText)
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
@@ -226,6 +218,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                                     RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
                                     codeBean = gson.fromJson(data, RegisterCodeBean.class);
                                     Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
+
                                 }
 
                                 @Override
@@ -273,6 +266,9 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                         et_je.setText("");
                         et_mm.setText("");
                         initDatas();
+                        new AlertDialog.Builder(DetailsActivity.this)
+                                .setTitle("投资成功")
+                                .show();
                     }
                 }
 
@@ -369,7 +365,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 Log.e("标", data);
                 Gson gson = new Gson();
                 noticeBean = gson.fromJson(data, DetailsBean.class);
-//                nametitle = noticeBean.getData().getBorrow_name();
                 handler.sendEmptyMessage(1);
             }
 
@@ -425,43 +420,5 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     public void onScroll(int y) {
 
     }
-
-
-//    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
-//    float x1 = 0;
-//    float x2 = 0;
-//    float y1 = 0;
-//    float y2 = 0;
-//    //设置滑动
-//
-//    Intent intent;
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        //继承了Activity的onTouchEvent方法，直接监听点击事件
-//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-//            //当手指按下的时候
-//            x1 = event.getX();
-//            y1 = event.getY();
-//        }
-//        if(event.getAction() == MotionEvent.ACTION_UP) {
-//            //当手指离开的时候
-//            x2 = event.getX();
-//            y2 = event.getY();
-//            if(y1 - y2 > 100) {
-//                Toast.makeText(DetailsActivity.this, "加载更多", Toast.LENGTH_SHORT).show();
-//                intent = new Intent(DetailsActivity.this,DetailsActivity2.class);
-//                intent.putExtra("id",id);
-//                startActivity(intent);
-//            }
-//        }
-//        return super.onTouchEvent(event);
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//    }
-    //点击加载
 
 }

@@ -313,7 +313,7 @@
              android:layout_height="wrap_content">
              <TextView
                  android:gravity="center"
-                 android:textColor="@color/colorhui"
+                 android:textColor="@color/colorhei"
                  android:text="投资时间"
                  android:layout_weight="1"
                  android:layout_width="0dp"
@@ -321,7 +321,7 @@
 
              <TextView
                  android:gravity="center"
-                 android:textColor="@color/colorhui"
+                 android:textColor="@color/colorhei"
                  android:text="投资类型"
                  android:layout_weight="1"
                  android:layout_width="0dp"
@@ -330,19 +330,25 @@
 
              <TextView
                  android:gravity="center"
-                 android:textColor="@color/colorhui"
+                 android:textColor="@color/colorhei"
                  android:text="投资金额"
                  android:layout_weight="1"
                  android:layout_width="0dp"
                  android:layout_height="wrap_content" />
              <TextView
                  android:gravity="center"
-                 android:textColor="@color/colorhui"
+                 android:textColor="@color/colorhei"
                  android:text="投资用户"
                  android:layout_weight="1"
                  android:layout_width="0dp"
                  android:layout_height="wrap_content" />
          </LinearLayout>
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorhui"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_rec"
             android:layout_width="match_parent"

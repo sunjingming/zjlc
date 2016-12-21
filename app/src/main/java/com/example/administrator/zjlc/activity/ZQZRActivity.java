@@ -159,7 +159,7 @@ public class ZQZRActivity extends AppCompatActivity {
                             pin = text;
                             setDataset();
                         }else{
-                            Toast.makeText(ZQZRActivity.this,"请输入定向密码",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ZQZRActivity.this,"请输入交易密码",Toast.LENGTH_SHORT).show();
                         }
 
                     }

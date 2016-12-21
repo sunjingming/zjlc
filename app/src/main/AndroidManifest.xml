@@ -125,7 +125,6 @@
         <activity android:name=".activity.DetailsActivity2"
             android:launchMode="standard"/>
         <activity android:name=".activity.ZQZRActivity" />
-        <activity android:name=".userMessage.UserMail" />
         <activity android:name=".invest.Invest" />
         <activity android:name=".invest.MoneyMatter" />
         <activity android:name=".invest.InvestBorrow" />

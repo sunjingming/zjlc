@@ -63,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv1"
                         android:layout_width="wrap_content"
@@ -80,6 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv2"
                         android:layout_width="wrap_content"
@@ -97,6 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
@@ -114,6 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv4"
                         android:layout_width="wrap_content"
@@ -131,6 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv5"
                         android:layout_width="wrap_content"
@@ -148,6 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv6"
                         android:layout_width="wrap_content"
@@ -165,6 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv7"
                         android:layout_width="wrap_content"
@@ -182,6 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"
@@ -199,6 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv9"
                         android:layout_width="wrap_content"
@@ -234,6 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv10"
                         android:layout_width="wrap_content"
@@ -251,6 +261,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv11"
                         android:layout_width="wrap_content"
@@ -268,6 +279,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv12"
                         android:layout_width="wrap_content"
@@ -285,6 +297,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv13"
                         android:layout_width="wrap_content"
@@ -298,10 +311,11 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:textColor="@color/colorhei"
-                        android:text="债权发布人的身份证认证状态:"
+                        android:text="债权发布人的身份认证状态:"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv14"
                         android:layout_width="wrap_content"
@@ -319,6 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/colorhei"
                         android:id="@+id/tv15"
                         android:layout_width="wrap_content"

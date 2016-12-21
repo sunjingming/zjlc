@@ -75,7 +75,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
 //        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
         switch (dataBeanArrayList.get(position).getBorrow_status()){
             case 2:
-                holder.im_touzi.setBackgroundResource(R.drawable.t2);
+                holder.im_touzi.setBackgroundResource(R.drawable.ic_status_invest);
                 break;
             case 4:
                 holder.im_touzi.setBackgroundResource(R.drawable.t4);

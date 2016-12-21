@@ -33,6 +33,8 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.administrator.zjlc.R.drawable.selector_bg_btn_red_round;
+
 
 /**
  * Created by Administrator on 2016/6/23.
@@ -80,7 +82,7 @@ public class HomePager extends Fragment {
                         intent.putExtra("id", id);
                         getActivity().startActivity(intent);
                     } else {
-//                        new AlertDialog.Builder(mActivity).setMessage("投资成功").show();
+                        iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_hui);
                     }
                 }
             });
@@ -155,9 +157,16 @@ public class HomePager extends Fragment {
                 String data = result;
                 Log.e("data网站banner", data);
                 Gson gson = new Gson();
-                TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
 
+                tv_biao.setText("暂无推荐项目");
+                tv_lv.setText("0.00%");
+                tv_time.setText("0天");
+                tv_ss.setText("0.00元");
+                tv_jindu.setText("0.00%");
+
+                TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
                 if(tjbBean.getEvent() == 88){
+
                     id = tjbBean.getData().getId();
                     //获取到数据部署上去
                     tv_biao.setText(tjbBean.getData().getBorrow_name());
@@ -165,12 +174,7 @@ public class HomePager extends Fragment {
                     tv_time.setText(tjbBean.getData().getBorrow_duration());
                     tv_ss.setText(tjbBean.getData().getBorrow_money()+"元");
                     tv_jindu.setText(tjbBean.getData().getProgress() + "%");
-                }else{
-                    tv_biao.setText(tjbBean.getData().getBorrow_name());
-                    tv_lv.setText("0.00%");
-                    tv_time.setText("0天");
-                    tv_ss.setText("0.00元");
-                    tv_jindu.setText("0.00%");
+                    iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_round);
                 }
             }
 
@@ -233,9 +237,7 @@ public class HomePager extends Fragment {
 
                 for (int i = 0; i < jrb.size(); i++) {
                     ImageView imageView = new ImageView(getActivity());
-
                     Glide.with(getActivity()).load(jrb.get(i)).into(imageView);
-
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     viewList.add(imageView);
                 }
