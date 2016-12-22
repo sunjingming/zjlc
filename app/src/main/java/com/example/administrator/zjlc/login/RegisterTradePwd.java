@@ -53,7 +53,7 @@ public class RegisterTradePwd extends AppCompatActivity implements View.OnClickL
                 finish();
             }
         });
-        tv_title.setText("交易密码");
+        tv_title.setText("设置交易密码");
         setting_pwd.addTextChangedListener(textWatcher);
         setting_check_pwd.addTextChangedListener(textWatcher);
         register_pwd_submit.setOnClickListener(this);

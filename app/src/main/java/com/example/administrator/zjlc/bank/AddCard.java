@@ -281,7 +281,7 @@ public class AddCard extends AppCompatActivity implements View.OnClickListener {
                     cityId = prence.getString("cityId", "");
 
                     bank.setText(bank_name);
-                    area.setText(cityName + "    " + provinceName);
+                    area.setText( provinceName+ "    " +cityName );
 
                     //提交绑卡操作
                     submit.setOnClickListener(new View.OnClickListener() {

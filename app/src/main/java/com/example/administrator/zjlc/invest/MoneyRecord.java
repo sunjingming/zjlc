@@ -30,6 +30,7 @@ public class MoneyRecord extends AppCompatActivity {
 
     private TextView tv_title;
     private Toolbar toolbar;
+    private TextView empty;
     private PullToRefreshListView money_record_list;
     private List<MoneyRecordBean.DataBean> listData = new ArrayList<MoneyRecordBean.DataBean>();
     private MoneyRecordAdapter adapter;
@@ -57,16 +58,19 @@ public class MoneyRecord extends AppCompatActivity {
             public void run() {
                 loadData();
                 money_record_list.setRefreshing();
+                if (page == pageCount) {
+                    Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                }
                 money_record_list.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         money_record_list.onRefreshComplete();
                     }
                 }, 1000);
-
             }
         }, 500);
 
+        money_record_list.setEmptyView(empty);
 
         //2实例化适配器
         adapter = new MoneyRecordAdapter(MoneyRecord.this, listData);
@@ -88,7 +92,7 @@ public class MoneyRecord extends AppCompatActivity {
                 //加载新数据
                 loadData();
                 page =1;
-                if (page == pageCount) {
+                if (pageCount==0) {
                     Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                 }
                 money_record_list.postDelayed(new Runnable() {
@@ -166,5 +170,6 @@ public class MoneyRecord extends AppCompatActivity {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         money_record_list = (PullToRefreshListView) findViewById(R.id.money_record_list);
+        empty = (TextView) findViewById(R.id.money_record_text);
     }
 }

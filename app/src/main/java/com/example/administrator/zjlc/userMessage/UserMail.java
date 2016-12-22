@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class UserMail extends AppCompatActivity {
     private List<UserMailBean.DataBean> beanList = new ArrayList<>();
     private UserMailAdapter adapter;
     private String token;
+    private TextView textEmpty;
+    private int event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +64,19 @@ public class UserMail extends AppCompatActivity {
         });
         tv_title.setText("站内信");
 
+        listView.setEmptyView(textEmpty);
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 loadData();
                 listView.setRefreshing();
-                if (page == pageCount) {
-                    Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                     listView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             listView.onRefreshComplete();
                         }
                     }, 1000);
-                }
+
 
             }
         }, 500);
@@ -100,7 +103,7 @@ public class UserMail extends AppCompatActivity {
                 beanList.clear();
                 loadData();
                 page =1;
-                if (page == pageCount) {
+                if (pageCount==0) {
                     Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                 }
                 listView.postDelayed(new Runnable() {
@@ -119,7 +122,7 @@ public class UserMail extends AppCompatActivity {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (page == pageCount) {
-                    Toast.makeText(UserMail.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserMail.this, "数据已加载完毕", Toast.LENGTH_SHORT).show();
                     listView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -196,6 +199,7 @@ public class UserMail extends AppCompatActivity {
                 Log.i("data站内信", data);
                 Gson gson = new Gson();
                 UserMailBean mailbean = gson.fromJson(data, UserMailBean.class);
+                event = mailbean.getEvent();
                 pageCount = mailbean.getMaxPage();
                 beanList.addAll(mailbean.getData());
                 adapter.notifyDataSetChanged();
@@ -226,5 +230,6 @@ public class UserMail extends AppCompatActivity {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (PullToRefreshListView) findViewById(R.id.user_mail);
+        textEmpty = (TextView) findViewById(R.id.user_mail_text);
     }
 }

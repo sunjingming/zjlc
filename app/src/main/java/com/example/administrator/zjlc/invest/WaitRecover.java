@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
@@ -32,6 +34,7 @@ import java.util.List;
 * */
 public class WaitRecover extends Fragment {
     private View view;
+    private TextView textEmpty;
     private PullToRefreshListView wait_recover_list;
     private String token;
     private List<WaitRecoverBean.DataBean>listData = new ArrayList<>();
@@ -63,6 +66,9 @@ public class WaitRecover extends Fragment {
 
             }
         }, 500);
+
+        wait_recover_list.setEmptyView(textEmpty);
+
 
         //2实例化适配器
         adapter=new WaitRecoverAdapter(getActivity(),listData);
@@ -159,6 +165,7 @@ public class WaitRecover extends Fragment {
     }
 
     private void initView(View view) {
+        textEmpty = (TextView) view.findViewById(R.id.wait_recover_text);
         wait_recover_list = (PullToRefreshListView) view.findViewById(R.id.wait_recover_list);
     }
 

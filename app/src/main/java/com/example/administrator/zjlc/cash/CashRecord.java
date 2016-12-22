@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class CashRecord extends AppCompatActivity {
 
     private TextView tv_title;
     private Toolbar toolbar;
+    private TextView empty;
     private PullToRefreshListView listView;
     private String token;
     private int page = 1;
@@ -55,6 +57,7 @@ public class CashRecord extends AppCompatActivity {
         });
         tv_title.setText("提现记录");
 
+
         SharedPreferences preferences = getSharedPreferences("usetoken", MODE_APPEND);
         token = preferences.getString("token", null);
 
@@ -62,20 +65,18 @@ public class CashRecord extends AppCompatActivity {
             public void run() {
                 loadData();
                 listView.setRefreshing();
-                if (page == pageCount) {
-                    Toast.makeText(CashRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
                     listView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             listView.onRefreshComplete();
                         }
                     }, 1000);
-                }
+
 
             }
         }, 500);
 
-
+        listView.setEmptyView(empty);
 
         //2实例化适配器
         adapter = new CashRecordAdapter(CashRecord.this, beanList);
@@ -172,6 +173,7 @@ public class CashRecord extends AppCompatActivity {
     }
 
     private void initView() {
+        empty = (TextView) findViewById(R.id.cash_record_empty);
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (PullToRefreshListView) findViewById(R.id.cash_record_list);

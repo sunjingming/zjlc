@@ -25,7 +25,9 @@ public class UrlsUtils {
     //散标投资
     public static final  String ZJLCInvest_money = "invest_money";
     //散标投资获取可用特权金
-    public static final  String ZJLCCoupon = "coupon";
+    public static final  String ZJLCCoupon =
+
+            "coupon";
     //购买债权转让
     public static final  String ZJLCDebt_invest_money = "debt_invest_money";
     //登录

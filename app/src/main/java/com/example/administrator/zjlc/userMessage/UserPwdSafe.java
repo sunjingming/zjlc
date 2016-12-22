@@ -63,7 +63,7 @@ public class UserPwdSafe extends AppCompatActivity {
                             Intent intent = new Intent(UserPwdSafe.this,TradePwdSetting.class);
                             startActivity(intent);
                         }else {
-                            AlertDialog dialog = new AlertDialog.Builder(UserPwdSafe.this).setTitle("消息提示").setMessage("您尚未设置支付密码，请先设置支付密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            AlertDialog dialog = new AlertDialog.Builder(UserPwdSafe.this).setTitle("消息提示").setMessage("您尚未设置交易密码，请先设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(UserPwdSafe.this,TradePwdSetting.class);

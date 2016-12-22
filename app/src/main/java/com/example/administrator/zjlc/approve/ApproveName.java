@@ -56,8 +56,8 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
         });
         tv_title.setText("实名认证");
 
-        final SharedPreferences fence = getSharedPreferences("usetoken",MODE_PRIVATE);
-        token = fence.getString("token",null);
+        final SharedPreferences fence = getSharedPreferences("usetoken", MODE_PRIVATE);
+        token = fence.getString("token", null);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         approve_name.addTextChangedListener(textWatcher);
@@ -73,7 +73,7 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
                 Gson gson = new Gson();
                 ApproveJuadgeBean juadgeBean = gson.fromJson(data, ApproveJuadgeBean.class);
                 final int event = juadgeBean.getEvent();
-                if (event==88){
+                if (event == 88) {
                     approve_name.setText(juadgeBean.getData().getReal_name());
                     approve_number.setText(juadgeBean.getData().getIdNo());
 
@@ -118,34 +118,35 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.approve_name_submit:
                 //进行实名认证
-                RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCApprove_name);
-                params.addBodyParameter("card_no",approve_number.getText().toString());
-                params.addBodyParameter("real_name",approve_name.getText().toString());
-                params.addBodyParameter("token",token);
+                RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCApprove_name);
+                params.addBodyParameter("card_no", approve_number.getText().toString());
+                params.addBodyParameter("real_name", approve_name.getText().toString());
+                params.addBodyParameter("token", token);
                 x.http().post(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
                         String data = result;
-                        Log.i("data实名认证",data);
+                        Log.i("data实名认证", data);
                         Gson gson = new Gson();
-                        ApproveBean bean = gson.fromJson(data,ApproveBean.class);
-                        if (bean.getEvent()==87&&"1".equals(id)){
-                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()+",请点击确定前往设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        ApproveBean bean = gson.fromJson(data, ApproveBean.class);
+                        if (bean.getEvent() == 87 && "1".equals(id)) {
+                            AlertDialog dilog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg() + ",请点击确定前往设置交易密码").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(ApproveName.this, RegisterTradePwd.class);
-                                        startActivity(intent);
+                                    Intent intent = new Intent(ApproveName.this, RegisterTradePwd.class);
+                                    intent.putExtra(id, "1");
+                                    startActivity(intent);
                                 }
                             }).show();
-                        }else if (bean.getEvent()==87){
+                        } else if (bean.getEvent() == 87) {
                             AlertDialog dialog = new AlertDialog.Builder(ApproveName.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     finish();
                                 }
                             }).show();
-                           getHomeAcvtivity();
-                        }else {
+                            getHomeAcvtivity();
+                        } else {
                             Toast.makeText(ApproveName.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -182,13 +183,14 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (approve_name.getText().toString().length()>0&&approve_number.getText().toString().length()>17){
+            if (approve_name.getText().toString().length() > 0 && approve_number.getText().toString().length() > 17) {
                 approve_name_submit.setEnabled(true);
-            }else {
+            } else {
                 approve_name_submit.setEnabled(false);
             }
         }
     };
+
     private void getHomeAcvtivity() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {

@@ -24,6 +24,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,9 +65,42 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
 
         Intent intent = getIntent();
         money = intent.getStringExtra("money");
-        fee = intent.getStringExtra("fee");
-        cashing_money.setText(money + "  元");
-        cashing_fee.setText(fee + "  元");
+
+        double k = Double.parseDouble(money);
+        String f3 = String.format("%.2f", k);
+        cashing_money.setText(f3+"元");
+        //获取提现手续费
+        final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_fee);
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("money", money);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String data = result;
+                Log.i("data提现手续费bbbb", data);
+                Log.i("data提现手续费aaaa", params+"");
+                Gson gson = new Gson();
+                CashingFeeBean feeBean = gson.fromJson(data,CashingFeeBean.class);
+                final CashingFeeBean.DataBean data1 = feeBean.getData();
+                cashing_fee.setText(new DecimalFormat("0.00").format(data1.getFee())+"元");
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
 
         //获取用户可用余额
         RequestParams paramss = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);

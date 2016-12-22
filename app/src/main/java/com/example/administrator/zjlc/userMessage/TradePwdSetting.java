@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
+import com.example.administrator.zjlc.ReMainActivity;
 import com.example.administrator.zjlc.login.RegisterCodeBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.CountDownTimerUtils;
@@ -199,16 +200,15 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88&&"1".equals(id)){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("恭喜您已经完成了全部的注册流程").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()+"\n"+"对话框将在3秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           Intent intent  =new Intent(TradePwdSetting.this, MainActivity.class);
-                            startActivity(intent);
+                          finish();
                         }
                     }).show();
                     toHomeAcvtivity();
                 }else if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("交易密码设置成功").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("交易密码设置成功"+"\n"+"对话框将在3秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                           finish();
@@ -253,7 +253,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()+"\n"+"对话框将在3秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -296,7 +296,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()+"\n"+"对话框将在3后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -368,11 +368,10 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-               Intent intent = new Intent(TradePwdSetting.this,MainActivity.class);
-                startActivity(intent);
+              finish();
             }
         };
-        timer.schedule(task, 1500);
+        timer.schedule(task, 3000);
     }
 
 

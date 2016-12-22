@@ -202,8 +202,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         public void afterTextChanged(Editable s) {
             if (register_phone.getText().toString().length() == 11) {
                 register_get_code.setEnabled(true);
-//                RequestParams params  =new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCPhone_check);
-//                params.addBodyParameter("phone");
             } else {
                 register_get_code.setEnabled(false);
             }

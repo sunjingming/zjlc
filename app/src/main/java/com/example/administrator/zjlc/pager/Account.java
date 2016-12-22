@@ -305,7 +305,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 } else if (event != 88) {
                     Toast.makeText(getActivity(), "尚未通过实名认证，不能进行银行卡能相关工作", Toast.LENGTH_SHORT).show();
                 } else if (eventBank != 88) {
-                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑定银行卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intentAddCard = new Intent(getActivity(), AddCard.class);
@@ -331,7 +331,17 @@ public class Account extends Fragment implements View.OnClickListener {
             case R.id.cash:
                 if ("".equals(token)) {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
-                } else {
+                }else if (event != 88) {
+                    Toast.makeText(getActivity(), "尚未通过实名认证，不能进行提现操作", Toast.LENGTH_SHORT).show();
+                } else if (eventBank != 88) {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intentAddCard = new Intent(getActivity(), AddCard.class);
+                            getActivity().startActivity(intentAddCard);
+                        }
+                    }).setNegativeButton("否", null).show();
+                }else {
                     Intent intentCash = new Intent(getActivity(), Cash.class);
                     intentCash.putExtra("money",balance.getText().toString());
                     getActivity().startActivity(intentCash);

@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.zjlc.R;
@@ -34,6 +36,7 @@ public class Complete extends Fragment {
     private String token;
     private List<WaitRecoverBean.DataBean> listData = new ArrayList<>();
     private WaitRecoverAdapter adapter;
+    private TextView complete_empty;
     private int page = 1;
     private int pageCount = 1;
 
@@ -59,6 +62,8 @@ public class Complete extends Fragment {
 
             }
         }, 500);
+
+        wait_recover_list.setEmptyView(complete_empty);
 
 
         //2实例化适配器
@@ -163,6 +168,7 @@ public class Complete extends Fragment {
     }
 
     private void initView(View view) {
+        complete_empty = (TextView) view.findViewById(R.id.complete_text);
         wait_recover_list = (PullToRefreshListView) view.findViewById(R.id.complete_recover_list);
     }
 

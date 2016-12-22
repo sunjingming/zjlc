@@ -44,13 +44,13 @@ public class CashingFeeBean {
          * fee : 0
          */
 
-        private int fee;
+        private float fee;
 
-        public int getFee() {
+        public float getFee() {
             return fee;
         }
 
-        public void setFee(int fee) {
+        public void setFee(float fee) {
             this.fee = fee;
         }
     }

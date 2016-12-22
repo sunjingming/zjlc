@@ -47,7 +47,6 @@
             android:layout_width="348dp"
             android:hint="输入金额"
             android:textColor="@color/black"
-            android:inputType="number"
             android:textColorHint="@color/gray9" />
 
         <TextView

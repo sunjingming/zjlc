@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class RedPacket extends AppCompatActivity {
     private RedPacketAdapter adapter;
     private int page=1;
     private int pageCount=1;
+    private TextView textEmpty;
     private List<RedPacketBean.DataBean>listData  = new ArrayList<>();
     //特权金页面
 
@@ -66,6 +68,8 @@ public class RedPacket extends AppCompatActivity {
 
             }
         }, 500);
+
+        red_packet_list.setEmptyView(textEmpty);
 
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -172,5 +176,6 @@ public class RedPacket extends AppCompatActivity {
         tv_title = (TextView) findViewById(R.id.tv_title);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         red_packet_list = (PullToRefreshListView) findViewById(R.id.red_packet_list);
+        textEmpty = (TextView) findViewById(R.id.red_packet_text);
     }
 }

@@ -14,5 +14,18 @@
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
+    <TextView
+        android:id="@+id/money_record_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="@dimen/m48"
+        android:drawableTop="@drawable/empty"
+        android:drawablePadding="@dimen/m8"
+        android:layout_marginTop="@dimen/m48"
+        android:text="资金记录暂无数据(拖动沙漏以刷新)"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
 
 </LinearLayout>
