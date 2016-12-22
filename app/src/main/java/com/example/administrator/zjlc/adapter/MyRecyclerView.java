@@ -96,9 +96,9 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
             holder.imageView3.setVisibility(View.GONE);
         }
         if(dataBeanArrayList.get(position).getReward_num().equals("0.00")){
-            holder.imageView4.setVisibility(View.VISIBLE);
-        }else{
             holder.imageView4.setVisibility(View.GONE);
+        }else{
+            holder.imageView4.setVisibility(View.VISIBLE);
         }
         //设置标种
         switch (dataBeanArrayList.get(position).getBorrow_type()){

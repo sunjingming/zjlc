@@ -87,7 +87,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
                 holder.im_touzi.setBackgroundResource(R.drawable.t4);
                 break;
             case 4:
-                holder.im_touzi.setBackgroundResource(R.drawable.icon_zhaiquan_finish);
+                holder.im_touzi.setBackgroundResource(R.drawable.ic_status_finish);
                 break;
         }
         //设置标种

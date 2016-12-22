@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -49,13 +50,16 @@ public class DetailsActivity2 extends AppCompatActivity {
     private LinearLayout ll_layout;
     private LinearLayout ll_rec;
 
+    private SwipeRefreshLayout swipeRefreshLayout1;
+    private SwipeRefreshLayout swipeRefreshLayout2;
+
     private RecyclerView recyclerview_rec;
     private AdapterJiLu myRecyclerView;
     private SanBiaoGouBean sanBiaoGouBean;
     private ArrayList<SanBiaoGouBean.DataBean> dataBeanArrayList;
 
     private DetailsBean detalsBeans;
-    private String id;
+    private int id;
 
     //进行数据更新
     Handler handler = new Handler(new Handler.Callback() {
@@ -130,7 +134,25 @@ public class DetailsActivity2 extends AppCompatActivity {
         //设置增加或删除条目的动画
         recyclerview_rec.setItemAnimator(new DefaultItemAnimator());
 
+        swipeRefreshLayout1 = (SwipeRefreshLayout) findViewById(R.id.layout_swipe_refresh1);
+        swipeRefreshLayout2 = (SwipeRefreshLayout) findViewById(R.id.layout_swipe_refresh2);
+        swipeRefreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                dataBeanArrayList=new ArrayList<SanBiaoGouBean.DataBean>();
+                initData();
+                swipeRefreshLayout1.setRefreshing(false);
+            }
+        });
 
+        swipeRefreshLayout2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                dataBeanArrayList=new ArrayList<SanBiaoGouBean.DataBean>();
+                initData();
+                swipeRefreshLayout2.setRefreshing(false);
+            }
+        });
         //设置按钮切换
         but1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +161,8 @@ public class DetailsActivity2 extends AppCompatActivity {
                 but2.setTextColor(Color.BLACK);
                 but1.setTextColor(Color.RED);
                 but2.setBackgroundResource(R.color.colorAccent);
-                ll_layout.setVisibility(View.VISIBLE);
-                ll_rec.setVisibility(View.GONE);
+                swipeRefreshLayout1.setVisibility(View.VISIBLE);
+                swipeRefreshLayout2.setVisibility(View.GONE);
             }
         });
         but2.setOnClickListener(new View.OnClickListener() {
@@ -150,8 +172,8 @@ public class DetailsActivity2 extends AppCompatActivity {
                 but1.setBackgroundResource(R.color.colorAccent);
                 but1.setTextColor(Color.BLACK);
                 but2.setTextColor(Color.RED);
-                ll_layout.setVisibility(View.GONE);
-                ll_rec.setVisibility(View.VISIBLE);
+                swipeRefreshLayout1.setVisibility(View.GONE);
+                swipeRefreshLayout2.setVisibility(View.VISIBLE);
             }
         });
 
@@ -162,7 +184,7 @@ public class DetailsActivity2 extends AppCompatActivity {
     private void initData() {
         Intent intent = getIntent();
 
-        id = String.valueOf(intent.getIntExtra("id",0));
+        id = intent.getIntExtra("id",0);
 
         RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_detail);
         paramsNotice.addBodyParameter("id", String.valueOf(id));
@@ -174,6 +196,7 @@ public class DetailsActivity2 extends AppCompatActivity {
                 Log.e("标", data);
                 Gson gson = new Gson();
                 detalsBeans = gson.fromJson(data, DetailsBean.class);
+                handler.sendEmptyMessage(1);
             }
 
             @Override
@@ -190,7 +213,7 @@ public class DetailsActivity2 extends AppCompatActivity {
             @Override
             public void onFinished() {
                 Log.i("标", "onFinished");
-                handler.sendEmptyMessage(1);
+
             }
         });
 
@@ -208,7 +231,7 @@ public class DetailsActivity2 extends AppCompatActivity {
                 for (int i=0;i < sanBiaoGouBean.getData().size(); i++){
                     dataBeanArrayList.add(sanBiaoGouBean.getData().get(i));
                 }
-                updateSingleView(dataBeanArrayList);
+                handler.sendEmptyMessage(1);
             }
 
             @Override
@@ -225,7 +248,7 @@ public class DetailsActivity2 extends AppCompatActivity {
             @Override
             public void onFinished() {
                 Log.i("标", "onFinished");
-                handler.sendEmptyMessage(1);
+
             }
         });
     }
