@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ import com.example.administrator.zjlc.login.UserBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.utils.MD5Utils;
 import com.example.administrator.zjlc.view.MyScrollView;
+import com.example.administrator.zjlc.view.MyScrollView1;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -52,11 +54,12 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     private TextView tv_pasnt;
     private int id;
     private DetailsBean noticeBean;
-    private MyScrollView tv_scr;
+    private MyScrollView1 tv_scr;
     private TextView tvjineeee;
     private LinearLayout tequanjine;
     private TextView tequanjin;
     private LinearLayout ll_passs;
+    private SwipeRefreshLayout swipeRefreshLayout3;
 
 
     public Handler handler = new Handler(new Handler.Callback() {
@@ -84,26 +87,37 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                         if (s.equals("")) {
                             new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
                         }else if(s1.equals("") ){
-                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资密码").show();
+                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入交易密码").show();
                         } else {
-                           requeseDate(s, s1,s11);
+                            requeseDate(s, s1,s11);
                         }
                     }
                 });
             }
-
-            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
+            tv_scr.registerOnScrollViewScrollToBottom(new MyScrollView1.OnScrollBottomListener() {
                 @Override
-                public void onScrollBottomListener(boolean isBottom) {
-                    if(isBottom) {
-                        Intent intent;
-
-                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                public void srollToBottom() {
+                    Intent intent;
+                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                    if(id != 0){
                         intent.putExtra("id", id);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
                         startActivity(intent);
                     }
                 }
             });
+//            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
+//                @Override
+//                public void onScrollBottomListener(boolean isBottom) {
+//                    if(isBottom) {
+////                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+////                        intent.putExtra("id", id);
+////                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+////                        startActivity(intent);
+//                        Log.e("底部","1 、");
+//                    }
+//                }
+//            });
             return false;
         }
     });
@@ -117,6 +131,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         dataBeanArrayList = new ArrayList<RedPacketBean.DataBean>();
         final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCCoupon);
 
+        Log.e("特权金请求",id+"-"+s+"-"+token);
         paramsNotice.addBodyParameter("borrow_id", String.valueOf(id));
         paramsNotice.addBodyParameter("money",s);
         paramsNotice.addBodyParameter("token",token);
@@ -268,7 +283,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
                     codeBean = gson.fromJson(data, RegisterCodeBean.class);
 
-                    Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
+
                     if("投资成功".equals(codeBean.getMsg())){
                         et_je.setText("");
                         et_mm.setText("");
@@ -276,6 +291,11 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                         new AlertDialog.Builder(DetailsActivity.this)
                                 .setTitle("投资成功")
                                 .show();
+                    }
+                    if("投标密码错误".equals(codeBean.getMsg())){
+                        Toast.makeText(DetailsActivity.this,"定向标密码",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -316,7 +336,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     //初始化视图
     private void initView() {
         //初始化组件
-        tv_scr = (MyScrollView) findViewById(R.id.tv_scr);
+        tv_scr = (MyScrollView1) findViewById(R.id.tv_scr);
         tv_lilv = (TextView) findViewById(R.id.tv_lilv);
         tv_times = (TextView) findViewById(R.id.tv_times);
         tv_timess = (TextView) findViewById(R.id.tv_timess);
@@ -331,27 +351,20 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         tequanjine = (LinearLayout) findViewById(R.id.tequanjine);
         tequanjin = (TextView) findViewById(R.id.tequanjin);
         ll_passs = (LinearLayout) findViewById(R.id.ll_passs);
+
+        swipeRefreshLayout3 = (SwipeRefreshLayout) findViewById(R.id.layout_swipe_refresh3);
+        swipeRefreshLayout3.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initDatas();
+                swipeRefreshLayout3.setRefreshing(false);
+            }
+        });
         //测量屏幕
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         int height = metric.heightPixels;   // 屏幕高度（像素）
-        et_je.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String s1 = et_je.getText().toString();
-                requeseDate1(s1);
-            }
-        });
         ll_passs.setMinimumHeight(height+1);
         tv_pasnt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,13 +383,31 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         id = Integer.parseInt(intent.getStringExtra("id"));
 
         initDatas();
+        et_je.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String s1 = et_je.getText().toString();
+                if(noticeBean.getData().getBorrow_bid() == 1) {
+                    requeseDate1(s1);
+                }
+            }
+        });
     }
 
     private void initDatas() {
-
-
-
         Log.e("asd", String.valueOf(id));
+
+
         RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_detail);
 
         paramsNotice.addBodyParameter("id", String.valueOf(id));

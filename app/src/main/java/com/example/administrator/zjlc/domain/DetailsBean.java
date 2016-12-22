@@ -9,7 +9,7 @@ public class DetailsBean {
     /**
      * event : 88
      * msg : success
-     * data : {"id":643,"borrow_name":"借款测试1416","borrow_duration":"12个月","borrow_money":120000,"borrow_interest_rate":12,"has_borrow":1000,"borrow_times":10,"repayment_type":"每月还息到期还本","borrow_type":"担保标","borrow_status":2,"add_time":"2016-12-19 14:16","collect_day":10,"borrow_info":"<p>12<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_bid":1,"borrow_status_str":"正在招标中","has_pass":0,"progress":0.83}
+     * data : {"id":660,"borrow_name":"信用标生活消费借款8000","borrow_duration":"1个月","borrow_money":8000,"borrow_interest_rate":10.54,"has_borrow":2850,"borrow_times":2,"repayment_type":"按月分期还款","borrow_type":"信用标","borrow_status":2,"add_time":"2016-12-22 11:01","collect_day":5,"borrow_info":"<p>1<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_bid":1,"borrow_status_str":"正在招标中","has_pass":0,"progress":35.63}
      */
 
     private int event;
@@ -42,19 +42,19 @@ public class DetailsBean {
 
     public static class DataBean {
         /**
-         * id : 643
-         * borrow_name : 借款测试1416
-         * borrow_duration : 12个月
-         * borrow_money : 120000
-         * borrow_interest_rate : 12
-         * has_borrow : 1000
-         * borrow_times : 10
-         * repayment_type : 每月还息到期还本
-         * borrow_type : 担保标
+         * id : 660
+         * borrow_name : 信用标生活消费借款8000
+         * borrow_duration : 1个月
+         * borrow_money : 8000
+         * borrow_interest_rate : 10.54
+         * has_borrow : 2850
+         * borrow_times : 2
+         * repayment_type : 按月分期还款
+         * borrow_type : 信用标
          * borrow_status : 2
-         * add_time : 2016-12-19 14:16
-         * collect_day : 10
-         * borrow_info : <p>12</p>
+         * add_time : 2016-12-22 11:01
+         * collect_day : 5
+         * borrow_info : <p>1</p>
          * reward_num : 0
          * borrow_min : 50
          * borrow_max : 0
@@ -64,14 +64,14 @@ public class DetailsBean {
          * borrow_bid : 1
          * borrow_status_str : 正在招标中
          * has_pass : 0
-         * progress : 0.83
+         * progress : 35.63
          */
 
         private int id;
         private String borrow_name;
         private String borrow_duration;
         private int borrow_money;
-        private int borrow_interest_rate;
+        private double borrow_interest_rate;
         private int has_borrow;
         private int borrow_times;
         private String repayment_type;
@@ -123,11 +123,11 @@ public class DetailsBean {
             this.borrow_money = borrow_money;
         }
 
-        public int getBorrow_interest_rate() {
+        public double getBorrow_interest_rate() {
             return borrow_interest_rate;
         }
 
-        public void setBorrow_interest_rate(int borrow_interest_rate) {
+        public void setBorrow_interest_rate(double borrow_interest_rate) {
             this.borrow_interest_rate = borrow_interest_rate;
         }
 

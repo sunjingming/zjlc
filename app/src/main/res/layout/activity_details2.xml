@@ -39,7 +39,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/layout_swipe_refresh1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/ll_layout"
         android:layout_margin="10dp"
@@ -302,13 +305,19 @@
 
 
     </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:visibility="gone"
+        android:id="@+id/layout_swipe_refresh2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
-        android:visibility="gone"
         android:id="@+id/ll_rec"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
          <LinearLayout
+             android:layout_margin="10dp"
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
              <TextView
@@ -356,5 +365,5 @@
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

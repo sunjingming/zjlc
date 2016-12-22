@@ -352,7 +352,7 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/lijigou"
-                    android:text="立即申购"
+                    android:text="立即投资"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginLeft="50dp"
