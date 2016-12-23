@@ -161,7 +161,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                                 .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                                            requeseDate(s, s1, dataBeanArrayList.get(which));
                                         s11 = dataBeanArrayList.get(which);
                                         dialog.dismiss();
                                     }
@@ -170,20 +169,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                                 .show();
                     }
                 });
-//                if(packetBean.getEvent() !=0){
-////                    if(noticeBean.getData().getBorrow_bid() == 1) {
-//
-//
-//
-//                        } else {
-//                            requeseDate(s, s1, null);
-//                        }
-////                    }else{
-////                        requeseDate(s, s1, null);
-////                    }
-//                }else{
-//                    requeseDate(s, s1, null);
-//                }
             }
 
             @Override
@@ -397,6 +382,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             @Override
             public void afterTextChanged(Editable s) {
                 String s1 = et_je.getText().toString();
+                tequanjine.setVisibility(View.GONE);
                 if(noticeBean.getData().getBorrow_bid() == 1) {
                     requeseDate1(s1);
                 }

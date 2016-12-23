@@ -164,6 +164,7 @@ public class HomePager extends Fragment {
                 tv_ss.setText("0.00元");
                 tv_jindu.setText("0.00%");
 
+                id=null;
                 TJBBean tjbBean = gson.fromJson(data, TJBBean.class);
                 if(tjbBean.getEvent() == 88){
 
