@@ -25,6 +25,6 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="@dimen/m48"
         android:textColor="@color/black"
-        android:text="已完成暂无数据(拖动沙漏以刷新)"/>
+        android:text="已完成界面暂无数据"/>
 
 </LinearLayout>

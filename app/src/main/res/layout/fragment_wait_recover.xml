@@ -25,5 +25,5 @@
         android:layout_marginTop="@dimen/m48"
         android:paddingTop="@dimen/m48"
         android:textColor="@color/black"
-        android:text="待回款界面暂无数据(拖动沙漏以刷新)"/>
+        android:text="待回款界面暂无数据"/>
 </LinearLayout>

@@ -290,6 +290,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_approve:
+                approveName();
                 if ("".equals(token)) {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 }else if (event==0){
@@ -334,7 +335,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 }else if (event != 88) {
                     Toast.makeText(getActivity(), "尚未通过实名认证，不能进行提现操作", Toast.LENGTH_SHORT).show();
                 } else if (eventBank != 88) {
-                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("消息提示").setMessage("您尚未绑定银行卡，是否前去绑定银行卡").setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intentAddCard = new Intent(getActivity(), AddCard.class);
@@ -383,4 +384,50 @@ public class Account extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.post(runnable);
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.sendEmptyMessage(1);
+        }
+    };
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                    token = fence.getString("token", "");
+                    getData();
+
+                    if (token.equals("")) {
+                        login.setText("未登录");
+                        asset.setText("¥" +"0.00");
+                        balance.setText("¥" +"0.00");
+                        interest.setText("¥" +"0.00");
+                        freeze.setText("¥" +"0.00");
+                    }
+
+                    if ("未登录".equals(login.getText().toString())) {
+
+                        login.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent  =new Intent(getActivity(),Login.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    approveName();
+                    bankWhether();
+            }
+        }
+    };
 }

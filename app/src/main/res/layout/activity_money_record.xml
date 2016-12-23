@@ -23,7 +23,7 @@
         android:drawableTop="@drawable/empty"
         android:drawablePadding="@dimen/m8"
         android:layout_marginTop="@dimen/m48"
-        android:text="资金记录暂无数据(拖动沙漏以刷新)"
+        android:text="资金记录暂无数据"
         android:textColor="@color/black"
         android:textSize="18sp" />
 

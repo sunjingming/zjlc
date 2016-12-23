@@ -124,7 +124,12 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.change_submit:
                 if ("1".equals(id)) {
-                    setData();
+                    if (new_trade_pwd.getText().toString().equals(check_trade_pwd.getText().toString())){
+                        setData();
+                    }else {
+                        Toast.makeText(this, "两次密码输入不一致，请重新输入", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else if (change.getText().toString().equals("使用原密码修改")) {
                     if (trade_code.getText().toString().length()<1){
                         Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
@@ -154,7 +159,6 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                     public void onSuccess(String result) {
                         String data = result;
                         Log.i("data注册验证码", data);
-                        //    Log.i("data发送参数", params+"");
                         Gson gson = new Gson();
                         RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
                         codeBean = gson.fromJson(data, RegisterCodeBean.class);
@@ -239,7 +243,6 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
 
     private void codeData() {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-     //   params.addBodyParameter("pin_pass", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
         params.addBodyParameter("pin_pass_new",MD5Utils.Md5(new_trade_pwd.getText().toString()));
         params.addBodyParameter("token",token);
         params.addBodyParameter("type","3");
@@ -253,7 +256,7 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
                 Gson gson = new Gson();
                 ChangeBean change = gson.fromJson(data,ChangeBean.class);
                 if (change.getEvent()==88){
-                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage(change.getMsg()+"\n"+"对话框将在3秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    AlertDialog dialog = new AlertDialog.Builder(TradePwdSetting.this).setTitle("消息提示").setMessage("修改交易密码成功"+"\n"+"对话框将在3秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();

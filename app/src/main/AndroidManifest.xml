@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+
 
     <!-- 分享权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -27,19 +29,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".ReMainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ReMainActivity"></activity>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".activity.DetailsActivity"
+        <activity
+            android:name=".activity.DetailsActivity"
             android:launchMode="standard" />
         <activity android:name=".login.Register" />
         <activity android:name=".activity.GuideActivity" />
@@ -131,7 +131,7 @@
         <activity android:name=".invest.MoneyRecord" />
         <activity android:name=".invest.RedPacket" />
         <activity android:name=".login.RegisterAgreement" />
-        <activity android:name=".login.RegisterTradePwd"></activity>
+        <activity android:name=".login.RegisterTradePwd" />
     </application>
 
 </manifest>

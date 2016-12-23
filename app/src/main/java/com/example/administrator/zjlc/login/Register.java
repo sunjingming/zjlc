@@ -1,5 +1,6 @@
 package com.example.administrator.zjlc.login;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +32,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
-
+    public static Activity test_a= null;
     private TextView register_back;
     private TextView register_check;
     private EditText register_phone;
@@ -50,6 +51,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
+
+        test_a = this;
         register_get_code.setOnClickListener(this);
         register.setOnClickListener(this);
         register_back.setOnClickListener(this);

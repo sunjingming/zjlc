@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.administrator.zjlc.MainActivity;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.ReMainActivity;
+import com.example.administrator.zjlc.approve.ApproveName;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.example.administrator.zjlc.userMessage.ChangeBean;
 import com.example.administrator.zjlc.userMessage.TradePwdSetting;
@@ -33,7 +34,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RegisterTradePwd extends AppCompatActivity implements View.OnClickListener {
-
     private TextView tv_title;
     private Toolbar toolbar;
     private EditText setting_pwd;
@@ -113,9 +113,9 @@ public class RegisterTradePwd extends AppCompatActivity implements View.OnClickL
                                 AlertDialog dialog = new AlertDialog.Builder(RegisterTradePwd.this).setTitle("消息提示").setMessage("交易密码设置成功" + "\n" + "对话框将在三秒后消失").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(RegisterTradePwd.this, ReMainActivity.class);
-                                        intent.putExtra("id","1");
-                                        startActivity(intent);
+                                        finish();
+                                        ApproveName.test_a.finish();
+                                        Register.test_a.finish();
                                     }
                                 }).show();
                                 getHomeAcvtivity();
@@ -152,10 +152,7 @@ public class RegisterTradePwd extends AppCompatActivity implements View.OnClickL
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(RegisterTradePwd.this, ReMainActivity.class);
-                intent.putExtra("id","1");
-                startActivity(intent);
-
+                finish();
             }
         };
         timer.schedule(task, 3000);

@@ -29,5 +29,5 @@
         android:drawableTop="@drawable/empty"
         android:drawablePadding="@dimen/m8"
         android:textColor="@color/black"
-        android:text="提现记录暂无数据(拖动沙漏以刷新)"/>
+        android:text="提现记录暂无数据"/>
 </LinearLayout>

@@ -96,8 +96,7 @@ public class Invest extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.user_borrow:
-                Intent intent = new Intent(Invest.this,InvestBorrow.class);
-                startActivity(intent);
+
                 if (event==88){
                     //进行借款验证，通过则进入借款界面，否则不饿坑进入
                     RequestParams params = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_verify);
@@ -110,7 +109,8 @@ public class Invest extends AppCompatActivity implements View.OnClickListener{
                             Gson gson = new Gson();
                             BorrowVerifyBean bean = gson.fromJson(data,BorrowVerifyBean.class);
                             if (bean.getEvent()==88){
-
+                                Intent intent = new Intent(Invest.this,InvestBorrow.class);
+                                startActivity(intent);
                             }else {
                                 Toast.makeText(Invest.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                             }

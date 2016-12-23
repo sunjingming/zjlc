@@ -88,7 +88,6 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
         borrow_name.addTextChangedListener(textWatcher);
         borrow_phone.addTextChangedListener(textWatcher);
         borrow_address.addTextChangedListener(textWatcher);
-        borrow_introduce.addTextChangedListener(textWatcher);
         borrow_code.addTextChangedListener(textWatcher);
 
 
@@ -315,6 +314,8 @@ public class InvestBorrow extends AppCompatActivity implements View.OnClickListe
                             finish();
                         }
                     }).show();
+                }else {
+                    Toast.makeText(InvestBorrow.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
 
