@@ -1,5 +1,6 @@
 package com.example.administrator.zjlc;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -23,7 +24,7 @@ import com.example.administrator.zjlc.pager.Find;
 import com.example.administrator.zjlc.pager.HomePager;
 
 public class ReMainActivity extends FragmentActivity implements View.OnClickListener {
-
+    public static Activity test_a= null;
 
     private FragmentManager fragmentManager;
     private Fragment homeFragment, findFragment, accountFragment, currentFragment;
@@ -40,6 +41,7 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         initView();
 
         initTab();
+        test_a = this;
         Intent intent = getIntent();
         final String id = intent.getStringExtra("id");
 

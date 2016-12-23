@@ -290,6 +290,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(intent);
                 break;
             case R.id.user_approve:
+                approveName();
                 if ("".equals(token)) {
                     Toast.makeText(getActivity(), "您尚未登录，请先登录", Toast.LENGTH_SHORT).show();
                 }else if (event==0){
@@ -402,6 +403,28 @@ public class Account extends Fragment implements View.OnClickListener {
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
+                    SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                    token = fence.getString("token", "");
+                    getData();
+
+                    if (token.equals("")) {
+                        login.setText("未登录");
+                        asset.setText("¥" +"0.00");
+                        balance.setText("¥" +"0.00");
+                        interest.setText("¥" +"0.00");
+                        freeze.setText("¥" +"0.00");
+                    }
+
+                    if ("未登录".equals(login.getText().toString())) {
+
+                        login.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent  =new Intent(getActivity(),Login.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     approveName();
                     bankWhether();
             }

@@ -186,9 +186,7 @@ public class UserMessage extends AppCompatActivity implements View.OnClickListen
                         editor = preferences.edit();
                         editor.clear();
                         editor.commit();
-                        Intent intent = new Intent(UserMessage.this, ReMainActivity.class);
-                        intent.putExtra("id","1");
-                        startActivity(intent);
+                     finish();
                     }
                 }).setNegativeButton("取消", null).show();
                 break;

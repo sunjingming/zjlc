@@ -1,8 +1,12 @@
 package com.example.administrator.zjlc.application;
 
+import android.app.Activity;
 import android.app.Application;
 
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 

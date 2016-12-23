@@ -1,5 +1,6 @@
 package com.example.administrator.zjlc.approve;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +33,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ApproveName extends AppCompatActivity implements View.OnClickListener {
-
+    public static Activity test_a= null;
     private TextView tv_title;
     private Toolbar toolbar;
     private EditText approve_name;
@@ -47,6 +48,7 @@ public class ApproveName extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_name);
         initView();
+        test_a = this;
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

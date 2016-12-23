@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void initView() {
         login_phone = (EditText) findViewById(R.id.login_phone);
         login_password = (EditText) findViewById(R.id.login_password);
-        activity_login = (LinearLayout) findViewById(R.id.activity_login);
         login_submit = (Button) findViewById(R.id.login_submit);
         register = (TextView) findViewById(R.id.login_register);
         login_close = (ImageView) findViewById(R.id.login_close);
@@ -76,9 +76,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             editor.putString("token", loginBean.getData());
                             editor.putString("phone", login_phone.getText().toString());
                             editor.commit();
-                            Intent intent = new Intent(Login.this, ReMainActivity.class);
-                            intent.putExtra("id","1");
-                            startActivity(intent);
+                            finish();
+
                         } else {
                             Toast.makeText(Login.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
@@ -118,6 +117,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
+
+
 
 
     // TODO validate success, do something

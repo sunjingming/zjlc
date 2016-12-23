@@ -243,7 +243,6 @@ public class TradePwdSetting extends AppCompatActivity implements View.OnClickLi
 
     private void codeData() {
         RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCTrade_setting);
-     //   params.addBodyParameter("pin_pass", MD5Utils.Md5(old_trade_pwwd.getText().toString()));
         params.addBodyParameter("pin_pass_new",MD5Utils.Md5(new_trade_pwd.getText().toString()));
         params.addBodyParameter("token",token);
         params.addBodyParameter("type","3");
