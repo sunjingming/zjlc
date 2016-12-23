@@ -49,20 +49,6 @@ public class Complete extends Fragment {
         SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
         token = fence.getString("token", "");
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                loadData();
-                wait_recover_list.setRefreshing();
-                wait_recover_list.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        wait_recover_list.onRefreshComplete();
-                    }
-                }, 1000);
-
-            }
-        }, 500);
-
         wait_recover_list.setEmptyView(complete_empty);
 
 

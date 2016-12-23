@@ -5,9 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,15 +14,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.administrator.zjlc.pager.Account;
 import com.example.administrator.zjlc.pager.Find;
 import com.example.administrator.zjlc.pager.HomePager;
-import com.example.administrator.zjlc.view.NoScrollViewPager;
 
 public class ReMainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -55,6 +51,15 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
                 accountFragment = new Account();
             }
             addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
+            // 设置底部tab变化
+            homeImg.setImageResource(R.drawable.tabbar_home);
+            homeTv.setTextColor(getResources().getColor(R.color.gray15));
+
+            assitantImg.setImageResource(R.drawable.tabbar_financial);
+            assitantTv.setTextColor(getResources().getColor(R.color.gray15));
+
+            accountImg.setImageResource(R.drawable.tabbar_person_select);
+            accountTv.setTextColor(getResources().getColor(R.color.red));
         }
 
         homeLayout.setOnClickListener(this);
@@ -68,8 +73,7 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
         }
         if (!homeFragment.isAdded()) {
             // 提交事务
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_layout, homeFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.content_layout, homeFragment).commit();
 
             // 记录当前Fragment
             currentFragment = homeFragment;

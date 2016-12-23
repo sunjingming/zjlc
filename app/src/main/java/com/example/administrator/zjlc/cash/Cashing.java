@@ -156,16 +156,17 @@ public class Cashing extends AppCompatActivity implements View.OnClickListener {
                 if (cashing_password.getText().toString().length() < 1) {
                     Toast.makeText(this, "请输入交易密码", Toast.LENGTH_SHORT).show();
                 } else {
-                    RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_apply);
+                    final RequestParams params = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCCashing_apply);
                     params.addBodyParameter("token", token);
                     params.addBodyParameter("money", money);
                     params.addBodyParameter("pin_pass", MD5Utils.Md5(cashing_password.getText().toString()));
-                    params.addBodyParameter("fee", fee);
+                    params.addBodyParameter("fee", cashing_fee.getText().toString());
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
                             String data = result;
                             Log.i("data提现申请", data);
+                            Log.i("data申请信息", params+"");
                             Gson gson = new Gson();
                             CashingBean bean = gson.fromJson(data, CashingBean.class);
                             if (bean.getEvent() == 88) {
