@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.adapter.AdapterJiLu;
 import com.example.administrator.zjlc.adapter.AddressSpacesItemDecoration;
@@ -198,7 +199,7 @@ public class DetailsActivity2 extends AppCompatActivity {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
-                detalsBeans = gson.fromJson(data, DetailsBean.class);
+                detalsBeans = JSON.parseObject(data, DetailsBean.class);
                 handler.sendEmptyMessage(2);
             }
 
@@ -229,7 +230,7 @@ public class DetailsActivity2 extends AppCompatActivity {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
-                sanBiaoGouBean = gson.fromJson(data, SanBiaoGouBean.class);
+                sanBiaoGouBean = JSON.parseObject(data, SanBiaoGouBean.class);
 
                 for (int i=0;i < sanBiaoGouBean.getData().size(); i++){
                     dataBeanArrayList.add(sanBiaoGouBean.getData().get(i));

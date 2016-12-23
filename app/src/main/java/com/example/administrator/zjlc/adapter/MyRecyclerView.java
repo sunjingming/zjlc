@@ -119,27 +119,30 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
                 break;
         }
         //设置信用等级
-        switch (dataBeanArrayList.get(position).getLevel()){
-            case "A":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_a);
-                break;
-            case "B":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_b);
-                break;
-            case "C":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_c);
-                break;
-            case "D":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_d);
-                break;
-            case "E":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_e);
-                break;
-            case "HR":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_hr);
-                break;
+        if(dataBeanArrayList.get(position).getLevel() !=null) {
+            switch (dataBeanArrayList.get(position).getLevel()) {
+                case "A":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_a);
+                    break;
+                case "B":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_b);
+                    break;
+                case "C":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_c);
+                    break;
+                case "D":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_d);
+                    break;
+                case "E":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_e);
+                    break;
+                case "HR":
+                    holder.imageView2.setBackgroundResource(R.drawable.ic_level_hr);
+                    break;
+            }
+        }else{
+            holder.imageView2.setVisibility(View.GONE);
         }
-
         //设置进度条
         holder.progressBar.setProgress((int) (dataBeanArrayList.get(position).getProgress()));
 
@@ -160,6 +163,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
         this.dataBeanArrayList = singModelArrayList;
         this.notifyDataSetChanged();
     }
+
 
 //        public void onClick(View v) {
 //            SharedPreferences prence = mActivity.getSharedPreferences("usetoken", MODE_PRIVATE);

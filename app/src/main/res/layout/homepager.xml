@@ -206,7 +206,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         style="@style/SubmitButtonStyle"
-                        android:text="立即投标"
+                        android:text="立即投资"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <!--<ImageView-->

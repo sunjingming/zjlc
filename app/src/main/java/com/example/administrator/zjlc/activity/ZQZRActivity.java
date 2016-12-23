@@ -104,6 +104,10 @@ public class ZQZRActivity extends AppCompatActivity {
 //            tv13.setText(noticeBean.getData().getEmail_status()+"");
 //            tv14.setText(noticeBean.getData().getId_status()+"");
 //            tv15.setText(noticeBean.getData().getPhone_status()+"");
+            if(noticeBean.getData().getStatus() == 4){
+                lijigou.setText("债权已完成");
+                lijigou.setEnabled(false);
+            }
             return false;
         }
     });
