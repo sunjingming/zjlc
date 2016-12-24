@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.domain.DetailsBean;
 import com.example.administrator.zjlc.invest.RedPacketBean;
@@ -152,21 +153,25 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     bol[i] = false;
                     Log.e("sad", msg[i]);
                 }
-                tequanjine.setVisibility(View.VISIBLE);
+//                tequanjine.setVisibility(View.VISIBLE);
                 tequanjin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(DetailsActivity.this)
-                                .setTitle("选择特权金")
-                                .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                        s11 = dataBeanArrayList.get(which);
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .setNegativeButton("取消", null)
-                                .show();
+                        if(bol.length>1) {
+                            new AlertDialog.Builder(DetailsActivity.this)
+                                    .setTitle("选择特权金")
+                                    .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                            s11 = dataBeanArrayList.get(which);
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setNegativeButton("取消", null)
+                                    .show();
+                        }else{
+                            Toast.makeText(DetailsActivity.this,"无可用特权金",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -265,22 +270,22 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     Log.e("标321", data);
 
                     Gson gson = new Gson();
-                    RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
-                    codeBean = gson.fromJson(data, RegisterCodeBean.class);
+                    RegisterCodeBean codeBean = JSON.parseObject(data, RegisterCodeBean.class);
+                    codeBean = JSON.parseObject(data, RegisterCodeBean.class);
 
 
                     if("投资成功".equals(codeBean.getMsg())){
                         et_je.setText("");
                         et_mm.setText("");
                         initDatas();
-                        new AlertDialog.Builder(DetailsActivity.this)
-                                .setTitle("投资成功")
-                                .show();
-                    }
-                    if("投标密码错误".equals(codeBean.getMsg())){
-                        Toast.makeText(DetailsActivity.this,"定向标密码",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsActivity.this,"投资成功",Toast.LENGTH_SHORT).show();
+                        finish();
                     }else{
-                        Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
+                        if("投标密码错误".equals(codeBean.getMsg())){
+                            Toast.makeText(DetailsActivity.this,"定向标密码",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(DetailsActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
@@ -382,10 +387,9 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             @Override
             public void afterTextChanged(Editable s) {
                 String s1 = et_je.getText().toString();
-                tequanjine.setVisibility(View.GONE);
-                if(noticeBean.getData().getBorrow_bid() == 1) {
+//                if(noticeBean.getData().getBorrow_bid() == 1) {
                     requeseDate1(s1);
-                }
+//                }
             }
         });
     }
@@ -403,7 +407,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
-                noticeBean = gson.fromJson(data, DetailsBean.class);
+                noticeBean = JSON.parseObject(data, DetailsBean.class);
                 handler.sendEmptyMessage(1);
             }
 
@@ -435,7 +439,6 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 UserBean userBean = gson.fromJson(data, UserBean.class);
                 UserBean.DataBean datalist = userBean.getData();
                 tv_yue.setText("您的余额：" + String.valueOf(datalist.getBalance_money())+"(元)");
-
             }
 
             @Override

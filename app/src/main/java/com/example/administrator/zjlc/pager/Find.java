@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.administrator.zjlc.R;
@@ -72,6 +73,20 @@ public class Find extends Fragment {
                     zqzLbeen = new ArrayList<ZQZLbean.DataBean>();
                     setData();
                     break;
+                case 3:
+                    try {
+                        loadMoreData();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+                case 4:
+                    try {
+                        loadMoreData2();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
             }
 
             return false;
@@ -86,10 +101,7 @@ public class Find extends Fragment {
         view = inflater.inflate(R.layout.mepager, container, false);
         initView();
         tv_title.setText("理财");
-
-
         return view;
-
     }
 
     /**
@@ -153,6 +165,7 @@ public class Find extends Fragment {
 
             }
         });
+
         //下拉刷新
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             public void onRefresh() {
@@ -166,13 +179,25 @@ public class Find extends Fragment {
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 1000);
-                //上拉加载更多
-                recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-                    @Override
-                    public void onLoadMore(int currentPage) {
-                        loadMoreData();
-                    }
-                });
+                try{
+                    //上拉加载更多
+                    recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                        @Override
+                        public void onLoadMore(int currentPage) {
+                            if(currentPage != 0) {
+                                Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT).show();
+                                handler.removeCallbacksAndMessages(null);
+                                handler.sendEmptyMessageDelayed(3, 1000);
+                                mRefreshLayout.setEnabled(true);
+                            }else{
+                                mRefreshLayout.setEnabled(false);
+                            }
+//                        loadMoreData();
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         //下拉刷新
@@ -186,23 +211,51 @@ public class Find extends Fragment {
                         updateSingleView1(zqzLbeen);
                         // TODO Auto-generated method stub
                         mRefreshLayout1.setRefreshing(false);
-                        recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-                            @Override
-                            public void onLoadMore(int currentPage) {
-                                loadMoreData2();
-                            }
-                        });
+                        try {
+
+                            recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                                @Override
+                                public void onLoadMore(int currentPage) {
+                                    if(currentPage != 0) {
+                                        Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT);
+                                        handler.removeCallbacksAndMessages(null);
+                                        handler.sendEmptyMessageDelayed(4, 1000);
+                                        Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT).show();
+//                                loadMoreData2();
+                                        mRefreshLayout.setEnabled(true);
+                                    }else{
+                                        mRefreshLayout.setEnabled(false);
+                                    }
+                                }
+                            });
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 }, 1000);
             }
         });
-        //上拉加载更多
-        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
+        try{
+            //上拉加载更多
+            recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                @Override
+                public void onLoadMore(int currentPage) {
+                    if(currentPage != 0) {
+                        Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT);
+                        handler.removeCallbacksAndMessages(null);
+                        handler.sendEmptyMessage(3);
+//                        handler.sendEmptyMessageDelayed(3, 1000);
+                        Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT).show();
+//                loadMoreData();
+                        mRefreshLayout.setEnabled(true);
+                    }else{
+                        mRefreshLayout.setEnabled(false);
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         //设置增加或删除条目的动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //设置按钮切换
@@ -229,20 +282,29 @@ public class Find extends Fragment {
                             Intent intent = new Intent(getActivity(), Login.class);
                             getActivity().startActivity(intent);
                         } else {
-
                             Intent intent = new Intent(getActivity(), DetailsActivity.class);
                             intent.putExtra("id", data.getId() + "");
                             getActivity().startActivity(intent);
                         }
                     }
                 });
-                recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-                    @Override
-                    public void onLoadMore(int currentPage) {
-                        loadMoreData();
-                    }
-                });
+                try{
+                    recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                        @Override
+                        public void onLoadMore(int currentPage) {
+                            if(currentPage != 0) {
+                                handler.removeCallbacksAndMessages(null);
+                                handler.sendEmptyMessageDelayed(3, 1000);
+                                Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT).show();
+//                        loadMoreData();
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
+
         });
         but2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,13 +319,24 @@ public class Find extends Fragment {
                 ll_llsys.setVisibility(View.GONE);
                 //设置Adapter
                 recyclerView1.setAdapter(myRecyclerView2);
-
-                recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
-                    @Override
-                    public void onLoadMore(int currentPage) {
-                        loadMoreData2();
-                    }
-                });
+                try {
+                    recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                        @Override
+                        public void onLoadMore(int currentPage) {
+                            if(currentPage != 0) {
+                                Toast.makeText(getActivity(), "加载数据中", Toast.LENGTH_SHORT).show();
+                                handler.removeCallbacksAndMessages(null);
+                                handler.sendEmptyMessageDelayed(4, 1000);
+                                mRefreshLayout.setEnabled(true);
+                            }else{
+                                mRefreshLayout.setEnabled(false);
+                            }
+//                        loadMoreData2();
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 myRecyclerView2.setOnItemClickListener(new MyRecyclerView2.OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, ZQZLbean.DataBean data) {
@@ -303,7 +376,6 @@ public class Find extends Fragment {
                         Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                         dataBeanArrayList.add(sanBiaobean.getData().get(i));
                     }
-
                     handler.sendEmptyMessage(1);
                 }
             }
@@ -359,7 +431,6 @@ public class Find extends Fragment {
                 handler.sendEmptyMessage(1);
             }
         });
-
     }
 
     //散标更新数据
@@ -390,15 +461,12 @@ public class Find extends Fragment {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
-
                 sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
-
                 for (int i = 0; i < sanBiaobean.getData().size(); i++) {
                     Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                     dataBeanArrayList.add(sanBiaobean.getData().get(i));
                 }
-
-                handler.sendEmptyMessage(1);
+                myRecyclerView.notifyDataSetChanged();
             }
 
             @Override
@@ -409,7 +477,6 @@ public class Find extends Fragment {
             @Override
             public void onCancelled(CancelledException cex) {
                 Log.e("标", "onCancelled");
-
             }
 
             @Override
@@ -434,13 +501,14 @@ public class Find extends Fragment {
                 Log.e("标", data1);
                 Gson gson = new Gson();
 
-                zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
+                Toast.makeText(getActivity(),"加载数据中",Toast.LENGTH_SHORT);
 
+                zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
                 for (int i = 0; i < zqzLbeans.getData().size(); i++) {
                     Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
                     zqzLbeen.add(zqzLbeans.getData().get(i));
                 }
-                handler.sendEmptyMessage(1);
+                myRecyclerView2.notifyDataSetChanged();
             }
 
             @Override
