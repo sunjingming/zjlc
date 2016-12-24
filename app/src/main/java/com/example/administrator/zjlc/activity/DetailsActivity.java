@@ -78,7 +78,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
 
             if(noticeBean.getData().getBorrow_status() == 4){
                 lijigou.setText("标满，复审中");
-            }else{
+            }else if(noticeBean.getData().getBorrow_status() == 2){
                 lijigou.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -94,6 +94,12 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                         }
                     }
                 });
+            }if(noticeBean.getData().getBorrow_status() == 6){
+                lijigou.setText("复审通过，还款中");
+            }if(noticeBean.getData().getBorrow_status() == 7){
+                lijigou.setText("完成");
+            }if(noticeBean.getData().getBorrow_status() == 8){
+                lijigou.setText("已逾期");
             }
             tv_scr.registerOnScrollViewScrollToBottom(new MyScrollView1.OnScrollBottomListener() {
                 @Override
