@@ -5,10 +5,11 @@ package com.example.administrator.zjlc.bank;
  */
 
 public class UserNamebean {
+
     /**
      * event : 88
      * msg : success
-     * data : {"header_img":"http://zhuojin.petope.com/Style/header/images/noavatar_middle.gif","user_name":"S4","user_phone":"135***683","real_name":"李冰","idcard":"371481199402210031","all_money":882979.89,"balance_money":722983.53,"freeze_money":23600,"collect_interest":7296.37,"credit_lvl":"HR","invest_lvl":"一级","id_status":1,"phone_status":1,"email_status":0,"has_pin":1,"vip":0,"invite_code":"FHHENZPQY7"}
+     * data : {"header_img":"http://zhuojin.petope.com/Style/header/images/noavatar_middle.gif","user_name":"18353616467","user_phone":"183***467","real_name":"Libing","idcard":"371491199402210031","all_money":611089.4,"balance_money":476895.11,"freeze_money":111514.14,"collect_interest":841.35,"credit_lvl":"E","invest_lvl":"二级","id_status":1,"phone_status":1,"email_status":0,"has_pin":1,"vip":1,"invite_code":"DCHE8MW25P"}
      */
 
     private int event;
@@ -42,22 +43,22 @@ public class UserNamebean {
     public static class DataBean {
         /**
          * header_img : http://zhuojin.petope.com/Style/header/images/noavatar_middle.gif
-         * user_name : S4
-         * user_phone : 135***683
-         * real_name : 李冰
-         * idcard : 371481199402210031
-         * all_money : 882979.89
-         * balance_money : 722983.53
-         * freeze_money : 23600
-         * collect_interest : 7296.37
-         * credit_lvl : HR
-         * invest_lvl : 一级
+         * user_name : 18353616467
+         * user_phone : 183***467
+         * real_name : Libing
+         * idcard : 371491199402210031
+         * all_money : 611089.4
+         * balance_money : 476895.11
+         * freeze_money : 111514.14
+         * collect_interest : 841.35
+         * credit_lvl : E
+         * invest_lvl : 二级
          * id_status : 1
          * phone_status : 1
          * email_status : 0
          * has_pin : 1
-         * vip : 0
-         * invite_code : FHHENZPQY7
+         * vip : 1
+         * invite_code : DCHE8MW25P
          */
 
         private String header_img;
@@ -67,7 +68,7 @@ public class UserNamebean {
         private String idcard;
         private double all_money;
         private double balance_money;
-        private int freeze_money;
+        private double freeze_money;
         private double collect_interest;
         private String credit_lvl;
         private String invest_lvl;
@@ -134,11 +135,11 @@ public class UserNamebean {
             this.balance_money = balance_money;
         }
 
-        public int getFreeze_money() {
+        public double getFreeze_money() {
             return freeze_money;
         }
 
-        public void setFreeze_money(int freeze_money) {
+        public void setFreeze_money(double freeze_money) {
             this.freeze_money = freeze_money;
         }
 

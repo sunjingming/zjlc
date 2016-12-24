@@ -70,6 +70,8 @@ public class Account extends Fragment implements View.OnClickListener {
     private TextView user_invite;
     private TextView tv_title;
     private Toolbar toolbar;
+   private UserBean userBean;
+
     private PullToRefreshScrollView scrollView;
 
 
@@ -216,7 +218,7 @@ public class Account extends Fragment implements View.OnClickListener {
                 String data = result;
                 Log.i("data账户首页", data);
                 Gson gson = new Gson();
-                UserBean userBean = gson.fromJson(data, UserBean.class);
+                 userBean = gson.fromJson(data, UserBean.class);
                 UserBean.DataBean datalist = userBean.getData();
 
                 double f = datalist.getAll_money();
@@ -405,15 +407,19 @@ public class Account extends Fragment implements View.OnClickListener {
                 case 1:
                     SharedPreferences fence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
                     token = fence.getString("token", "");
-                    getData();
 
-                    if (token.equals("")) {
+                  //  Toast.makeText(getActivity(), token, Toast.LENGTH_SHORT).show();
+                    if (token.length()<5){
                         login.setText("未登录");
-                        asset.setText("¥" +"0.00");
-                        balance.setText("¥" +"0.00");
-                        interest.setText("¥" +"0.00");
-                        freeze.setText("¥" +"0.00");
+
+                        asset.setText("¥" + "0.00");
+                        balance.setText("¥" + "0.00");
+                        interest.setText("¥" + "0.00");
+                        freeze.setText("¥" + "0.00");
+                    }else {
+                        getData();
                     }
+
 
                     if ("未登录".equals(login.getText().toString())) {
 

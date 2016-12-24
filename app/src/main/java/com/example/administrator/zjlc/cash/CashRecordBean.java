@@ -92,7 +92,7 @@ public class CashRecordBean {
         private int id;
         private String add_time;
         private String withdraw_status;
-        private int withdraw_money;
+        private double withdraw_money;
 
         public int getId() {
             return id;
@@ -118,11 +118,11 @@ public class CashRecordBean {
             this.withdraw_status = withdraw_status;
         }
 
-        public int getWithdraw_money() {
+        public double getWithdraw_money() {
             return withdraw_money;
         }
 
-        public void setWithdraw_money(int withdraw_money) {
+        public void setWithdraw_money(double withdraw_money) {
             this.withdraw_money = withdraw_money;
         }
     }

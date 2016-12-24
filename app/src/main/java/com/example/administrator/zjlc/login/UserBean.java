@@ -63,7 +63,7 @@ public class UserBean {
         private String user_phone;
         private double all_money;
         private double balance_money;
-        private int freeze_money;
+        private double freeze_money;
         private double collect_interest;
         private String credit_lvl;
         private String invest_lvl;
@@ -114,11 +114,11 @@ public class UserBean {
             this.balance_money = balance_money;
         }
 
-        public int getFreeze_money() {
+        public double getFreeze_money() {
             return freeze_money;
         }
 
-        public void setFreeze_money(int freeze_money) {
+        public void setFreeze_money(double freeze_money) {
             this.freeze_money = freeze_money;
         }
 
