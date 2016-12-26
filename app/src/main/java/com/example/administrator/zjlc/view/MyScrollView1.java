@@ -11,7 +11,6 @@ import android.widget.ScrollView;
  */
 public class MyScrollView1 extends ScrollView{
     private OnScrollBottomListener _listener;
-    private OnScrollToBottomListener onScrollToBottom;
     private Context mContext;
     private static int mMaxOverDistance = 50;
     private OnScrollListener onScrollListener;
@@ -34,7 +33,12 @@ public class MyScrollView1 extends ScrollView{
         mContext=context;
         initView();
     }
-
+    @Override
+    protected void onMeasure(int widthSpec, int heightSpec) {
+        int newHeightSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+                MeasureSpec.AT_MOST);
+        super.onMeasure(widthSpec, newHeightSpec);
+    }
 
     private void initView() {
         DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
@@ -71,19 +75,10 @@ public class MyScrollView1 extends ScrollView{
     @Override
     protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
-        if(scrollY > 0 && null != onScrollToBottom){
-            onScrollToBottom.onScrollBottomListener(clampedY);
-        }
     }
 
     public interface OnScrollListener{
         void onScroll(int y);
-    }
-    public void setOnScrollToBottomLintener(OnScrollToBottomListener listener){
-        onScrollToBottom = listener;
-    }
-    public interface OnScrollToBottomListener{
-        void onScrollBottomListener(boolean isBottom);
     }
 
     public interface OnScrollBottomListener {

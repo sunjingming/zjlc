@@ -16,8 +16,6 @@
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
-
-
     <TextView
         android:id="@+id/user_mail_text"
         android:layout_width="wrap_content"
@@ -29,5 +27,5 @@
         android:drawableTop="@drawable/empty"
         android:drawablePadding="@dimen/m8"
         android:textColor="@color/black"
-        android:text="提现记录暂无数据"/>
+        android:text="站内信暂无数据"/>
 </LinearLayout>

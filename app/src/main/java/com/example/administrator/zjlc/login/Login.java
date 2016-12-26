@@ -119,8 +119,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
-
     // TODO validate success, do something
 
 

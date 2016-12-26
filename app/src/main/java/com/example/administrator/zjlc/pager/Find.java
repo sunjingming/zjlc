@@ -58,6 +58,7 @@ public class Find extends Fragment {
     private Button but2;
     private SwipeRefreshLayout mRefreshLayout,mRefreshLayout1;
     private LinearLayout ll_llsys,ll_llsys1;
+    private int lastVisibleItem;
 
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -72,19 +73,46 @@ public class Find extends Fragment {
                     dataBeanArrayList.clear();
                     zqzLbeen.clear();
                     setData();
-                    recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                    recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
                         @Override
-                        public void onLoadMore(int currentPage) {
-                            loadMoreData();
+                        public void onScrollStateChanged(RecyclerView recyclerView, final int newState) {
+                            super.onScrollStateChanged(recyclerView, newState);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==myRecyclerView.getItemCount()) {
+                                        loadMoreData();
+                                    }
+                                }
+                            },1000);
+                        }
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                            super.onScrolled(recyclerView,dx, dy);
+                            lastVisibleItem =layoutManager.findLastVisibleItemPosition();
                         }
                     });
-                    recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+                    recyclerView1.setOnScrollListener(new RecyclerView.OnScrollListener(){
                         @Override
-                        public void onLoadMore(int currentPage) {
-                            loadMoreData2();
+                        public void onScrollStateChanged(RecyclerView recyclerView, final int newState) {
+                            super.onScrollStateChanged(recyclerView, newState);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==myRecyclerView.getItemCount()) {
+                                        loadMoreData2();
+                                    }
+                                }
+                            },1000);
+                        }
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                            super.onScrolled(recyclerView,dx, dy);
+                            lastVisibleItem =layoutManager1.findLastVisibleItemPosition();
                         }
                     });
                     break;
+
             }
 
             return false;
@@ -167,6 +195,7 @@ public class Find extends Fragment {
 
             }
         });
+        handler.post(runnable);
         //下拉刷新
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             public void onRefresh() {
@@ -220,6 +249,7 @@ public class Find extends Fragment {
 //        });
         //设置增加或删除条目的动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         //设置按钮切换
         but1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,14 +342,16 @@ public class Find extends Fragment {
                 String data = result;
                 Log.e("标", data);
                 Gson gson = new Gson();
+
+                dataBeanArrayList.clear();
                 sanBiaobean = JSON.parseObject(data, SanBiaobean.class);
                 if(sanBiaobean.getEvent()!=0) {
                     for (int i = 0; i < sanBiaobean.getData().size(); i++) {
                         Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                         dataBeanArrayList.add(sanBiaobean.getData().get(i));
                     }
-
-                    handler.sendEmptyMessage(1);
+                      myRecyclerView.notifyDataSetChanged();
+//                    handler.sendEmptyMessage(1);
                 }
             }
 
@@ -347,14 +379,14 @@ public class Find extends Fragment {
                 String data1 = result;
                 Log.e("标", data1);
                 Gson gson = new Gson();
-
+                zqzLbeen.clear();
                 zqzLbeans = JSON.parseObject(data1, ZQZLbean.class);
                 if (zqzLbeans.getEvent()!=0) {
                     for (int i = 0; i < zqzLbeans.getData().size(); i++) {
                         Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
                         zqzLbeen.add(zqzLbeans.getData().get(i));
                     }
-                    handler.sendEmptyMessage(1);
+                    myRecyclerView2.notifyDataSetChanged();
                 }
             }
 
@@ -375,6 +407,20 @@ public class Find extends Fragment {
 
             }
         });
+//上拉刷新
+//        recyclerView.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+//            @Override
+//            public void onLoadMore(int currentPage) {
+//                loadMoreData();
+//            }
+//        });
+//        recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
+//            @Override
+//            public void onLoadMore(int currentPage) {
+//                loadMoreData2();
+//            }
+//        });
+
 
     }
 
@@ -413,7 +459,7 @@ public class Find extends Fragment {
                     Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                     dataBeanArrayList.add(sanBiaobean.getData().get(i));
                 }
-                Toast.makeText(getActivity(),"加载中...",Toast.LENGTH_SHORT).show();
+
                 myRecyclerView.notifyDataSetChanged();
             }
 
@@ -454,7 +500,7 @@ public class Find extends Fragment {
                     Log.e("标", String.valueOf(zqzLbeans.getData().get(i)));
                     zqzLbeen.add(zqzLbeans.getData().get(i));
                 }
-                Toast.makeText(getActivity(),"加载中...",Toast.LENGTH_SHORT).show();
+
                 myRecyclerView.notifyDataSetChanged();
             }
 
@@ -476,11 +522,12 @@ public class Find extends Fragment {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        handler.post(runnable);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        handler.post(runnable);
+//    }
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {

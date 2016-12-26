@@ -3,6 +3,7 @@ package com.example.administrator.zjlc.invest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -112,7 +113,7 @@ public class Invest extends AppCompatActivity implements View.OnClickListener{
                                 Intent intent = new Intent(Invest.this,InvestBorrow.class);
                                 startActivity(intent);
                             }else {
-                                Toast.makeText(Invest.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+                                AlertDialog dialog = new AlertDialog.Builder(Invest.this).setTitle("消息提示").setMessage(bean.getMsg()).setPositiveButton("确定",null).show();
                             }
                         }
 

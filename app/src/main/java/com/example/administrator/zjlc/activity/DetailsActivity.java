@@ -108,11 +108,14 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                     intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
                     if(id != 0){
                         intent.putExtra("id", id);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
                         startActivity(intent);
+                        //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+                        overridePendingTransition(R.anim.fade, R.anim.hold);
                     }
                 }
             });
+
+
 //            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
 //                @Override
 //                public void onScrollBottomListener(boolean isBottom) {
@@ -356,6 +359,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                 swipeRefreshLayout3.setRefreshing(false);
             }
         });
+
         //测量屏幕
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);

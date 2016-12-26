@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:textSize="20dp"
         android:drawableLeft="@drawable/back"
@@ -14,20 +15,22 @@
         android:layout_height="50dp"
         android:textColor="@color/colorAccent"
         android:text="项目详情" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/layout_swipe_refresh3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     <com.example.administrator.zjlc.view.MyScrollView1
         android:id="@+id/tv_scr"
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_passs"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/ll_passs"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
                 <LinearLayout
                     android:orientation="vertical"
                     android:background="@drawable/detail_background"
@@ -255,8 +258,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-            </LinearLayout>
 
+        </LinearLayout>
     </com.example.administrator.zjlc.view.MyScrollView1>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

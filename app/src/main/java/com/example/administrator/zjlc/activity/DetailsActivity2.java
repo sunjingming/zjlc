@@ -20,11 +20,8 @@ import com.alibaba.fastjson.JSON;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.adapter.AdapterJiLu;
 import com.example.administrator.zjlc.adapter.AddressSpacesItemDecoration;
-import com.example.administrator.zjlc.adapter.MyRecyclerView;
 import com.example.administrator.zjlc.domain.DetailsBean;
 import com.example.administrator.zjlc.domain.SanBiaoGouBean;
-import com.example.administrator.zjlc.domain.SanBiaobean;
-import com.example.administrator.zjlc.domain.ZQZLbean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 
@@ -76,14 +73,14 @@ public class DetailsActivity2 extends AppCompatActivity {
                 if (detalsBeans.getData().getProgress() == 100) {
                     tv7.setText(new DecimalFormat("00").format(detalsBeans.getData().getProgress()) + "%");
                 } else {
-                    tv7.setText(new DecimalFormat("00.00").format(detalsBeans.getData().getProgress()) + "%");
+                    tv7.setText(new DecimalFormat("0.00").format(detalsBeans.getData().getProgress()) + "%");
                 }
 
                 tv8.setText(detalsBeans.getData().getRepayment_type());
                 if (detalsBeans.getData().getReward_num() == 100) {
-                    tv9.setText(new DecimalFormat("00").format(detalsBeans.getData().getReward_num()) + "%");
+                    tv9.setText(new DecimalFormat("0").format(detalsBeans.getData().getReward_num()) + "%");
                 } else {
-                    tv9.setText(new DecimalFormat("00.00").format(detalsBeans.getData().getReward_num()) + "%");
+                    tv9.setText(new DecimalFormat("0.00").format(detalsBeans.getData().getReward_num()) + "%");
                 }
             }else if(msg.what == 1){
 //            tv9.setText(String.valueOf(detalsBeans.getData().getReward_num())+"%");
