@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -58,6 +59,7 @@ public class Cash extends AppCompatActivity implements View.OnClickListener {
         tv_title.setText("我要提现");
 
         cash_money.addTextChangedListener(textWatcher);
+        cash_money.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
         //获取用户可用余额
         RequestParams paramss = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCUser_page);

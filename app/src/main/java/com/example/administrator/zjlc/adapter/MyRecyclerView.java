@@ -40,6 +40,9 @@ public class MyRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public static final int  PULLUP_LOAD_MORE=0;
     //正在加载中
     public static final int  LOADING_MORE=1;
+
+    //最后一行
+    public static final int NO_MORE_DATA=2;
 //    //对外提供接口初始化方法
 //    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener){
 //        this.onItemClickListener=onItemClickListener;
@@ -177,6 +180,9 @@ public class MyRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case LOADING_MORE:
                     footViewHolder.foot_view_item_tv.setText("正在加载更多数据...");
                     break;
+                case NO_MORE_DATA:
+                    footViewHolder.foot_view_item_tv.setText("数据已加载完成...");
+                    break;
             }
         }
     }
@@ -193,7 +199,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.dataBeanArrayList = singModelArrayList;
         this.notifyDataSetChanged();
     }
-//    //添加数据
+    //    //添加数据
 //    public void addItem(ArrayList<SanBiaobean.DataBean> singModelArrayList) {
 //        //mTitles.add(position, data);
 //        //notifyItemInserted(position);
