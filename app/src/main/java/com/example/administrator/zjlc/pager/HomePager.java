@@ -68,24 +68,29 @@ public class HomePager extends Fragment {
     public Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            //设置
-            viewPagerAdapter = new ViewPagerAdapter();
-            dots.get(0).setBackgroundResource(R.drawable.dot_focused);
-            viewpager.setOnPageChangeListener(new MyPageChangeListener());
-            viewpager.setAdapter(viewPagerAdapter);
+            if(msg.what == 1) {
+                //设置
+                viewPagerAdapter = new ViewPagerAdapter();
+                dots.get(0).setBackgroundResource(R.drawable.dot_focused);
+                viewpager.setOnPageChangeListener(new MyPageChangeListener());
+                viewpager.setAdapter(viewPagerAdapter);
 
-            iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (id != null) {
-                        Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                        intent.putExtra("id", id);
-                        getActivity().startActivity(intent);
-                    } else {
-                        iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_hui);
+                iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (id != null) {
+                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                            intent.putExtra("id", id);
+                            getActivity().startActivity(intent);
+                        } else {
+                            iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_hui);
+                        }
                     }
-                }
-            });
+                });
+            }else if(msg.what == 2){
+                setViewpagerData();
+                setViewText();
+            }
             return false;
         }
     });
@@ -302,5 +307,12 @@ public class HomePager extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        handler.post(runnable);
     }
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.sendEmptyMessage(2);
+        }
+    };
 }

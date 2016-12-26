@@ -82,7 +82,7 @@ public class Find extends Fragment {
                                 public void run() {
                                     if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==myRecyclerView.getItemCount()) {
                                         if(sanBiaobean.getCurrentPage() == sanBiaobean.getMaxPage()){
-                                           myRecyclerView.changeMoreStatus(MyRecyclerView.NO_MORE_DATA);
+                                            myRecyclerView.changeMoreStatus(MyRecyclerView.NO_MORE_DATA);
                                         }
                                         loadMoreData();
                                     }
@@ -159,8 +159,10 @@ public class Find extends Fragment {
         but1.setTextColor(Color.WHITE);
 
 //        setData();
-
-
+//        dataBeanArrayList.clear();
+//        zqzLbeen.clear();
+//        setData();
+//        Log.e("数据初始化","数据初始化");
         myRecyclerView = new MyRecyclerView(getActivity(), dataBeanArrayList);
         myRecyclerView2 = new MyRecyclerView2(getActivity(), zqzLbeen);
 
@@ -353,7 +355,7 @@ public class Find extends Fragment {
                         Log.e("标", String.valueOf(sanBiaobean.getData().get(i)));
                         dataBeanArrayList.add(sanBiaobean.getData().get(i));
                     }
-                      myRecyclerView.notifyDataSetChanged();
+                    myRecyclerView.notifyDataSetChanged();
 //                    handler.sendEmptyMessage(1);
                 }
             }
@@ -525,7 +527,7 @@ public class Find extends Fragment {
         });
     }
 
-//    @Override
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 //

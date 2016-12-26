@@ -77,10 +77,11 @@ public class DetailsActivity2 extends AppCompatActivity {
                 }
 
                 tv8.setText(detalsBeans.getData().getRepayment_type());
+                Log.e("123",detalsBeans.getData().toString()+"");
                 if (detalsBeans.getData().getReward_num() == 100) {
                     tv9.setText(new DecimalFormat("0").format(detalsBeans.getData().getReward_num()) + "%");
                 } else {
-                    tv9.setText(new DecimalFormat("0.00").format(detalsBeans.getData().getReward_num()) + "%");
+                    tv9.setText(detalsBeans.getData().getReward_num() + "%");
                 }
             }else if(msg.what == 1){
 //            tv9.setText(String.valueOf(detalsBeans.getData().getReward_num())+"%");

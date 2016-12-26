@@ -352,6 +352,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
         ll_passs = (LinearLayout) findViewById(R.id.ll_passs);
 
         swipeRefreshLayout3 = (SwipeRefreshLayout) findViewById(R.id.layout_swipe_refresh3);
+        swipeRefreshLayout3.requestDisallowInterceptTouchEvent(false);
         swipeRefreshLayout3.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

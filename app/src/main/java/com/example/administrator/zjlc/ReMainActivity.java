@@ -112,9 +112,9 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
 
                 break;
             case R.id.rl_assitant:
-                if (findFragment == null) {
+//                if (findFragment == null) {
                     findFragment = new Find();
-                }
+//                }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), findFragment);
                 // 设置底部tab变化
                 homeImg.setImageResource(R.drawable.tabbar_home);

@@ -6,10 +6,11 @@ package com.example.administrator.zjlc.domain;
 
 public class DetailsBean {
 
+
     /**
      * event : 88
      * msg : success
-     * data : {"id":660,"borrow_name":"信用标生活消费借款8000","borrow_duration":"1个月","borrow_money":8000,"borrow_interest_rate":10.54,"has_borrow":2850,"borrow_times":2,"repayment_type":"按月分期还款","borrow_type":"信用标","borrow_status":2,"add_time":"2016-12-22 11:01","collect_day":5,"borrow_info":"<p>1<\/p>","reward_num":0,"borrow_min":50,"borrow_max":0,"is_new":0,"updata":null,"money_collect":0,"borrow_bid":1,"borrow_status_str":"正在招标中","has_pass":0,"progress":35.63}
+     * data : {"id":669,"borrow_name":"基金定投AI-233 产品","borrow_duration":"28天","borrow_money":6000,"borrow_interest_rate":10.24,"has_borrow":0,"borrow_times":0,"repayment_type":"按天到期还款","borrow_type":"担保标","borrow_status":2,"add_time":"2016-12-26 10:34","collect_day":6,"borrow_info":"<p>1<\/p>","reward_num":0.17,"borrow_min":100,"borrow_max":6000,"is_new":0,"updata":null,"money_collect":0,"borrow_bid":1,"borrow_status_str":"正在招标中","has_pass":0,"progress":0}
      */
 
     private int event;
@@ -42,29 +43,29 @@ public class DetailsBean {
 
     public static class DataBean {
         /**
-         * id : 660
-         * borrow_name : 信用标生活消费借款8000
-         * borrow_duration : 1个月
-         * borrow_money : 8000
-         * borrow_interest_rate : 10.54
-         * has_borrow : 2850
-         * borrow_times : 2
-         * repayment_type : 按月分期还款
-         * borrow_type : 信用标
+         * id : 669
+         * borrow_name : 基金定投AI-233 产品
+         * borrow_duration : 28天
+         * borrow_money : 6000
+         * borrow_interest_rate : 10.24
+         * has_borrow : 0
+         * borrow_times : 0
+         * repayment_type : 按天到期还款
+         * borrow_type : 担保标
          * borrow_status : 2
-         * add_time : 2016-12-22 11:01
-         * collect_day : 5
+         * add_time : 2016-12-26 10:34
+         * collect_day : 6
          * borrow_info : <p>1</p>
-         * reward_num : 0
-         * borrow_min : 50
-         * borrow_max : 0
+         * reward_num : 0.17
+         * borrow_min : 100
+         * borrow_max : 6000
          * is_new : 0
          * updata : null
          * money_collect : 0
          * borrow_bid : 1
          * borrow_status_str : 正在招标中
          * has_pass : 0
-         * progress : 35.63
+         * progress : 0
          */
 
         private int id;
@@ -80,7 +81,7 @@ public class DetailsBean {
         private String add_time;
         private int collect_day;
         private String borrow_info;
-        private int reward_num;
+        private double reward_num;
         private int borrow_min;
         private int borrow_max;
         private int is_new;
@@ -89,7 +90,7 @@ public class DetailsBean {
         private int borrow_bid;
         private String borrow_status_str;
         private int has_pass;
-        private double progress;
+        private int progress;
 
         public int getId() {
             return id;
@@ -195,11 +196,11 @@ public class DetailsBean {
             this.borrow_info = borrow_info;
         }
 
-        public int getReward_num() {
+        public double getReward_num() {
             return reward_num;
         }
 
-        public void setReward_num(int reward_num) {
+        public void setReward_num(double reward_num) {
             this.reward_num = reward_num;
         }
 
@@ -267,11 +268,11 @@ public class DetailsBean {
             this.has_pass = has_pass;
         }
 
-        public double getProgress() {
+        public int getProgress() {
             return progress;
         }
 
-        public void setProgress(double progress) {
+        public void setProgress(int progress) {
             this.progress = progress;
         }
     }
