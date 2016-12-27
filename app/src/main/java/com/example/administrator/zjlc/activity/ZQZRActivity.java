@@ -194,7 +194,9 @@ public class ZQZRActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 RegisterCodeBean codeBean = gson.fromJson(data, RegisterCodeBean.class);
                 codeBean = gson.fromJson(data, RegisterCodeBean.class);
-
+                if("购买成功".equals(codeBean.getMsg())){
+                   finish();
+                }
                 Toast.makeText(ZQZRActivity.this,codeBean.getMsg(),Toast.LENGTH_SHORT).show();
             }
 

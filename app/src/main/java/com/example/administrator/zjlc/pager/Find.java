@@ -59,6 +59,7 @@ public class Find extends Fragment {
     private SwipeRefreshLayout mRefreshLayout,mRefreshLayout1;
     private LinearLayout ll_llsys,ll_llsys1;
     private int lastVisibleItem;
+    private int lastVisibleItem1;
 
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -73,6 +74,10 @@ public class Find extends Fragment {
                     dataBeanArrayList.clear();
                     zqzLbeen.clear();
                     setData();
+
+                    updateSingleView(dataBeanArrayList);
+                    updateSingleView1(zqzLbeen);
+
                     recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
                         @Override
                         public void onScrollStateChanged(RecyclerView recyclerView, final int newState) {
@@ -102,7 +107,12 @@ public class Find extends Fragment {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==myRecyclerView.getItemCount()) {
+                                    if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem1 + 1 ==myRecyclerView2.getItemCount()) {
+                                        Log.e("asd",zqzLbeans.getCurrentPage()+""+zqzLbeans.getMaxPage());
+                                        if(zqzLbeans.getCurrentPage() == zqzLbeans.getMaxPage()){
+                                            myRecyclerView2.changeMoreStatus(MyRecyclerView2.NO_MORE_DATA);
+                                        }
+                                        Log.e("asd","zhege");
                                         loadMoreData2();
                                     }
                                 }
@@ -111,7 +121,7 @@ public class Find extends Fragment {
                         @Override
                         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                             super.onScrolled(recyclerView,dx, dy);
-                            lastVisibleItem =layoutManager1.findLastVisibleItemPosition();
+                            lastVisibleItem1 =layoutManager1.findLastVisibleItemPosition();
                         }
                     });
                     break;
@@ -286,6 +296,7 @@ public class Find extends Fragment {
                         }
                     }
                 });
+
 //                recyclerView1.addOnScrollListener(new EndLessOnScrollListener(layoutManager) {
 //                    @Override
 //                    public void onLoadMore(int currentPage) {
@@ -506,7 +517,7 @@ public class Find extends Fragment {
                     zqzLbeen.add(zqzLbeans.getData().get(i));
                 }
 
-                myRecyclerView.notifyDataSetChanged();
+                myRecyclerView2.notifyDataSetChanged();
             }
 
             @Override
@@ -528,11 +539,11 @@ public class Find extends Fragment {
     }
 
     //    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        handler.post(runnable);
-//    }
+    public void onResume() {
+        super.onResume();
+
+        handler.post(runnable);
+    }
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {

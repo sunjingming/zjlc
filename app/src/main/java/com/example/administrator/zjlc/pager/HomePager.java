@@ -14,19 +14,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.zjlc.R;
 import com.example.administrator.zjlc.activity.DetailsActivity;
+import com.example.administrator.zjlc.activity.GuideActivity;
 import com.example.administrator.zjlc.domain.JsonRootBean;
 import com.example.administrator.zjlc.domain.TJBBean;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.DensityUtil;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -43,7 +48,7 @@ public class HomePager extends Fragment {
 
     private View view;
     private ViewPager viewpager;
-    private ArrayList<View> dots;
+    //    private ArrayList<View> dots;
     private List<String> jrb;
     private List<View> viewList;// 把需要滑动的页卡添加到这个list中
     private TextView tv_biao;
@@ -55,12 +60,14 @@ public class HomePager extends Fragment {
     private TextView tv_title;
     private Toolbar toolbar;
     private SwipeRefreshLayout layout_swipe_refresh;
+    private LinearLayout ll_layout1;
+    private ImageView iv_red_point;
 
     private String id;
 
     private int oldPosition = 0;// 记录上一次点的位置
 
-    private int currentItem; // 当前页面private int oldPosition = 0;// 记录上一次点的位置
+    private int currentItem = 0; // 当前页面private int oldPosition = 0;// 记录上一次点的位置
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -69,10 +76,13 @@ public class HomePager extends Fragment {
         @Override
         public boolean handleMessage(Message msg) {
             if(msg.what == 1) {
+                //View显示加载过程中测量onMearsure()-->指定位置和大小onLayout->绘制onDraw();
+                iv_red_point.getViewTreeObserver().addOnGlobalLayoutListener(new MyOnGlobalLayoutListener());
                 //设置
                 viewPagerAdapter = new ViewPagerAdapter();
-                dots.get(0).setBackgroundResource(R.drawable.dot_focused);
-                viewpager.setOnPageChangeListener(new MyPageChangeListener());
+
+//                dots.get(0).setBackgroundResource(R.drawable.dot_focused);
+//                viewpager.setOnPageChangeListener(new MyOnPageChangeListener());
                 viewpager.setAdapter(viewPagerAdapter);
 
                 iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +104,11 @@ public class HomePager extends Fragment {
             return false;
         }
     });
-
+    private int pointwidth;
+    /**
+     * 两点间的距离
+     */
+    private  int margLeft;
 
     @Nullable
     @Override
@@ -103,6 +117,8 @@ public class HomePager extends Fragment {
         view = inflater.inflate(R.layout.homepager, container, false);
         viewList = new ArrayList<View>();
         initView();
+        pointwidth = DensityUtil.dip2px(10);
+        Log.e("tag","pointwidth=="+pointwidth);
         tv_title.setText("卓金理财");
         return view;
 
@@ -123,15 +139,21 @@ public class HomePager extends Fragment {
         tv_ss = (TextView) view.findViewById(R.id.tv_ss);
         tv_time = (TextView) view.findViewById(R.id.tv_time);
         iv_lijitouzi = (Button) view.findViewById(R.id.iv_lijitouzi);
+        ll_layout1 = (LinearLayout) view.findViewById(R.id.ll_layout1);
+        iv_red_point = (ImageView) view.findViewById(R.id.iv_red_point);
 
         //代码实例化
         viewpager = (ViewPager) view.findViewById(R.id.viewpager_guide);
-        dots = new ArrayList<View>();
-        dots.add(view.findViewById(R.id.dot_1));
-        dots.add(view.findViewById(R.id.dot_2));
-        dots.add(view.findViewById(R.id.dot_3));
-        dots.add(view.findViewById(R.id.dot_4));
-        dots.add(view.findViewById(R.id.dot_5));
+        viewpager.setOnPageChangeListener(new MyOnPageChangeListener());
+
+
+
+//        dots = new ArrayList<View>();
+//        dots.add(view.findViewById(R.id.dot_1));
+//        dots.add(view.findViewById(R.id.dot_2));
+//        dots.add(view.findViewById(R.id.dot_3));
+//        dots.add(view.findViewById(R.id.dot_4));
+//        dots.add(view.findViewById(R.id.dot_5));
         //设置bannner图片
         setViewpagerData();
         //设置推荐标的详情
@@ -200,34 +222,86 @@ public class HomePager extends Fragment {
             }
         });
     }
+    private int prePosition;
+    class MyOnPageChangeListener implements  ViewPager.OnPageChangeListener{
 
-
-    class MyPageChangeListener implements ViewPager.OnPageChangeListener {
-
-
+        /**
+         * 页面滚动的时候被回调
+         * @param position 当前滑动页面的位置
+         * @param positionOffset 屏幕移动的百分比
+         * @param positionOffsetPixels 在屏幕上滑动的像素
+         */
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            position = position % 5;
-            dots.get(oldPosition).setBackgroundResource(
-                    R.drawable.dot_normal);
-            dots.get(position)
-                    .setBackgroundResource(R.drawable.dot_focused);
+            Log.e("asd","==position=="+position+",positionOffset=="+positionOffset+",positionOffsetPixels=="+positionOffsetPixels);
 
-            oldPosition = position;
-            currentItem = position;
+            //红点在两点间移动的距离 = 屏幕的移动的百分比* 间距
+//            float maxLeft = positionOffset*margLeft;
+
+            //红点在屏幕上移动的坐标 = 起始坐标+ 红点在两点间移动的距离
+//            maxLeft = (position*margLeft)+positionOffset*margLeft;
+            float   maxLeft = (position+positionOffset)*margLeft;//简写
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pointwidth,pointwidth);
+            params.leftMargin = (int) maxLeft;
+//            iv_red_point.setLayoutParams(params);
         }
 
+        //当某个页面被选中的时候被回调
+        //被选中页面的位置position
         @Override
         public void onPageSelected(int position) {
+           if(position==jrb.size()+1){    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
+                currentItem=1;
+                oldPosition=0;
+            }else{
+                currentItem=position+1;
+                oldPosition=position;
+            }
+            //  把之前的小圆点设置背景为暗红，当前小圆点设置为红色
+            ll.get(prePosition).setBackgroundResource(R.drawable.normal_point);
+            ll.get(oldPosition).setBackgroundResource(R.drawable.normal_point_red);
+            prePosition=oldPosition;
+//            if(position==viewList.size()-1){
+//                //最后一个页面把按钮显示出来
+//                btn_start_main.setVisibility(View.VISIBLE);
+//            }else{
+//                //隐藏按钮
+//                btn_start_main.setVisibility(View.GONE);
+//            }
 
         }
-
         @Override
         public void onPageScrollStateChanged(int state) {
 
         }
     }
 
+    //    class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+//
+//
+//        @Override
+//        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            position = position % 5;
+//            dots.get(oldPosition).setBackgroundResource(
+//                    R.drawable.dot_normal);
+//            dots.get(position)
+//                    .setBackgroundResource(R.drawable.dot_focused);
+//
+//            oldPosition = position;
+//            currentItem = position;
+//        }
+//
+//        @Override
+//        public void onPageSelected(int position) {
+//
+//        }
+//
+//        @Override
+//        public void onPageScrollStateChanged(int state) {
+//
+//        }
+//    }
+    ArrayList<ImageView> ll = new ArrayList<ImageView>();
     //获取网络数据
     public void setViewpagerData() {
         RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCBanner);
@@ -238,15 +312,38 @@ public class HomePager extends Fragment {
                 Log.e("data网站banner", data);
                 Gson gson = new Gson();
                 JsonRootBean noticeBean = gson.fromJson(data, JsonRootBean.class);
-
+                if(jrb!=null){
+                    jrb.clear();
+                }
                 jrb = noticeBean.getData();
-
+                viewList.clear();
                 for (int i = 0; i < jrb.size(); i++) {
                     ImageView imageView = new ImageView(getActivity());
                     Glide.with(getActivity()).load(jrb.get(i)).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     viewList.add(imageView);
                 }
+                ll_layout1.removeAllViews();
+
+                ll.clear();
+                for(int i=0;i<jrb.size();i++){
+                    //添加灰色的点
+                    ImageView iv_normal_point = new ImageView(getActivity());
+                    //设置灰色的背景
+                    iv_normal_point.setBackgroundResource(R.drawable.normal_point);
+                    //把它转化成对应的像素
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pointwidth,pointwidth);//像素px
+                    if(i !=0){
+                        params.leftMargin = pointwidth;
+                    }
+                    iv_normal_point.setLayoutParams(params);
+                    ll.add(iv_normal_point);
+//                    View view = View.inflate(getActivity(),R.layout.views,null);
+//                    dots.add(view);
+                    ll_layout1.addView(iv_normal_point);
+                }
+
+                ll.get(currentItem).setBackgroundResource(R.drawable.normal_point_red);
                 handler.sendEmptyMessage(1);
             }
 
@@ -303,7 +400,17 @@ public class HomePager extends Fragment {
             return mListViews.get(position);
         }
     }
+    class MyOnGlobalLayoutListener implements  ViewTreeObserver.OnGlobalLayoutListener{
 
+        @Override
+        public void onGlobalLayout() {
+
+            iv_red_point.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            //间距=第1个点的距离左边的距离-第0个点的距离左边的距离
+            margLeft =  ll_layout1.getChildAt(1).getLeft() -ll_layout1.getChildAt(0).getLeft();
+            Log.e("asd","onGlobalLayout-----margLeft="+margLeft);
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();

@@ -31,16 +31,27 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Administrator on 2016/12/8.
  */
 
-public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyViewHolder> implements View.OnClickListener {
+public class MyRecyclerView2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     //完成                               投资                        复审                           还款                            申购                      满标                            债权满
     private int[] ic_stat = {R.drawable.ic_status_finish,R.drawable.ic_status_invest,R.drawable.ic_status_rechecking,R.drawable.ic_status_repaying,R.drawable.ic_status_subscribe,R.drawable.icon_zhaiquan_man};
-
+    private static final int TYPE_ITEM =0;  //普通Item View
+    private static final int TYPE_FOOTER = 1;  //顶部FootView
+    //上拉加载更多状态-默认为0
+    private int load_more_status1=0;
     private Activity mActivity;
     private ArrayList<ZQZLbean.DataBean> dataBeanArrayList;
-    private LayoutInflater inflater;
     private int id;
 
+    private LayoutInflater inflater;
+    private RecyclerView mRecyclerView;//用来计算Child位置
+    private AdapterView.OnItemClickListener onItemClickListener;
+    //上拉加载更多
+    public static final int  PULLUP_LOAD_MORE=0;
+    //正在加载中
+    public static final int  LOADING_MORE=1;
 
+    //最后一行
+    public static final int NO_MORE_DATA=2;
     public MyRecyclerView2(Activity mActivity, ArrayList<ZQZLbean.DataBean> dataBeanArrayList) {
         this.mActivity = mActivity;
         this.dataBeanArrayList = dataBeanArrayList;
@@ -54,11 +65,21 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
      * @return
      */
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //进行判断显示类型，来创建返回不同的View
+        if(viewType==TYPE_ITEM){
         View itemView = inflater.inflate(R.layout.item_sbtz, parent, false);
         //导入itemView，为itemView设置点击事件
         itemView.setOnClickListener(this);
         return new MyViewHolder(itemView);
+        }else if(viewType==TYPE_FOOTER){
+            View foot_view=inflater.inflate(R.layout.recycler_load_more_layout,parent,false);
+            //这边可以做一些属性设置，甚至事件监听绑定
+            //view.setBackgroundColor(Color.RED);
+            FootViewHolder footViewHolder=new FootViewHolder(foot_view);
+            return footViewHolder;
+        }
+        return null;
     }
 
     /**
@@ -67,70 +88,84 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
      * @param position
      */
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
-        holder.tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
-        holder.tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price())+".00");
-        holder.tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
-        holder.tv_jinee.setText(new DecimalFormat("00.00").format(dataBeanArrayList.get(position).getMoney()));
-        holder.tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod()+"/"+dataBeanArrayList.get(position).getTotal_period()));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof MyViewHolder) {
+            ((MyViewHolder) holder).tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
+            ((MyViewHolder) holder).tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price()) + ".00");
+            ((MyViewHolder) holder).tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate()) + "%");
+            ((MyViewHolder) holder).tv_jinee.setText(new DecimalFormat("00.00").format(dataBeanArrayList.get(position).getMoney()));
+            ((MyViewHolder) holder).tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod() + "/" + dataBeanArrayList.get(position).getTotal_period()));
 
 //        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getStatus()-1]);
-        switch (dataBeanArrayList.get(position).getStatus()){
-            case 1:
-                holder.im_touzi.setBackgroundResource(R.drawable.t6);
-                break;
-            case 2:
-                holder.im_touzi.setBackgroundResource(R.drawable.icon_zhaiquan_debt);
-                break;
-            case 3:
-                holder.im_touzi.setBackgroundResource(R.drawable.t4);
-                break;
-            case 4:
-                holder.im_touzi.setBackgroundResource(R.drawable.ic_status_finish);
-                break;
-        }
-        //设置标种
-        switch (dataBeanArrayList.get(position).getBorrow_type()){
-            case "担保标":
-                holder.imageView1.setBackgroundResource(R.drawable.ic_type_dan);
-                break;
-            case "净值标":
-                holder.imageView1.setBackgroundResource(R.drawable.ic_type_jing);
-                break;
-            case "信用标":
-                holder.imageView1.setBackgroundResource(R.drawable.ic_type_xin);
-                break;
-            case "抵押标":
-                holder.imageView1.setBackgroundResource(R.drawable.ic_type_ya);
-                break;
-            case "秒还标":
-                holder.imageView1.setBackgroundResource(R.drawable.ic_type_miao);
-                break;
-        }
-        //设置信用等级
-        switch (dataBeanArrayList.get(position).getLevel()){
-            case "A":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_a);
-                break;
-            case "B":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_b);
-                break;
-            case "C":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_c);
-                break;
-            case "D":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_d);
-                break;
-            case "E":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_e);
-                break;
-            case "HR":
-                holder.imageView2.setBackgroundResource(R.drawable.ic_level_hr);
-                break;
-        }
+            switch (dataBeanArrayList.get(position).getStatus()) {
+                case 1:
+                    ((MyViewHolder) holder).im_touzi.setBackgroundResource(R.drawable.t6);
+                    break;
+                case 2:
+                    ((MyViewHolder) holder).im_touzi.setBackgroundResource(R.drawable.icon_zhaiquan_debt);
+                    break;
+                case 3:
+                    ((MyViewHolder) holder).im_touzi.setBackgroundResource(R.drawable.t4);
+                    break;
+                case 4:
+                    ((MyViewHolder) holder).im_touzi.setBackgroundResource(R.drawable.ic_status_finish);
+                    break;
+            }
+            //设置标种
+            switch (dataBeanArrayList.get(position).getBorrow_type()) {
+                case "担保标":
+                    ((MyViewHolder) holder).imageView1.setBackgroundResource(R.drawable.ic_type_dan);
+                    break;
+                case "净值标":
+                    ((MyViewHolder) holder).imageView1.setBackgroundResource(R.drawable.ic_type_jing);
+                    break;
+                case "信用标":
+                    ((MyViewHolder) holder).imageView1.setBackgroundResource(R.drawable.ic_type_xin);
+                    break;
+                case "抵押标":
+                    ((MyViewHolder) holder).imageView1.setBackgroundResource(R.drawable.ic_type_ya);
+                    break;
+                case "秒还标":
+                    ((MyViewHolder) holder).imageView1.setBackgroundResource(R.drawable.ic_type_miao);
+                    break;
+            }
+            //设置信用等级
+            switch (dataBeanArrayList.get(position).getLevel()) {
+                case "A":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_a);
+                    break;
+                case "B":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_b);
+                    break;
+                case "C":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_c);
+                    break;
+                case "D":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_d);
+                    break;
+                case "E":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_e);
+                    break;
+                case "HR":
+                    ((MyViewHolder) holder).imageView2.setBackgroundResource(R.drawable.ic_level_hr);
+                    break;
+            }
 
-        holder.itemView.setTag(dataBeanArrayList.get(position));
+            holder.itemView.setTag(dataBeanArrayList.get(position));
+        }else if(holder instanceof FootViewHolder){
+            FootViewHolder footViewHolder=(FootViewHolder)holder;
+            switch (load_more_status1){
+                case PULLUP_LOAD_MORE:
+                    footViewHolder.foot_view_item_tv.setText("上拉加载更多...");
+                    break;
+                case LOADING_MORE:
+                    footViewHolder.foot_view_item_tv.setText("正在加载更多数据...");
+                    break;
+                case NO_MORE_DATA:
+                    footViewHolder.foot_view_item_tv.setText("数据已加载完成...");
+                    break;
+            }
+        }
     }
 
     /**t
@@ -139,7 +174,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
      */
     @Override
     public int getItemCount() {
-        return dataBeanArrayList!=null?dataBeanArrayList.size():0;
+        return (dataBeanArrayList!=null?dataBeanArrayList.size():0)+1;
     }
     public void setDatas(ArrayList<ZQZLbean.DataBean> singModelArrayList) {
         this.dataBeanArrayList = singModelArrayList;
@@ -159,7 +194,10 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
 //            mActivity.startActivity(intent);
 //        }
 //    }
-
+public void addMoreItem(ArrayList<ZQZLbean.DataBean> singModelArrayList) {
+    dataBeanArrayList.addAll(singModelArrayList);
+    notifyDataSetChanged();
+}
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView1;
@@ -183,10 +221,16 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
             tv_jinee = (TextView) itemView.findViewById(R.id.tv_jinee);
             tv_qishu = (TextView) itemView.findViewById(R.id.tv_qishu);
         }
-
-
-
-
+    }
+    /**
+     * 底部FootView布局
+     */
+    public static class FootViewHolder extends  RecyclerView.ViewHolder{
+        private TextView foot_view_item_tv;
+        public FootViewHolder(View view) {
+            super(view);
+            foot_view_item_tv=(TextView)view.findViewById(R.id.foot_view_item_tv);
+        }
     }
     //实现点击事件
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
@@ -207,5 +251,27 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<MyRecyclerView2.MyView
     //暴露给外面调用得方法
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
         this.mOnItemClickListener = listener;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        // 最后一个item设置为footerView
+        if (position + 1 == getItemCount()) {
+            return TYPE_FOOTER;
+        } else {
+            return TYPE_ITEM;
+        }
+    }
+    /**
+     * //上拉加载更多
+     * PULLUP_LOAD_MORE=0;
+     * //正在加载中
+     * LOADING_MORE=1;
+     * //加载完成已经没有更多数据了
+     * NO_MORE_DATA=2;
+     * @param status
+     */
+    public void changeMoreStatus(int status){
+        load_more_status1=2;
+        notifyDataSetChanged();
     }
 }

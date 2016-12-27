@@ -188,7 +188,7 @@ public class DetailsActivity2 extends AppCompatActivity {
 
         id = intent.getIntExtra("id",0);
 
-        RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_detail);
+        final RequestParams paramsNotice = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_detail);
         paramsNotice.addBodyParameter("id", String.valueOf(id));
 
         x.http().post(paramsNotice, new Callback.CommonCallback<String>() {
@@ -232,6 +232,45 @@ public class DetailsActivity2 extends AppCompatActivity {
 
                 for (int i=0;i < sanBiaoGouBean.getData().size(); i++){
                     dataBeanArrayList.add(sanBiaoGouBean.getData().get(i));
+                }
+                if(sanBiaoGouBean.getMaxPage() != 1) {
+                    for(int i=1;i<sanBiaoGouBean.getMaxPage();i++){
+                        RequestParams paramsNotice1 = new RequestParams(UrlsUtils.ZJLCstring+UrlsUtils.ZJLCBorrow_invest_list);
+                        paramsNotice1.addBodyParameter("id", String.valueOf(id));
+                        paramsNotice1.addBodyParameter("page",(i+1)+"");
+                        paramsNotice.addBodyParameter("pagesize","10");
+                        x.http().post(paramsNotice1, new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                String data = result;
+                                Log.e("标", data);
+                                Gson gson = new Gson();
+                                sanBiaoGouBean = JSON.parseObject(data, SanBiaoGouBean.class);
+
+                                for (int i=0;i < sanBiaoGouBean.getData().size(); i++){
+                                    dataBeanArrayList.add(sanBiaoGouBean.getData().get(i));
+                                }
+                                handler.sendEmptyMessage(1);
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+                                Log.i("标", "onError");
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+                                Log.e("标","onCancelled");
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+                                Log.i("标", "onFinished");
+
+                            }
+                        });
+                    }
                 }
                 handler.sendEmptyMessage(1);
             }

@@ -96,9 +96,9 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_home:
-                if (homeFragment == null) {
+//                if (homeFragment == null) {
                     homeFragment = new HomePager();
-                }
+//                }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), homeFragment);
                 // 设置底部tab变化
                 homeImg.setImageResource(R.drawable.tabbar_home_sel);
@@ -128,9 +128,9 @@ public class ReMainActivity extends FragmentActivity implements View.OnClickList
 
                 break;
             case R.id.rl_account:
-                if (accountFragment == null) {
+//                if (accountFragment == null) {
                     accountFragment = new Account();
-                }
+//                }
                 addOrShowFragment(getSupportFragmentManager().beginTransaction(), accountFragment);
                 // 设置底部tab变化
                 homeImg.setImageResource(R.drawable.tabbar_home);
