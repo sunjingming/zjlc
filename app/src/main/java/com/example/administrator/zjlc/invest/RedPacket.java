@@ -57,7 +57,6 @@ public class RedPacket extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                loadData();
                 red_packet_list.setRefreshing();
                 red_packet_list.postDelayed(new Runnable() {
                     @Override

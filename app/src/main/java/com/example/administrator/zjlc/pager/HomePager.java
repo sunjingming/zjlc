@@ -1,9 +1,11 @@
 package com.example.administrator.zjlc.pager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -38,7 +40,6 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.administrator.zjlc.R.drawable.selector_bg_btn_red_round;
 
 
 /**
@@ -100,6 +101,14 @@ public class HomePager extends Fragment {
             }else if(msg.what == 2){
                 setViewpagerData();
                 setViewText();
+            }else if(msg.what == 3){
+                Log.e("----------",currentItem+"-"+oldPosition+"-"+prePosition);
+                if(currentItem == jrb.size()){
+                    currentItem = 0;
+                    oldPosition = 1;
+                }
+
+                viewpager.setCurrentItem(currentItem,false);
             }
             return false;
         }
@@ -174,6 +183,7 @@ public class HomePager extends Fragment {
                 }, 1000);
             }
         });
+        autoPlay();
     }
 
     private void setViewText() {
@@ -250,7 +260,7 @@ public class HomePager extends Fragment {
         //被选中页面的位置position
         @Override
         public void onPageSelected(int position) {
-           if(position==jrb.size()+1){    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
+            if(position==jrb.size()){    //当切换到最后一个页面时currentPosition设置为第一个位置，小圆点位置为0
                 currentItem=1;
                 oldPosition=0;
             }else{
@@ -261,6 +271,7 @@ public class HomePager extends Fragment {
             ll.get(prePosition).setBackgroundResource(R.drawable.normal_point);
             ll.get(oldPosition).setBackgroundResource(R.drawable.normal_point_red);
             prePosition=oldPosition;
+
 //            if(position==viewList.size()-1){
 //                //最后一个页面把按钮显示出来
 //                btn_start_main.setVisibility(View.VISIBLE);
@@ -272,7 +283,9 @@ public class HomePager extends Fragment {
         }
         @Override
         public void onPageScrollStateChanged(int state) {
-
+//            if(state==ViewPager.SCROLL_STATE_IDLE){
+//                viewpager.setCurrentItem(currentItem,false);
+//            }
         }
     }
 
@@ -344,6 +357,8 @@ public class HomePager extends Fragment {
                 }
 
                 ll.get(currentItem).setBackgroundResource(R.drawable.normal_point_red);
+
+
                 handler.sendEmptyMessage(1);
             }
 
@@ -422,4 +437,23 @@ public class HomePager extends Fragment {
             handler.sendEmptyMessage(2);
         }
     };
+
+
+    //  设置自动播放
+    private void autoPlay() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while(true){
+                    SystemClock.sleep(3000);
+                    if(currentItem == 0) {
+                        currentItem++;
+                    }
+                    handler.sendEmptyMessage(3);
+                }
+            }
+        }.start();
+
+    }
 }

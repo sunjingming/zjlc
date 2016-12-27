@@ -90,7 +90,7 @@ public class DetailsBean {
         private int borrow_bid;
         private String borrow_status_str;
         private int has_pass;
-        private int progress;
+        private double progress;
 
         public int getId() {
             return id;
@@ -268,11 +268,11 @@ public class DetailsBean {
             this.has_pass = has_pass;
         }
 
-        public int getProgress() {
+        public double getProgress() {
             return progress;
         }
 
-        public void setProgress(int progress) {
+        public void setProgress(double progress) {
             this.progress = progress;
         }
     }

@@ -86,7 +86,7 @@ public class Find extends Fragment {
                                 @Override
                                 public void run() {
                                     if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 ==myRecyclerView.getItemCount()) {
-                                        if(sanBiaobean.getCurrentPage() == sanBiaobean.getMaxPage()){
+                                        if(sanBiaobean.getCurrentPage() >= sanBiaobean.getMaxPage()){
                                             myRecyclerView.changeMoreStatus(MyRecyclerView.NO_MORE_DATA);
                                         }
                                         loadMoreData();
@@ -109,7 +109,7 @@ public class Find extends Fragment {
                                 public void run() {
                                     if (newState ==RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem1 + 1 ==myRecyclerView2.getItemCount()) {
                                         Log.e("asd",zqzLbeans.getCurrentPage()+""+zqzLbeans.getMaxPage());
-                                        if(zqzLbeans.getCurrentPage() == zqzLbeans.getMaxPage()){
+                                        if(zqzLbeans.getCurrentPage() >= zqzLbeans.getMaxPage()){
                                             myRecyclerView2.changeMoreStatus(MyRecyclerView2.NO_MORE_DATA);
                                         }
                                         Log.e("asd","zhege");

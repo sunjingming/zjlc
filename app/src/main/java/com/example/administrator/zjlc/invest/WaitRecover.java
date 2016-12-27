@@ -55,7 +55,6 @@ public class WaitRecover extends Fragment {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                loadData();
                 wait_recover_list.setRefreshing();
                     wait_recover_list.postDelayed(new Runnable() {
                         @Override

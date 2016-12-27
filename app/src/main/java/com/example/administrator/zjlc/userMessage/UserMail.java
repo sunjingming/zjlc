@@ -68,7 +68,6 @@ public class UserMail extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                loadData();
                 listView.setRefreshing();
                     listView.postDelayed(new Runnable() {
                         @Override

@@ -56,7 +56,6 @@ public class MoneyRecord extends AppCompatActivity {
         loadData();
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                loadData();
                 money_record_list.setRefreshing();
                 if (page == pageCount) {
                     Toast.makeText(MoneyRecord.this, "数据已全部加载完毕", Toast.LENGTH_SHORT).show();
