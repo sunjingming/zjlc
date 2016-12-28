@@ -389,6 +389,8 @@ public class Find extends Fragment {
         });
         zqzLbeans = new ZQZLbean();
         RequestParams paramsNotice2 = new RequestParams(UrlsUtils.ZJLCstring + UrlsUtils.ZJLCDebt_list);
+        paramsNotice2.addBodyParameter("page","1");
+        paramsNotice2.addBodyParameter("pagesize","6");
         x.http().post(paramsNotice2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

@@ -92,7 +92,7 @@ public class MyRecyclerView2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
             ((MyViewHolder) holder).tv_monh.setText(String.valueOf(dataBeanArrayList.get(position).getTransfer_price()) + ".00");
-            ((MyViewHolder) holder).tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate()) + "%");
+            ((MyViewHolder) holder).tv_nianlilv.setText(new DecimalFormat("0.00").format(dataBeanArrayList.get(position).getBorrow_interest_rate()) + "%");
             ((MyViewHolder) holder).tv_jinee.setText(new DecimalFormat("0.00").format(dataBeanArrayList.get(position).getMoney()));
             ((MyViewHolder) holder).tv_qishu.setText(String.valueOf(dataBeanArrayList.get(position).getPeriod() + "/" + dataBeanArrayList.get(position).getTotal_period()));
 
@@ -271,7 +271,7 @@ public void addMoreItem(ArrayList<ZQZLbean.DataBean> singModelArrayList) {
      * @param status
      */
     public void changeMoreStatus(int status){
-        load_more_status1=2;
+        load_more_status1=status;
         notifyDataSetChanged();
     }
 }

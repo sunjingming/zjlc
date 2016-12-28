@@ -113,7 +113,7 @@ public class ZQZLbean {
         private String deadline;
         private String borrow_name;
         private String borrow_type;
-        private int borrow_interest_rate;
+        private double borrow_interest_rate;
         private int borrow_status;
         private String borrow_duration;
         private int credits;
@@ -201,11 +201,11 @@ public class ZQZLbean {
             this.borrow_type = borrow_type;
         }
 
-        public int getBorrow_interest_rate() {
+        public double getBorrow_interest_rate() {
             return borrow_interest_rate;
         }
 
-        public void setBorrow_interest_rate(int borrow_interest_rate) {
+        public void setBorrow_interest_rate(double borrow_interest_rate) {
             this.borrow_interest_rate = borrow_interest_rate;
         }
 
