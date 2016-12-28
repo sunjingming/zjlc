@@ -165,12 +165,12 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
 
                 packetBean = gson.fromJson(data,RedPacketBean.class);
                 msg = new String[packetBean.getData().size()];
-                final boolean[] bol = new boolean[packetBean.getData().size()];
+                final int[] bol = new int[packetBean.getData().size()];
                 Log.e("标11", String.valueOf(packetBean.getData().size()));
                 for (int i = 0; i < packetBean.getData().size(); i++) {
                     dataBeanArrayList.add(packetBean.getData().get(i));
-                    msg[i] = packetBean.getData().get(i).getMoney() + "元";
-                    bol[i] = false;
+                    msg[i] = packetBean.getData().get(i).getName()+":"+packetBean.getData().get(i).getMoney() + "元";
+                    bol[i] = i;
                     Log.e("sad", msg[i]);
                 }
 //                tequanjine.setVisibility(View.VISIBLE);
@@ -180,13 +180,20 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                         if(bol.length>1) {
                             new AlertDialog.Builder(DetailsActivity.this)
                                     .setTitle("选择特权金")
-                                    .setMultiChoiceItems(msg, bol, new DialogInterface.OnMultiChoiceClickListener() {
+                                    .setSingleChoiceItems(msg, bol[0], new DialogInterface.OnClickListener() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        public void onClick(DialogInterface dialog, int which) {
                                             s11 = dataBeanArrayList.get(which);
+                                            bol[0] = which;
                                             handler.sendEmptyMessage(4);
                                             dialog.dismiss();
                                         }
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                                            s11 = dataBeanArrayList.get(which);
+//                                            handler.sendEmptyMessage(4);
+//                                            dialog.dismiss();
+//                                        }
                                     })
                                     .setNegativeButton("取消", null)
                                     .show();

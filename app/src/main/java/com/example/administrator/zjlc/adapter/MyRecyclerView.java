@@ -91,7 +91,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             ((MyViewHolder)holder).tv_titles.setText(dataBeanArrayList.get(position).getBorrow_name());
             ((MyViewHolder)holder).tv_monh.setText(dataBeanArrayList.get(position).getBorrow_duration());
-            ((MyViewHolder)holder).tv_nianlilv.setText(String.valueOf(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
+            ((MyViewHolder)holder).tv_nianlilv.setText(new DecimalFormat("0.00").format(dataBeanArrayList.get(position).getBorrow_interest_rate())+"%");
             ((MyViewHolder)holder).tv_jinee.setText(new DecimalFormat("0.00").format(dataBeanArrayList.get(position).getBorrow_money()));
             ((MyViewHolder)holder).wancheng_qingkuang.setText(new DecimalFormat("0.00").format(dataBeanArrayList.get(position).getProgress())+"%");
 //        holder.im_touzi.setBackgroundResource(ic_stat[dataBeanArrayList.get(position).getBorrow_status()-1]);
