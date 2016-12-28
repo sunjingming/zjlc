@@ -175,7 +175,7 @@ public class MyRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder
             FootViewHolder footViewHolder=(FootViewHolder)holder;
             switch (load_more_status){
                 case PULLUP_LOAD_MORE:
-                    footViewHolder.foot_view_item_tv.setText("上拉加载更多...");
+                    footViewHolder.foot_view_item_tv.setText("正在加载更多数据...");
                     break;
                 case LOADING_MORE:
                     footViewHolder.foot_view_item_tv.setText("正在加载更多数据...");

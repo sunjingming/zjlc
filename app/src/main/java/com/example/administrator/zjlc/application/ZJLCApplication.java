@@ -3,6 +3,8 @@ package com.example.administrator.zjlc.application;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.administrator.zjlc.log.CrashHandler;
+
 import org.xutils.x;
 
 import java.util.ArrayList;
@@ -21,5 +23,7 @@ public class ZJLCApplication extends Application {
         x.Ext.init(this);
         x.Ext.setDebug(true);//是否输出Debug日志
         ShareSDK.initSDK(this);
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
     }
 }
