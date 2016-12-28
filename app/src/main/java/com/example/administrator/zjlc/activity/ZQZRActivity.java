@@ -79,7 +79,7 @@ public class ZQZRActivity extends AppCompatActivity {
                     break;
 
             }
-            tv6.setText(noticeBean.getData().getRate()+"%");
+            tv6.setText(new DecimalFormat("0.00").format(noticeBean.getData().getRate())+"%");
             tv7.setText(noticeBean.getData().getTransfer_price()+".00");
             tv8.setText(noticeBean.getData().getValid()+"");
             tv9.setText(noticeBean.getData().getBorrow_user()+"");

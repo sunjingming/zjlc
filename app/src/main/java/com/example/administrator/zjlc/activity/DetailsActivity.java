@@ -38,6 +38,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -66,54 +67,61 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
     public Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            tv_lilv.setText(String.valueOf(noticeBean.getData().getBorrow_interest_rate())+"%");
-            tv_times.setText(String.valueOf(noticeBean.getData().getCollect_day())+"天");
-            tv_timess.setText(noticeBean.getData().getBorrow_duration());
-            tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow())+".00元");
-            if(noticeBean.getData().getBorrow_max() == 0){
-                tvjineeee.setText("最小投资金额:"+noticeBean.getData().getBorrow_min()+".00,最大投资金额:无限制");
-            }else{
-                tvjineeee.setText("最小投资金额:"+noticeBean.getData().getBorrow_min()+".00,最大投资金额:"+noticeBean.getData().getBorrow_max()+".00");
-            }
+            if(msg.what == 1){
+                tv_lilv.setText(new DecimalFormat("0.00").format(noticeBean.getData().getBorrow_interest_rate()) + "%");
+                tv_times.setText(String.valueOf(noticeBean.getData().getCollect_day()) + "天");
+                tv_timess.setText(noticeBean.getData().getBorrow_duration());
+                tv_menoy.setText(String.valueOf(noticeBean.getData().getHas_borrow()) + ".00元");
+                if (noticeBean.getData().getBorrow_max() == 0) {
+                    tvjineeee.setText("最小投资金额:" + noticeBean.getData().getBorrow_min() + ".00,最大投资金额:无限制");
+                } else {
+                    tvjineeee.setText("最小投资金额:" + noticeBean.getData().getBorrow_min() + ".00,最大投资金额:" + noticeBean.getData().getBorrow_max() + ".00");
+                }
 
-            if(noticeBean.getData().getBorrow_status() == 4){
-                lijigou.setText("标满，复审中");
-            }else if(noticeBean.getData().getBorrow_status() == 2){
-                lijigou.setOnClickListener(new View.OnClickListener() {
+                if (noticeBean.getData().getBorrow_status() == 4) {
+                    lijigou.setText("标满，复审中");
+                } else if (noticeBean.getData().getBorrow_status() == 2) {
+                    lijigou.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String s1 = et_mm.getText().toString();
+                            String s = et_je.getText().toString();
+                            et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                            if (s.equals("")) {
+                                new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
+                            } else if (s1.equals("")) {
+                                new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入交易密码").show();
+                            } else {
+                                requeseDate(s, s1, s11);
+                            }
+
+                        }
+                    });
+                }
+                if (noticeBean.getData().getBorrow_status() == 6) {
+                    lijigou.setText("复审通过，还款中");
+                }
+                if (noticeBean.getData().getBorrow_status() == 7) {
+                    lijigou.setText("完成");
+                }
+                if (noticeBean.getData().getBorrow_status() == 8) {
+                    lijigou.setText("已逾期");
+                }
+                tv_scr.registerOnScrollViewScrollToBottom(new MyScrollView1.OnScrollBottomListener() {
                     @Override
-                    public void onClick(View v) {
-                        String s1 = et_mm.getText().toString();
-                        String s = et_je.getText().toString();
-                        et_mm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        if (s.equals("")) {
-                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入投资金额").show();
-                        }else if(s1.equals("") ){
-                            new AlertDialog.Builder(DetailsActivity.this).setMessage("请输入交易密码").show();
-                        } else {
-                            requeseDate(s, s1,s11);
+                    public void srollToBottom() {
+                        Intent intent;
+                        intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
+                        if (id != 0) {
+                            intent.putExtra("id", id);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
+                            //第一个参数为启动时动画效果，第二个参数为退出时动画效果
+//                        overridePendingTransition(R.anim.fade, R.anim.hold);
                         }
                     }
                 });
-            }if(noticeBean.getData().getBorrow_status() == 6){
-                lijigou.setText("复审通过，还款中");
-            }if(noticeBean.getData().getBorrow_status() == 7){
-                lijigou.setText("完成");
-            }if(noticeBean.getData().getBorrow_status() == 8){
-                lijigou.setText("已逾期");
-            }
-            tv_scr.registerOnScrollViewScrollToBottom(new MyScrollView1.OnScrollBottomListener() {
-                @Override
-                public void srollToBottom() {
-                    Intent intent;
-                    intent = new Intent(DetailsActivity.this, DetailsActivity2.class);
-                    if(id != 0){
-                        intent.putExtra("id", id);
-                        startActivity(intent);
-                        //第一个参数为启动时动画效果，第二个参数为退出时动画效果
-                        overridePendingTransition(R.anim.fade, R.anim.hold);
-                    }
-                }
-            });
 
 
 //            tv_scr.setOnScrollToBottomLintener(new MyScrollView.OnScrollToBottomListener() {
@@ -128,6 +136,9 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
 //                    }
 //                }
 //            });
+            }else if(msg.what == 4){
+                tequanjin.setText("特权金"+s11.getMoney()+"元");
+            }
             return false;
         }
     });
@@ -173,11 +184,13 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
                                         @Override
                                         public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                             s11 = dataBeanArrayList.get(which);
+                                            handler.sendEmptyMessage(4);
                                             dialog.dismiss();
                                         }
                                     })
                                     .setNegativeButton("取消", null)
                                     .show();
+
                         }else{
                             Toast.makeText(DetailsActivity.this,"无可用特权金",Toast.LENGTH_SHORT).show();
                         }
@@ -399,7 +412,7 @@ public class DetailsActivity extends Activity implements MyScrollView.OnScrollLi
             public void afterTextChanged(Editable s) {
                 String s1 = et_je.getText().toString();
 //                if(noticeBean.getData().getBorrow_bid() == 1) {
-                    requeseDate1(s1);
+                requeseDate1(s1);
 //                }
             }
         });

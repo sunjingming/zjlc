@@ -2,6 +2,7 @@ package com.example.administrator.zjlc.pager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +30,7 @@ import com.example.administrator.zjlc.activity.DetailsActivity;
 import com.example.administrator.zjlc.activity.GuideActivity;
 import com.example.administrator.zjlc.domain.JsonRootBean;
 import com.example.administrator.zjlc.domain.TJBBean;
+import com.example.administrator.zjlc.login.Login;
 import com.example.administrator.zjlc.urls.UrlsUtils;
 import com.google.gson.Gson;
 
@@ -89,12 +91,20 @@ public class HomePager extends Fragment {
                 iv_lijitouzi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (id != null) {
-                            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                            intent.putExtra("id", id);
+                        SharedPreferences prence = getActivity().getSharedPreferences("usetoken", getActivity().MODE_PRIVATE);
+                        String token = prence.getString("token", "");
+                        Log.e("cuo", token);
+                        if (token.equals("")) {
+                            Intent intent = new Intent(getActivity(), Login.class);
                             getActivity().startActivity(intent);
-                        } else {
-                            iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_hui);
+                        }else{
+                            if (id != null) {
+                                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                                intent.putExtra("id", id);
+                                getActivity().startActivity(intent);
+                            } else {
+                                iv_lijitouzi.setBackgroundResource(R.drawable.selector_bg_btn_red_hui);
+                            }
                         }
                     }
                 });
